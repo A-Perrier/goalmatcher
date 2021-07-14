@@ -2,6 +2,10 @@ project_controllers:
     resource: ../../src/Project/Controller/
     type: annotation
 
+agenda_controllers:
+    resource: ../../src/Agenda/Controller/
+    type: annotation
+
 auth_controllers:
     resource: ../../src/Auth/Controller/
     type: annotation

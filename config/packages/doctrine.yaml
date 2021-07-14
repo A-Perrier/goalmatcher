@@ -23,6 +23,13 @@ doctrine:
                 prefix: 'App\Auth\Entity'
                 alias: Auth
 
+            Agenda:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Agenda/Entity'
+                prefix: 'App\Agenda\Entity'
+                alias: Agenda
+
             Project:
                 is_bundle: false
                 type: annotation
