@@ -1,42 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion | Goalmatcher{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+<picture>
+    <source media="(max-width:376px)" srcset="assets/img/mobile-xs.jpg" alt="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche." title="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche.">
+    <source media="(max-width:768px)" srcset="assets/img/mobile-s.jpg" alt="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche." title="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche.">
+    <source media="(max-width:1022px)" srcset="assets/img/desktop-l.jpg" alt="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche." title="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche.">
+    <source media="(min-width:1023px)" srcset="assets/img/desktop-xl.jpg" alt="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche." title="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche.">
+    <img id="login-banner" src="assets/img/mobile-xs.jpg" alt="">
+</picture>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+<div class="log-block login">
+    <h1>Connexion</h1>
+    <p>Les plus grands projets commencent par un premier pas.</p>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+    <form method="post" id="login-form">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+        {% if app.user %}
+            <div class="mb-3">
+                Vous êtes connecté en tant que {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+            </div>
+        {% endif %}
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
+        <label for="inputEmail">Email</label>
+        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" required autofocus>
+        <label for="inputPassword">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" required>
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
+        <input type="hidden" name="_csrf_token"
+            value="{{ csrf_token('authenticate') }}"
+        >
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+        {#
+            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+            See https://symfony.com/doc/current/security/remember_me.html
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" name="_remember_me"> Remember me
+                </label>
+            </div>
+        #}
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            Connexion
+        </button>
+    </form>
+    <a href="{{path('app_register')}}">Pas encore inscrit ?</a>
+</div>
 {% endblock %}

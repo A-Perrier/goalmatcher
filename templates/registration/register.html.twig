@@ -1,21 +1,34 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription | Goalmatcher{% endblock %}
 
 {% block body %}
+<picture>
+    <source media="(max-width:376px)" srcset="assets/img/mobile-xs.jpg" alt="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche." title="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche.">
+    <source media="(max-width:768px)" srcset="assets/img/mobile-s.jpg" alt="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche." title="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche.">
+    <source media="(max-width:1022px)" srcset="assets/img/desktop-l.jpg" alt="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche." title="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche.">
+    <source media="(min-width:1023px)" srcset="assets/img/desktop-xl.jpg" alt="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche." title="Quatre photos représentant les quatre saisons. Le logo de Haikusan les chevauche.">
+    <img id="login-banner" src="assets/img/mobile-xs.jpg" alt="">
+</picture>
+
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+<div class="log-block register"> 
+    <h1>Inscription</h1>
+    <p>Les plus grands projets commencent par un premier pas.</p>
 
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.pseudo) }}
         {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+            label: 'Mot de passe'
         }) }}
         {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button type="submit" class="btn">Inscription</button>
     {{ form_end(registrationForm) }}
+    <a href="{{path('app_login')}}">Déjà inscrit ?</a>
+</div>
 {% endblock %}
