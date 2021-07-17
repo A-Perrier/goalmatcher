@@ -1,0 +1,37 @@
+.btn {
+  border-radius: 3px;
+  background-color: $secondary;
+  color: white;
+  font-size: .8rem;
+  padding: .8rem 2rem;
+  width: 8rem;
+  border: 1px solid $secondary;
+  transition: .3s;
+  cursor: pointer;
+
+  &:hover {
+    color: $secondary;
+    background-color: white;
+  }
+}
+
+.btn-event-reverse {
+  border-radius: 10px;
+  background-color: #E1E5FF;
+  color: $primary;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: .8rem 2rem;
+  border: 1px solid $primary;
+  transition: .3s;
+  cursor: pointer;
+  margin: auto;
+  margin-bottom: 0.6rem;
+  display: block;
+
+  &:hover {
+    color: $secondary;
+    background-color: white;
+    border: 1px solid $secondary;
+  }
+}

@@ -1,0 +1,17 @@
+#website-header {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $primary;
+
+  h1 {
+    color: white;
+    text-transform: uppercase;
+  }
+}

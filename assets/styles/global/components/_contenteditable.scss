@@ -1,0 +1,19 @@
+.contenteditable-container {
+  display: flex;
+  flex-direction: column;
+
+  input, textarea { width: 15rem; margin: .5rem 0;}
+  
+  .contenteditable {
+    height: 1.5rem;
+    transform: translateY(-7%);
+    font-size: 1rem;
+    border: 1px solid $secondary;
+  
+    &__check { margin-left: .4rem; cursor: pointer; width: 16%;}
+  
+    &__cross { width: 19%; transform: translateY(7%); cursor: pointer;}
+  
+  }
+
+}

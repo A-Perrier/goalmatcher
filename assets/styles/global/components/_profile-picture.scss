@@ -1,0 +1,27 @@
+#user-picture-section{
+  margin-bottom: 3rem;
+}
+.profile-picture-div{
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: auto;
+}
+.profile-picture{
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  height: 10rem;
+  width: 10rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+form[name=user_picture] {
+  fieldset { display: none; }
+  #browse-validate {
+    display: block;
+    margin: 1rem auto 1rem auto;
+  }
+}

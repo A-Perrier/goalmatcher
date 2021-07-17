@@ -1,0 +1,45 @@
+#current-contributors {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.contributor-badge {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: $secondary;
+  border-radius: 3px;
+  box-shadow: 0px 0px 6px 0px $secondary;
+  padding: 0.2rem 0.4rem;
+  margin-bottom: .5rem;
+  list-style: none;
+
+  .c-name {
+    font-size: .7rem;
+    text-transform: uppercase;
+    line-height: 1rem;
+  }
+
+  .delete-icon {
+    transform: translateY(14%);
+    cursor: pointer;
+  }
+}
+
+.badge-danger {
+  background-color: $danger;
+  color: white;
+  padding: .3rem .2rem;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-size: .65rem;
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.form-error-message {
+  text-transform: none;
+}

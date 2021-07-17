@@ -1,0 +1,41 @@
+input[type=text] {
+  border: 1px solid $heavy-line;
+  height: 1.5rem;
+  border-radius: 3px;
+  text-indent: .2rem;
+  min-width: 12.5rem;
+  font-size: 1rem;
+}
+
+.counter {
+  padding-left: 0.5rem;
+  color: $default-color;
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  left: 11.5rem;
+  display: block;
+  transform: translate(90%, 35%);
+
+  &-blocked { color: $danger; }
+}
+
+.form-error {
+  font-size: .9rem;
+  margin-top: .2rem;
+  color: $danger;
+
+  .form-badge {
+    background-color: $danger;
+    color: white;
+    padding: .3rem .2rem;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: .65rem;
+    display: inline-block;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-right: .5rem;
+  }
+}

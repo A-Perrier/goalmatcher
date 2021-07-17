@@ -1,0 +1,30 @@
+#own-projects { margin-bottom: 2rem; }
+
+.project-card {
+  width: 90%;
+  margin: auto;
+  border: 1px solid $primary;
+  border-radius: 3px;
+  background-color: white;
+  padding-top: 1rem;
+  margin-bottom: 1rem;
+
+  &__data-part {
+    text-align: center;
+
+    .placeholder { margin-bottom: -.3rem; }
+    .content { margin-bottom: .8rem; font-size: 1.3rem;}
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+    a { margin: 1rem; }
+  }
+}
+
+@media screen and (min-width: $tablet-breakpoint) {
+  .project-card { width: 40%; }
+}

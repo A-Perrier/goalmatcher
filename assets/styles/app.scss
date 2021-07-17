@@ -1,0 +1,88 @@
+$tablet-breakpoint: 768px;
+$desktop-breakpoint: 1024px;
+
+@import 'global/tools/reset';
+@import 'global/tools/mixins';
+@import 'global/tools/typography';
+
+@import 'global/components/navbar';
+@import 'global/components/alert';
+@import 'global/components/header';
+@import 'global/components/button';
+@import 'global/components/form';
+@import 'global/components/badge';
+@import 'global/components/infobulle';
+@import 'global/components/project-card';
+@import 'global/components/loader';
+@import 'global/components/modal';
+@import 'global/components/contenteditable';
+@import 'global/components/dragndrop';
+@import 'global/components/profile-picture';
+@import 'global/components/documents';
+
+@import 'global/pages/login';
+@import 'global/pages/project';
+
+:root {
+    font-size:    16px;
+}
+  
+html {
+    height:       100%;
+    font-family:  $text;
+    background-color: $bg-color;
+}
+  
+body {
+    padding-bottom: 8rem;
+}
+  
+a { cursor: pointer; }
+  
+h1 { 
+    font-size:    1.625rem; 
+    text-align:   center; 
+    padding:      1.2rem  .6rem;
+    color:        $primary;
+  
+    &:not(#website-header h1) { margin: .5rem 0 2rem 0; }
+}
+  
+h2 {
+    font-size: 1.4rem;
+    text-align: center;
+    padding: .8rem .4rem;
+    color: $default-color;
+    position: relative;
+    margin-bottom: 1rem;
+  
+    span.underliner { position: relative; }
+  
+    span.underliner::after {
+      position: absolute;
+      content: " ";
+      border-bottom: 2px solid #F19737;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+    }
+}
+  
+  
+h3 {
+    position: relative;
+    display: block;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 1rem auto;
+    font-size: 1.25rem;
+    color: $placeholder-color;
+}
+  
+.hidden { display: none; }
+  
+@media screen and (min-width: $tablet-breakpoint) {
+    :root { font-size: 14px; }
+}
+  

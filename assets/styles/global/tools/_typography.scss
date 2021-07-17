@@ -1,0 +1,29 @@
+// Variables colors
+// ===================================
+$primary: #284B76;
+$secondary: #F19737;
+$default-color: #575151;
+$placeholder-color: #747474;
+$disable-color: #b3a8a8;
+$light-line: #DBDBEF;
+$heavy-line: #C1C1DC;
+$bg-color: #F0F0F3;
+$success: #9DDCA4;
+$danger: #EE6F6F;
+$cta-color: #EC800D;
+$shadow: 0 1px 4px black;
+
+// Variables fonts
+// ===================================
+
+$text: "PTSerif-Regular", sans-serif;
+$text-bold: "PTSerif-Bold", sans-serif;
+$text-italic: "PTSerif-Italic", sans-serif;
+$text-bolditalic: "PTSerif-BoldItalic", sans-serif;
+
+// Font-face
+// ===================================
+@include font-face('PTSerif-Regular', '../../../fonts/PTSerif-Regular', null, null, ttf);
+@include font-face('PTSerif-Italic', '../../../fonts/PTSerif-Italic', null, null, ttf);
+@include font-face('PTSerif-Bold', '../../../fonts/PTSerif-Bold', null, null, ttf);
+@include font-face('PTSerif-BoldItalic', '../../../fonts/PTSerif-BoldItalic', null, null, ttf);

@@ -1,0 +1,146 @@
+input[role=autocomplete] {
+  position: relative;
+}
+
+.placeholder {
+  display: block;
+  color: $placeholder-color;
+  font-size: .8rem;
+  text-transform: uppercase;
+  width: 90%;
+  margin: auto;
+  padding-bottom: .5rem;
+}
+
+.centered-form {
+  width: 90%;
+  margin: auto;
+  background-color: white;
+  padding: 1rem 0;
+
+  input, textarea, fieldset {
+    display: block;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 1rem;
+  }
+
+  input, textarea { 
+    height: 1.5rem; 
+    border: none;
+    border-bottom: 1px solid $light-line;
+  }
+
+  legend {
+    width: 100%;
+  }
+
+  button {
+    margin-left: auto;
+    margin-top: 1rem;
+    display: block;
+    transform: translateX(-10%);
+  }
+}
+
+.sr-only {display: none;}
+
+
+#autocomplete-results {
+  width: 50%;
+  margin: 0 0 1rem 2rem;
+
+  li {
+    cursor: pointer;
+    height: 1rem;
+    box-shadow: 1px 1px 4px 0px #a5a5a5;
+    border-radius: 3px;
+    padding: .4rem;
+    margin-bottom: .5rem;
+    list-style: none;
+
+    &:hover {
+      background-color: $bg-color;
+    }
+  }
+}
+
+.error-badge {
+  display: inline-block;
+  color: white;
+  background-color: $danger;
+  font-size: .6rem;
+  padding: .15rem .4rem;
+  margin-right: .3rem;
+  transform: translateY(-11%);
+  border-radius: 26px 12%;
+}
+
+.form-error {
+  display: block;
+  color: $danger;
+  font-size: .8rem;
+  transform: translateY(5px);
+}
+
+form[name=user] {
+  width: 80%;
+  margin: auto;
+
+  .placeholder { width: 100%; }
+
+  input {
+    width: 100%;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid $light-line;
+    background-color: $bg-color;
+    margin-bottom: 1rem;
+    height: 1.3rem;
+    font-size: 1.1rem;
+    color: $default-color;
+  }
+}
+
+
+/* FORM D'UPLOAD DE DOCUMENTS */
+form[name=task_document] {
+  height: fit-content;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+
+  legend {
+    font-size: 1.1rem;
+    text-align: center;
+    padding: .8rem .4rem;
+    position: relative;
+    margin-bottom: 1rem;
+    color: $primary;
+  }
+  
+}
+
+.triggering { 
+  cursor: pointer; 
+  transition: .3s;
+
+  &:hover { color: $secondary; }
+}
+
+@media screen and (min-width: $tablet-breakpoint) 
+{
+  .centered-form button { transform: translateX(-30%); }
+  #autocomplete-results { margin-left: 3rem; }
+}
+
+@media screen and (min-width: $desktop-breakpoint) 
+{
+  .centered-form button { transform: translateX(-50%); }
+  #autocomplete-results { margin-left: 5rem; }
+}
+
+@media screen and (min-width: 1800px) 
+{
+  #autocomplete-results { margin-left: 8rem; }
+}

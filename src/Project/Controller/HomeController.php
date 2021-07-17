@@ -15,8 +15,15 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
+        /** @var User */
+        $user = $this->getUser();
+
+        $projectsContributing = $user->getProjectsContributing();
+        $ownProjects = $user->getProjects();
+
         return $this->render('home/index.html.twig', [
-            'test' => 'test'
+            'ownProjects' => $ownProjects,
+            'projectsContributing' => $projectsContributing
         ]);
     }
 }

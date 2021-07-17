@@ -1,0 +1,103 @@
+button {
+  border-radius: 3px;
+  background-color: $secondary;
+  color: white;
+  font-size: .8rem;
+  padding: .8rem 2rem;
+  //font-family: $text;
+  width: 8rem;
+  border: 1px solid $secondary;
+  transition: .3s;
+  cursor: pointer;
+
+  &:hover {
+    color: $secondary;
+    background-color: white;
+  }
+}
+
+a.button {
+  border-radius: 3px;
+  background-color: $secondary;
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: .8rem;
+  padding: .8rem 2rem;
+  margin: 1rem auto;
+  //font-family: $text;
+  color: white;
+  border: 1px solid $secondary;
+  transition: .3s;
+  cursor: pointer;
+
+  &:hover {
+    color: $secondary;
+    background-color: white;
+  }
+
+  &.reverse { 
+    color: $secondary;
+    background-color: white;
+    border: 1px solid $secondary;
+
+    &:hover {
+      color: white;
+      background-color: $secondary;
+    }
+   }
+}
+
+.delete-btn {
+  background-color: $danger;
+  color: white;
+  font-size: .8rem;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  transition: .3s;
+  display: block;
+  margin: 2rem auto;
+
+  &:hover {
+    background-color: white;
+    color: $danger;
+    border: 1px solid $danger;
+  }
+}
+
+h1, h2, h3, h4 {
+  position: relative;
+
+  .clickable { cursor: pointer; }
+  
+  .clickable-actions {
+    position: relative;
+    bottom: -.5rem;
+    left: 50%;
+    transform: translateX(-52%);
+
+    background-color: white;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: .5rem .6rem;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    display: none;
+  
+    a {
+      color: $default-color;
+      transition: .2s;
+      display: block;
+  
+      &:not(:last-child) {margin-bottom: .3rem;}
+  
+      &:hover {
+        color: $secondary;
+      }
+    }
+  }
+
+}

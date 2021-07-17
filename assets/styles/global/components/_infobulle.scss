@@ -1,0 +1,16 @@
+.info-block { 
+  position: relative; 
+
+  .info-bulle {
+    cursor: pointer;
+    position: relative;
+    right: 0;
+  }
+
+  .info-text {
+    display: none;
+    font-size: 1.1rem;
+    color: $default-color;
+    margin-top: .5rem;
+  }
+}

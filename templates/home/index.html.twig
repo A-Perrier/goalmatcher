@@ -1,8 +1,70 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Accueil | Goalmatcher{% endblock %}
 
 {% block body %}
-<h1>{{ test }}</h1>
-Cette page d'accueil servira à récuperer les projets
+<section>
+    <h1>
+        Mes projets
+        <img class="clickable" src="{{asset('assets/icons/plus.svg')}}" alt="">
+        <div class="clickable-actions">
+            <a href="{{path('project_create')}}">Créer un projet</a>
+            <a href="#">Supprimer un projet</a>
+        </div>
+    </h1>
+</section>
+
+<section id="own-projects">
+    <h2>
+        <span class="underliner">
+            Projets personnels
+        </span>
+    </h2>
+    {% for project in ownProjects %}
+    <article class="project-card">
+        <div class="project-card__data-part">
+            <p class="placeholder">Nom du projet</p>
+            <p class="content">{{project.name}}</p>
+        </div>
+        <div class="project-card__data-part">
+            <p class="placeholder">Démarré le</p>
+            <p class="content">{{project.createdAt|date('d/m/Y')}}</p>
+        </div>
+        <div class="project-card__data-part">
+            <p class="placeholder">Progression</p>
+            <p class="content">{{getStatus(project.status)}}</p>
+        </div>
+        <div class="ctas">
+            <a href="{{path('project_show', {'slugName':project.slugName, 'id':project.id})}}" class="button">Accéder au projet</a>
+            <a href="{{path('project_edit', {'slugName':project.slugName, 'id':project.id})}}" class="button reverse">Modifier le projet</a>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+<section id="contributing-projects">
+    <h2>
+        <span class="underliner">
+            Projets rejoints
+        </span>
+    </h2>
+    {% for project in projectsContributing %}
+    <article class="project-card">
+        <div class="project-card__data-part">
+            <p class="placeholder">Nom du projet</p>
+            <p class="content">{{project.name}}</p>
+        </div>
+        <div class="project-card__data-part">
+            <p class="placeholder">Démarré le</p>
+            <p class="content">{{project.createdAt|date('d/m/Y')}}</p>
+        </div>
+        <div class="project-card__data-part">
+            <p class="placeholder">Progression</p>
+            <p class="content">{{getStatus(project.status)}}</p>
+        </div>
+        <a href="{{path('project_show', {'slugName':project.slugName, 'id':project.id})}}" class="button">Accéder au projet</a>
+    </article>
+    {% endfor %}
+</section>
+
 {% endblock %}

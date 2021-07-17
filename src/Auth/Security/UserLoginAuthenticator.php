@@ -46,13 +46,13 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
-        dd (new Passport(
+        return new Passport(
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),
             [
                 new CsrfTokenBadge('authenticate', $request->get('_csrf_token')),
             ]
-        ));
+        );
     }
 
     public function checkCredentials($credentials, UserInterface $user)

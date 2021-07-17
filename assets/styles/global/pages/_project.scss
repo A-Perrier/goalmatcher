@@ -1,0 +1,525 @@
+.contenteditable__cross { cursor: pointer;}
+.contenteditable__check { cursor: pointer;}
+
+.project-context {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 2rem auto;
+
+  &__data {
+    text-align: center;
+  }
+
+  &__data:not(:last-child) {
+    padding-right: 1rem;
+    border-right: 1px solid $primary;
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
+  }
+
+  &__data:not(:first-child) { padding-left: 1rem; }
+
+  &__contributors {
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    
+    margin: 2rem auto;
+
+    &-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      li {
+        width: 39%;
+        margin: 0.4rem;
+        list-style: none;
+      }
+    }
+  }
+}
+
+
+#project {
+  width: 90%;
+  margin: auto;
+  border-top: 1px solid $light-line;
+  border-left: 1px solid $heavy-line;
+  position: relative;
+
+  /* ========= SECTION ========= */
+
+  .project__create-section, .project__section {
+    position: relative;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    transform: translateX(1rem);
+
+    h2 {
+      position: relative;
+      color: $placeholder-color;
+      margin-bottom: .5rem;
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+      width: fit-content;
+
+      &::after {
+        position: absolute;
+        width: 1.2rem;
+        height: 1px;
+        content: '';
+        border-top: 1px solid $heavy-line;
+        top: 1.5rem;
+        left: 0;
+        transform: translateX(-89%);
+      }
+
+    }
+  }
+
+  .project__section {margin-bottom: 4rem;}
+  .project__section h2 {color: $primary;}
+
+  /* ========= FIN SECTION ========= */
+}
+
+
+/* ========= TASKLIST ========= */
+/* Note it's out of #project because of Dragula copying, which breaks the style */
+
+.project__tasklist {
+  position: relative;
+  width: 80vw;
+  margin-bottom: 1.4rem;
+  transform: translateX(4%);
+
+  h4 {
+    color: white;
+    width: 50%;
+    padding: .4rem;
+    border-top-right-radius: 70px 61px;
+
+   .clickable {
+      position: absolute;
+      right: 1.5rem;
+      top: 50%;
+      transform: translateY(-50%);
+    
+      &-actions {
+        z-index: 3;
+        min-height: 1rem;
+        height: fit-content;
+        left: 10rem;
+        top: 50%;
+        position: absolute;
+        transform: translateY(-53%);
+      }
+    } 
+  }
+
+  .task-folder {
+    cursor: pointer;
+    width: 16px;
+    transform: rotate(90deg);
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+  }
+}
+
+.project__create-tasklist {
+  transform: translateX(10%);
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+
+  h4 {
+    color: $placeholder-color;
+  }
+}
+
+/* ========= FIN TASKLIST ========= */
+/* ========= TASK ========= */
+.task-container { 
+  border: 1px solid $primary;
+}
+
+.project__create-task {
+  width: 80vw;
+  margin-top: 0.4rem;
+  margin-bottom: 2rem;
+  color: $default-color;
+
+  h5 { 
+    width: -webkit-fit-content; 
+    width: -moz-fit-content; 
+    width: fit-content; 
+    cursor: pointer;
+  }
+
+  .plus { color: $secondary;}
+}
+
+.task {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 2px 4px 0px $primary;
+  min-height: 2.5rem;
+
+  &__cube {
+    position: absolute;
+    height: .6rem;
+    width: .6rem;
+    border-radius: 2px;
+    top: 1.2rem;
+    left: 1rem;
+    transform: translateY(-50%);
+    background-color: $primary;
+  }
+
+  &__editable-input {
+    transform: translateY(-50%);
+    position: relative;
+    top: 1.2rem;
+    border: none;
+    border-bottom: 1px solid $primary;
+    width: 30vw;
+    left: 2.4rem;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid $secondary;
+    }
+  }
+
+  &__edit-icon {
+    width: 19px;
+    transform: translateY(10%);
+    cursor: pointer;
+  }
+
+  &__name {
+    transform: translateY(-50%);
+    position: relative;
+    top: 1.2rem;
+    left: 2.4rem;
+    font-size: 1rem;
+    max-width: 45%;
+    cursor: pointer;
+  }
+
+  &__editable-assignee {
+    position: absolute;
+    right: 22vw;
+    transform: translateY(8%);
+    cursor: pointer;
+
+    img {
+      width: 80%;
+    }
+
+    .contributor-badge {
+      transform: translate(0%, 20%);
+      
+      .c-name {
+        display: inline-block;
+        max-width: 3vw;
+        overflow: hidden;
+        max-height: .8rem;
+      }
+
+      img { width: 10px; }
+    }
+  }
+
+  &__assignee {
+    position: absolute;
+    right: 22vw;
+    top: .2rem;
+
+    img {
+      width: 80%;
+    }
+
+    .assignee-profile-picture {
+      width: 29px;
+      height: 29px;
+      border-radius: 71%;
+      -o-object-fit: cover;
+         object-fit: cover;
+      transform: translateX(-23%);
+    }
+  }
+  
+  &__contributors-box {
+    li { list-style: none; }
+    background-color: white;
+    display: none;
+    position: absolute;
+    right: 20vw;
+    bottom: -3rem;
+    z-index: 10;
+    box-shadow: 0px 1px 7px 0px $secondary;
+    padding: .4rem;
+
+    &.in-modal {
+      bottom: initial;
+      right: initial;
+      transform: translate(-25%, 53%);
+      width: 7rem;
+    }
+
+    .contributor {
+      text-align: center;
+      margin: .2rem auto;
+      cursor: pointer;
+      transition: .2s;
+
+      &:not(:last-of-type) { margin-bottom: .4rem; }
+
+      &:hover { color: $secondary; }
+    }
+  }
+
+  &__editable-priority {
+    width: 28px;
+    display: block;
+    position: absolute;
+    right: 11.6vw;
+    top: 0.23rem;
+  }
+
+  .contenteditable-actions {
+    position: absolute;
+    top: -97%;
+    left: 72%;
+    transform: translateX(-50%);
+    width: 4rem;
+
+    .contenteditable__cross { width: 32px; transform: translateY(3px);}
+    .contenteditable__check { width: 27px;}
+  }
+}
+
+.unavailable { font-style: italic; color: $placeholder-color; text-align: center;}
+
+.modal__content h1 { margin-bottom: 0 !important; }
+.modal__ {
+
+  &description-block {
+    width: 90%;
+    margin: 0 auto 1rem auto;
+    text-align: center;
+  }
+
+
+  &subtasks-block {
+    width: 90%;
+    margin: 0 auto 0 auto;
+    text-align: center;
+    padding-bottom: 2rem;
+    h2 { color: $primary; margin-bottom: 0;}
+  }
+
+  &documents-block {
+    width: 100%;
+    h2 { color: $primary; }
+  }
+
+  &information-block {
+    .project-context__data {
+
+      &:not(:last-of-type) {
+        padding-right: .7rem;
+      }
+
+      &:not(:first-of-type) {
+        padding-left: .7rem;
+      }
+
+      .placeholder { font-size: .51rem; }
+      .content { font-size: .9rem; }
+    }
+  }
+
+  &content {
+    .task__name-editable {
+      font-size: 1.625rem;
+      border: none;
+      border-bottom: 1px solid $primary;
+      border-radius: 3px;
+      outline: none;
+      color: $primary;
+      //font-family: $text;
+      background-color: #F0F0F3;
+
+      &:focus {
+        border-bottom: 1px solid $secondary;
+      }
+    }
+  }
+
+  &content .contenteditable-actions {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: auto;
+    margin-top: 1rem;
+
+    .contenteditable__check { width: 20px;
+      transform: translateY(-9%);
+      margin-left: .5rem;
+    }
+
+    .contenteditable__cross { margin-right: 0.5rem; }
+  }
+}
+
+@media only screen and (min-width: $tablet-breakpoint) {
+  .task .contenteditable-actions {
+    top: 50%;
+    right: 1%;
+    left: initial;
+    transform: translateY(-55%);
+    .contenteditable__check { width: 24px; }
+    .contenteditable__cross { width: 28px; transform: translateY(8%);}
+  }
+
+
+  .modal__ {
+    &flex-group {
+      display: flex;
+      justify-content: space-evenly;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    &delete-box {
+      .task-delete {
+        position: absolute;
+        bottom: -2rem;
+        left: 7rem;
+      }
+    }
+
+    &description-block {
+      ul li, ol li { text-align: start; }
+    }
+
+    &subtasks-block {
+      margin: 0 0 0 2rem;
+      width: -webkit-fit-content;
+      width: -moz-fit-content;
+      width: fit-content;
+    }
+
+    &information-block {
+      margin-right: 2rem;
+      height: -webkit-fit-content;
+      height: -moz-fit-content;
+      height: fit-content;
+
+      .project-context__data {
+  
+        &:not(:last-of-type) {
+          padding-right: .7rem;
+        }
+  
+        &:not(:first-of-type) {
+          padding-left: .7rem;
+        }
+  
+        .placeholder { font-size: .8rem; width: 100%;}
+        .content { font-size: 1rem; }
+      }
+    }
+  }
+}
+
+/* ========= FIN TASK ========= */
+/* ========= DEBUT SUBTASK ========= */
+.create-subtask {
+  color: $default-color;
+  transition: .3s;
+  cursor: pointer;
+  &:hover { color: $secondary; }
+}
+
+.subtasks__group { 
+  padding: 0; 
+  text-align: start;
+
+  .subtask { list-style: none; margin-bottom: .3rem;}
+}
+
+input#subtask-name {
+  height: 2rem;
+  font-size: 1rem;
+  background-color: $bg-color;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid $primary;
+  &:hover { border-bottom: 1px solid $secondary; }
+}
+
+.subtasks-options {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: inline-block;
+
+  img {
+    cursor: pointer;
+    width: 13px;
+    transform: translateY(12%);
+  }
+}
+/* ========= FIN SUBTASK ========= */
+
+/* It sucks I know */
+@media only screen and (min-width:417px) { #project .project__tasklist h4 .clickable-actions {left:12rem;} }
+@media only screen and (min-width:493px) { #project .project__tasklist h4 .clickable-actions {left:14rem;} }
+@media only screen and (min-width:582px) { #project .project__tasklist h4 .clickable-actions {left:16rem;} }
+@media only screen and (min-width:660px) { #project .project__tasklist h4 .clickable-actions {left:18rem;} }
+@media only screen and (min-width:736px) { #project .project__tasklist h4 .clickable-actions {left:20rem;} }
+@media only screen and (min-width:$tablet-breakpoint) { 
+  #project .project__tasklist {
+    h4 .clickable-actions {left:27rem;} 
+    .contenteditable-container .contenteditable {
+      &__check {width: 8.5%;}
+      &__cross {width: 10%;}
+    }
+  } 
+}
+@media only screen and (min-width:960px) { #project .project__tasklist h4 .clickable-actions {left:30rem;} }
+@media only screen and (min-width:$desktop-breakpoint) { 
+  #project .project__tasklist .contenteditable-container .contenteditable {
+    &__check {width: 6%;}
+    &__cross {width: 7%;}
+  }
+}
+@media only screen and (min-width:1069px) { #project .project__tasklist h4 .clickable-actions {left:33rem;} }
+@media only screen and (min-width:1169px) { #project .project__tasklist h4 .clickable-actions {left:36rem;} }
+@media only screen and (min-width:1277px) { #project .project__tasklist h4 .clickable-actions {left:39rem;} }
+@media only screen and (min-width:1379px) { #project .project__tasklist h4 .clickable-actions {left:42rem;} }
+@media only screen and (min-width:1485px) { #project .project__tasklist h4 .clickable-actions {left:46rem;} }
+@media only screen and (min-width:1585px) { #project .project__tasklist h4 .clickable-actions {left:50rem;} }
+@media only screen and (min-width:1685px) { #project .project__tasklist h4 .clickable-actions {left:54rem;} }
+@media only screen and (min-width:1785px) { #project .project__tasklist h4 .clickable-actions {left:58rem;} }
+@media only screen and (min-width:1885px) { #project .project__tasklist h4 .clickable-actions {left:62rem;} }
+@media only screen and (min-width:1985px) { #project .project__tasklist h4 .clickable-actions {left:66rem;} }
+@media only screen and (min-width:2085px) { #project .project__tasklist h4 .clickable-actions {left:70rem;} }
+@media only screen and (min-width:2185px) { #project .project__tasklist h4 .clickable-actions {left:74rem;} }
+@media only screen and (min-width:2385px) { #project .project__tasklist h4 .clickable-actions {left:80rem;} }

@@ -1,0 +1,52 @@
+.document-list { padding-bottom: 2rem; }
+.document-group { width: 80%; margin: auto; }
+
+.document {
+  position: relative;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0px 2px 4px 0px $primary;
+  min-height: 2.5rem;
+  padding: .4rem 0;
+}
+
+.document-cube {
+  position: absolute;
+  height: .6rem;
+  width: .6rem;
+  border-radius: 2px;
+  top: 1.6rem;
+  left: 1rem;
+  transform: translateY(-50%);
+  background-color: $primary;
+}
+
+.document-name {
+  transform: translateY(-50%);
+  position: relative;
+  top: 1.2rem;
+  left: 2.4rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block;
+  max-width: 80%;
+  text-overflow: ellipsis;
+  color: $default-color;
+
+  &:hover { color: $secondary; }
+}
+
+.document-options {
+  width: fit-content;
+  position: absolute;
+  top: 53%;
+  transform: translateY(-50%);
+  right: 1rem;
+  
+  img { cursor: pointer; }
+}
+
+@media screen and (min-width: $tablet-breakpoint) {
+  .document { padding: 0; }
+  .document-cube { top: 1.2rem; }
+}
