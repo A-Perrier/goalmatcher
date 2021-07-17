@@ -10,15 +10,18 @@
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
+.phpunit
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
 
-###> phpunit/phpunit ###
-/phpunit.xml
-.phpunit.result.cache
-###< phpunit/phpunit ###
+###< Assets ###
+/public/assets/uploads/
+###> Assets ###
 
+###> Divers ###
+TODO.md
+###< Divers ###
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###

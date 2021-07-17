@@ -2,3 +2,27 @@
 liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
+    # configure resolvers
+    resolvers :
+        default :
+            web_path : ~
+
+    # your filter sets are defined here
+    filter_sets :
+        cache : ~
+
+        user_page_picture:
+            quality: 100
+            filters:
+                thumbnail: { size : [240, 240], mode : outbound }
+
+        project_user_picture:
+            quality: 40
+            filters:
+                thumbnail: { size: [48, 48], mode: outbound }
+
+        navbar_user:
+            quality: 100
+            default_image: /assets/uploads/users/picture/default_user
+            filters:
+                thumbnail: { size: [48, 48], mode: outbound }

@@ -37,7 +37,7 @@ class ImageService
     $image = new ImageManager();
     $image->canvas(96, 96, $colors[$key])
           ->text($toDisplay, 19, 68, function($font) {
-            $font->file(dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'PTSerif-Bold.ttf');
+            $font->file(dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'PTSerif-Bold.ttf');
             $font->size(64);
             $font->color('#fff');
           })
