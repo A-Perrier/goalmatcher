@@ -3,10 +3,10 @@ namespace App\General\Twig;
 
 use Twig\TwigFunction;
 use App\Auth\Entity\User;
-use App\Auth\Entity\UserPicture;
+use App\User\Entity\UserPicture;
 use App\General\Service\ImageService;
 use Twig\Extension\AbstractExtension;
-use App\Auth\Repository\UserPictureRepository;
+use App\User\Repository\UserPictureRepository;
 
 
 class ImageExtension extends AbstractExtension

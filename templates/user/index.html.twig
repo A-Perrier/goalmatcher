@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{user.pseudo}} | Goalmatcher{% endblock %}
+
+{% block body %}
+<h1>Bonjour, {{user.pseudo}}</h1>
+
+<section id="user-picture-section">
+    <h2>
+        Photo de profil
+        <img src="/assets/icons/plus.svg" id="browse-button" class="clickable">
+    </h2>
+    <div class="profile-picture-div">
+        <img class="profile-picture" src="{{asset('/assets/uploads/users/picture/' ~ getProfilePictureName(app.user))|imagine_filter('user_page_picture')}}">
+    </div>
+    {{ form_start(userPictureForm) }}
+        {{form_row(userPictureForm.imageFile)}}
+        <button type="submit" id="browse-validate" style="display:none;">Sauvegarder</button>
+    {{ form_end(userPictureForm) }}
+</section>
+
+<section id="user-data-section">
+    <h2>Paramètres</h2>
+
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        <button type="submit">Sauvegarder</button>
+    {{ form_end(form) }}
+</section>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+$(function() {
+
+const $fileInput =  $('#user_picture_imageFile_file');
+
+// Permet de trigger l'input de recherche de fichier en cliquant sur le bouton + de la section profil
+$('#browse-button').click((event) => {
+    event.preventDefault();
+    $fileInput.click();
+})
+
+$fileInput.change((event) => {
+    $('#browse-validate').show();
+})
+
+});
+</script>
+{% endblock %}

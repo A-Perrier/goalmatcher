@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Auth\Entity;
+namespace App\User\Entity;
 
-use App\Auth\Repository\UserPictureRepository;
+use App\User\Repository\UserPictureRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;

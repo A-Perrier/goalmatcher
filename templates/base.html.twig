@@ -23,7 +23,7 @@
             <h1>Goalmatcher</h1>
         </a>
         <div id="navbar-mobile">
-            <a {# href="{{path('user_home')}}" #}>
+            <a href="{{path('user_home')}}">
                 <img src="/assets/icons/user.svg" alt="">
             </a>
             <a href="#">
@@ -36,7 +36,7 @@
                 <img src="{{asset('/assets/uploads/users/picture/' ~ getProfilePictureName(app.user))|imagine_filter('navbar_user')}}" class="profile-picture">
                 {% endif %}
                 <div class="dropdown-options">
-                     <a class="dropdown-link" {# href="{{path('user_home')}}" #}>Profil</a> 
+                     <a class="dropdown-link" href="{{path('user_home')}}">Profil</a> 
                     <a class="dropdown-link" href="#">Mon travail</a>
                     <a class="dropdown-link" href="{{path('app_logout')}}">Déconnexion</a>
                 </div>

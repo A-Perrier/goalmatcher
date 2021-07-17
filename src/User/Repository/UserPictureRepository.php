@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Auth\Repository;
+namespace App\User\Repository;
 
-use App\Auth\Entity\UserPicture;
+use App\User\Entity\UserPicture;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
