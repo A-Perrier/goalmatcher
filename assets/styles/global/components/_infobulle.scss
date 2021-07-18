@@ -5,10 +5,11 @@
     cursor: pointer;
     position: relative;
     right: 0;
+    margin-left: 0.5rem;
+    @include noSelect()
   }
 
   .info-text {
-    display: none;
     font-size: 1.1rem;
     color: $default-color;
     margin-top: .5rem;

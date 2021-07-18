@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Loader from '../../../components/Loader';
 import { find } from '../services/Api/Project';
 import { PROJECT_INITIALIZATION } from '../Reducers/projectReducer';
+import ProjectTitle from './ProjectTitle';
 
 const Project = ({ id, dispatch, project }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -21,11 +22,20 @@ const Project = ({ id, dispatch, project }) => {
     
   }, [])
 
-  return ( 
-    <>
-      {isLoading && <Loader speed="150" />}
-      <h1>{ project.name }</h1>
-    </>
+  return (
+   isLoading && <Loader speed="150" /> ||
+
+  <ProjectTitle 
+    data={
+      { name: project.name, 
+      status: project.status, 
+      createdAt: project.createdAt, 
+      deadline: project.deadline, 
+      description: project.description, 
+      contributors: project.contributors }
+    } />
+      
+    
   );
 }
 
