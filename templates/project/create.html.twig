@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un projet | Goalmatcher{% endblock %}
+
+{% block body %}
+<h1 class="info-block">
+  Créer un projet
+  <img class="info-bulle" src="{{asset('assets/icons/info.svg')}}" alt="">
+  <p class="info-text">Laissez une date antérieure à demain pour la date limite et elle sera considérée comme absente.</p>
+</h1>
+
+<div class="centered-form">
+{{ form_start(form) }}
+  {{ form_row(form.name) }}
+  {{ form_row(form.description) }}
+  {{ form_row(form.deadline) }}
+  <div class="form-group">
+    <label for="contributors" class="placeholder">Contributeurs</label>
+    <ul id="current-contributors"></ul>
+    <input type="text" role="autocomplete" field="users" name="contributors" placeholder="Entrez un nom d'utilisateur..." class="form-control">
+    <ul id="autocomplete-results"></ul>
+  </div>
+  <button type="submit">Créer</button>
+{{ form_end(form) }}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/js/api/project/project.js" defer></script>
+  <script src="/js/api/autocomplete.js" defer></script>
+{% endblock %}

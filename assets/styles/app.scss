@@ -85,4 +85,16 @@ h3 {
 @media screen and (min-width: $tablet-breakpoint) {
     :root { font-size: 14px; }
 }
-  
+
+.fadable {
+    transition: .3s;
+    opacity: 1;
+}
+
+.fadeOut {
+    opacity: 0;
+}
+
+.fadeIn {
+    opacity: 1;
+}

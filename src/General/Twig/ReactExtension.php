@@ -1,12 +1,21 @@
 <?php
 namespace App\General\Twig;
 
-use Twig\Extension\AbstractExtension;
 use Twig\Markup;
 use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ReactExtension extends AbstractExtension
 {
+  private SerializerInterface $serializer;
+
+  public function __construct(SerializerInterface $serializer)
+  {
+    $this->serializer = $serializer;
+  }
+
+
   public function getFunctions()
   {
     return [

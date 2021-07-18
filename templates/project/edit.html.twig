@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Editer {{project.name}} | Goalmatcher{% endblock %}
+
+{% block body %}
+<h1>Modifier {{project.name}}</h1>
+
+<div class="centered-form editing">
+{{ form_start(form) }}
+  {{ form_row(form.name) }}
+  {{ form_row(form.description) }}
+  {{ form_row(form.deadline) }}
+  <div class="form-group">
+    <label for="contributors" class="placeholder">Contributeurs</label>
+    <ul id="current-contributors">
+      {% for contributor in project.contributors %}
+      <li class="contributor-badge">
+        <span class="c-name">{{contributor.pseudo}}</span>
+        <img class="delete-icon" src="/assets/icons/delete.svg" />
+      </li>
+      {% endfor %}
+    </ul>
+    <input type="text" role="autocomplete" field="users" name="contributors" placeholder="Entrez un nom d'utilisateur..." class="form-control">
+    <ul id="autocomplete-results"></ul>
+  </div>
+  <button type="submit">Modifier</button>
+{{ form_end(form) }}
+</div>
+
+<div class="delete-box">
+  <button class="project-delete delete-btn" index="{{project.id}}">Supprimer ce projet</button>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/js/api/project/project.js" defer></script>
+  <script src="/js/api/autocomplete.js" defer></script>
+{% endblock %}
