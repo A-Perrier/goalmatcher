@@ -3,14 +3,15 @@
 namespace App\Project\Entity;
 
 use App\Project\Entity\Task;
-use App\Project\Repository\TaskDocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use App\Project\Repository\TaskDocumentRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass=TaskDocumentRepository::class)
@@ -26,6 +27,7 @@ class TaskDocument
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"project:fetch"})
      */
     private $id;
 
@@ -41,6 +43,7 @@ class TaskDocument
      * @Vich\UploadableField(mapping="task_document", fileNameProperty="document.name", size="document.size", mimeType="document.mimeType", originalName="document.originalName", dimensions="document.dimensions")
      * 
      * @var File|null
+     * @Groups({"project:fetch"})
      */
     private $documentFile;
 
@@ -48,6 +51,7 @@ class TaskDocument
      * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
      *
      * @var EmbeddedFile
+     * @Groups({"project:fetch"})
      */
     private $document;
 

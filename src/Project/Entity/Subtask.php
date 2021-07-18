@@ -2,9 +2,10 @@
 
 namespace App\Project\Entity;
 
-use App\Project\Interfaces\ProjectComponentInterface;
-use App\Project\Repository\SubtaskRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Project\Repository\SubtaskRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Project\Interfaces\ProjectComponentInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,6 +21,7 @@ class Subtask implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"project:fetch"})
      */
     private $id;
 
@@ -37,11 +39,13 @@ class Subtask implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
+     * @Groups({"project:fetch"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"project:fetch"})
      */
     private $isCleared;
 

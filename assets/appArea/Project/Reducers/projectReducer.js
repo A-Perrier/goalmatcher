@@ -1,13 +1,24 @@
 const initialState = {
-  'projectId': null
+  projectId: null,
+  project: {}
 }
+
+export const PROJECT_INITIALIZATION = 'PROJECT_INITIALIZATION'
 
 export function manageProject (state = initialState, action) {
   let nextState
+  let project
 
   switch (action.type) {
-    case 'value':
-      
+    case PROJECT_INITIALIZATION:
+      project = action.value
+      nextState = {
+        ... state,
+        projectId: project.id,
+        project
+      }
+
+      return nextState || state
       break;
   
     default:

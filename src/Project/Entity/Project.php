@@ -3,11 +3,12 @@
 namespace App\Project\Entity;
 
 use App\Auth\Entity\User;
-use App\Project\Interfaces\ProjectComponentInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use App\Project\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Project\Interfaces\ProjectComponentInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -27,12 +28,14 @@ class Project implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"project:fetch"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projects")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"project:fetch"})
      */
     private $creator;
 
@@ -44,41 +47,49 @@ class Project implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
+     * @Groups({"project:fetch"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"project:fetch"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"project:fetch"})
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     * @Groups({"project:fetch"})
      */
     private $deadline;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"project:fetch"})
      */
     private $status;
 
     /**
      * @ORM\OneToMany(targetEntity=Section::class, mappedBy="project", orphanRemoval=true)
+     * @Groups({"project:fetch"})
      */
     private $sections;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="projectsContributing")
+     * @Groups({"project:fetch"})
      */
     private $contributors;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"project:fetch"})
      */
     private $SlugName;
 

@@ -2,11 +2,12 @@
 
 namespace App\Project\Entity;
 
-use App\Project\Interfaces\ProjectComponentInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
 use App\Project\Repository\SectionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Project\Interfaces\ProjectComponentInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,6 +24,7 @@ class Section implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"project:fetch"})
      */
     private $id;
 
@@ -40,16 +42,19 @@ class Section implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
+     * @Groups({"project:fetch"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"project:fetch"})
      */
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity=Tasklist::class, mappedBy="section")
+     * @Groups({"project:fetch"})
      */
     private $tasklists;
 

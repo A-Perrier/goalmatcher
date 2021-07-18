@@ -1,8 +1,9 @@
 #body-cover {
   position: absolute;
-  top: 0;
+  top: -4rem;
+  left: -1px;
   height: 1000vh;
-  width: 100%;
+  width: calc(100% + 1px);
   background-color:rgb(43, 43, 43);
   opacity: .7;
   z-index: 10;

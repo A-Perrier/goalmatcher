@@ -29,7 +29,7 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user:autocomplete", "project:getContributors"})
+     * @Groups({"user:autocomplete", "project:getContributors", "project:fetch"})
      */
     private $id;
 
@@ -58,7 +58,7 @@ class User implements UserInterface
      *      minMessage="Votre nom d'utilisateur doit faire au moins {{ limit }} caractères",
      *      maxMessage="Votre nom d'utilisateur doit ne doit pas dépasser {{ limit }} caractères"
      * )
-     * @Groups({"user:autocomplete", "project:getContributors"})
+     * @Groups({"user:autocomplete", "project:getContributors", "project:fetch"})
      */
     private $pseudo;
 

@@ -2,11 +2,12 @@
 
 namespace App\Project\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use App\Project\Interfaces\ProjectComponentInterface;
 use App\Project\Repository\Project\TasklistRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -24,6 +25,7 @@ class Tasklist implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"project:fetch"})
      */
     private $id;
 
@@ -41,16 +43,19 @@ class Tasklist implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
+     * @Groups({"project:fetch"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="tasklist")
+     * @Groups({"project:fetch"})
      */
     private $tasks;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"project:fetch"})
      */
     private $listOrder;
 

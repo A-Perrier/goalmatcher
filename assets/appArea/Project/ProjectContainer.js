@@ -7,7 +7,7 @@ import { location } from '../../helpers/functions';
 const ProjectContainer = () => {
   return ( 
   <Provider store={Store}>
-    <Project name={location.name} id={location.id} />
+    <Project id={location.id} />
   </Provider>
   );
 }

@@ -2,13 +2,14 @@
 
 namespace App\Project\Entity;
 
-use App\Project\Entity\TaskDocument;
 use App\Auth\Entity\User;
-use App\Project\Interfaces\ProjectComponentInterface;
-use App\Project\Repository\TaskRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Project\Entity\TaskDocument;
+use App\Project\Repository\TaskRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use App\Project\Interfaces\ProjectComponentInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -34,11 +35,13 @@ class Task implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"project:fetch"})
      */
     private $id;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="tasks")
+     * @Groups({"project:fetch"})
      */
     private $assignee;
 
@@ -56,36 +59,43 @@ class Task implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
+     * @Groups({"project:fetch"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"project:fetch"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"project:fetch"})
      */
     private $priority;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"project:fetch"})
      */
     private $submittedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Subtask::class, mappedBy="task", orphanRemoval=true)
+     * @Groups({"project:fetch"})
      */
     private $subtasks;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"project:fetch"})
      */
     private $listOrder;
 
     /**
      * @ORM\OneToMany(targetEntity=TaskDocument::class, mappedBy="task")
+     * @Groups({"project:fetch"})
      */
     private $taskDocuments;
 
