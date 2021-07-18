@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Project.scss'
 import { connect } from 'react-redux';
+import Loader from '../../../components/Loader';
 
-const Project = (props) => {
-  console.log(props)
+const Project = ({ name, id }) => {
+  const [isLoading, setIsLoading] = useState(true)
+
   return ( 
-    <h1>Projet</h1>
+    <>
+      {isLoading && <Loader />}
+      <h1>{ name }</h1>
+    </>
   );
 }
 
