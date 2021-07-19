@@ -36,7 +36,9 @@ class ProjectController extends AbstractController
         return $this->redirectToRoute('home');
     };
 
+    $isCreator = $this->securityService->isCreator($project);
+
     $jsonProject = ($this->serializerInterface->serialize($project, 'json', ['groups' => 'project:fetch']));
-    return $this->json($jsonProject, Response::HTTP_OK);
+    return $this->json(json_encode([$jsonProject, $isCreator]), Response::HTTP_OK);
   }
 }

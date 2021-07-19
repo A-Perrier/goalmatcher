@@ -5,15 +5,17 @@ import Loader from '../../../components/Loader';
 import { find } from '../services/Api/Project';
 import { PROJECT_INITIALIZATION } from '../Reducers/projectReducer';
 import ProjectTitle from './ProjectTitle';
+import ProjectBody from './ProjectBody';
 
 const Project = ({ id, dispatch, project }) => {
   const [isLoading, setIsLoading] = useState(true)
+  const { name, status, createdAt, deadline, description, contributors } = project
 
   async function fetchProject () {
-    const project = await find(id, name)
+    const { project, isCreator } = await find(id, name)
     setIsLoading(false)
 
-    const action = { type: PROJECT_INITIALIZATION, value: project }
+    const action = { type: PROJECT_INITIALIZATION, value: { project, isCreator } }
     dispatch(action)
   } 
 
@@ -24,17 +26,10 @@ const Project = ({ id, dispatch, project }) => {
 
   return (
    isLoading && <Loader speed="150" /> ||
-
-  <ProjectTitle 
-    data={
-      { name: project.name, 
-      status: project.status, 
-      createdAt: project.createdAt, 
-      deadline: project.deadline, 
-      description: project.description, 
-      contributors: project.contributors }
-    } />
-      
+  <>
+    <ProjectTitle data={{ name, status, createdAt, deadline, description, contributors }} />
+    <ProjectBody sections={ project.sections }/>
+  </>
     
   );
 }
@@ -42,7 +37,8 @@ const Project = ({ id, dispatch, project }) => {
 const mapStateToProps = (state) => {
   return {
     projectId: state.projectId,
-    project: state.project
+    project: state.project,
+    isCreator: state.isCreator
   }
 }
 

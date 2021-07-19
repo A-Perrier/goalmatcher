@@ -85,7 +85,6 @@ h1, h2, h3, h4 {
     padding: .5rem .6rem;
     border-radius: 4px;
     font-size: 1.1rem;
-    display: none;
   
     a {
       color: $default-color;
@@ -100,4 +99,24 @@ h1, h2, h3, h4 {
     }
   }
 
+}
+
+h2 { 
+
+  .clickable {
+    display: inline-block; 
+    margin-left: .4rem;
+  }
+
+  .clickable-actions {
+    position: absolute;
+    left: initial;
+    bottom: initial;
+    top: 50%;
+    right: 0;
+    transform: translate(100%, -50%);
+    background-color: white;
+    min-width: 14rem;
+    @include noSelect()
+  }
 }

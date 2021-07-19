@@ -48,6 +48,13 @@ class SecurityService
   }
 
 
+  public function isCreator(Project $project)
+  {
+    $user = $this->security->getUser();
+    return $project->getCreator() === $user;
+  }
+
+
   /**
    * Checks if the project exists and if the slug is corresponding to the ID. Else, redirects.
    * Also checks if the current user have some rights with the project.

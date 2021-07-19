@@ -1,6 +1,7 @@
 const initialState = {
   projectId: null,
-  project: {}
+  project: {},
+  isCreator: false
 }
 
 export const PROJECT_INITIALIZATION = 'PROJECT_INITIALIZATION'
@@ -8,14 +9,18 @@ export const PROJECT_INITIALIZATION = 'PROJECT_INITIALIZATION'
 export function manageProject (state = initialState, action) {
   let nextState
   let project
+  let isCreator
 
   switch (action.type) {
     case PROJECT_INITIALIZATION:
-      project = action.value
+      project = action.value.project
+      isCreator = action.value.isCreator
+
       nextState = {
         ... state,
         projectId: project.id,
-        project
+        project,
+        isCreator
       }
 
       return nextState || state
