@@ -3,8 +3,7 @@ import { removeFromArray } from "../../../helpers/functions"
 const initialState = {
   projectId: null,
   project: {},
-  isCreator: false,
-  refresh: 0
+  isCreator: false
 }
 
 export const PROJECT_INITIALIZATION = 'PROJECT_INITIALIZATION'
