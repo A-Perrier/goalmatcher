@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import NewSectionActionBox from '../ActionBox/NewSectionActionBox';
 import { Cross, Check } from '../../../../components/Svg';
+import { create } from '../../services/Api/Section';
+import { connect } from 'react-redux';
+import { SECTION_CREATE } from '../../Reducers/projectReducer';
 
-const NewSectionHandler = () => {
+const NewSectionHandler = ({ projectId, dispatch }) => {
   const [isFormVisible, setIsFormVisible] = useState(false)
   const [titleContent, setTitleContent] = useState('')
   const [descriptionContent, setDescriptionContent] = useState('')
 
-  function handleCreation () {
+  async function handleCreation () {
     setIsFormVisible(false)
     setTitleContent('')
     setDescriptionContent('')
 
-    console.log(titleContent)
+    const section = await create({ name: titleContent, description: descriptionContent, projectId })
+
+    const action = { type: SECTION_CREATE, value: section }
+    dispatch(action)
   }
 
 
@@ -52,5 +58,11 @@ const NewSectionHandler = () => {
     </div>
   );
 }
- 
-export default NewSectionHandler;
+
+const mapStateToProps = (state) => {
+  return {
+    projectId: state.projectId
+  }
+}
+
+export default connect(mapStateToProps)(NewSectionHandler)

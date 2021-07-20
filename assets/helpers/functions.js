@@ -13,6 +13,7 @@ export function getTranslatedStatus(status) {
   ) 
 }
 
+
 export function dateTimeToString(datetime) {
   if (datetime === null) return 'Inconnue'
 
@@ -22,4 +23,15 @@ export function dateTimeToString(datetime) {
   const year = date.getFullYear()
 
   return `${day}/${month}/${year}`
+}
+
+
+/**
+ * Clones an array, remove the chosen element then returns the copy without it
+ */
+export function removeFromArray(array, item) {
+  const copy = array.slice()
+  const index = copy.indexOf(item)
+  index !== -1 && copy.splice(index, 1)
+  return copy
 }

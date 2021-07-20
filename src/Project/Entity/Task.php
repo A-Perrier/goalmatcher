@@ -35,19 +35,20 @@ class Task implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"project:fetch"})
+     * @Groups({"project:fetch", "section:fetch"})
      */
     private $id;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="tasks")
-     * @Groups({"project:fetch"})
+     * @Groups({"project:fetch", "section:fetch"})
      */
     private $assignee;
 
     /**
      * @ORM\ManyToOne(targetEntity=Tasklist::class, inversedBy="tasks")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"section:fetch"})
      */
     private $tasklist;
 
@@ -59,43 +60,43 @@ class Task implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
-     * @Groups({"project:fetch"})
+     * @Groups({"project:fetch", "section:fetch"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"project:fetch"})
+     * @Groups({"project:fetch", "section:fetch"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"project:fetch"})
+     * @Groups({"project:fetch", "section:fetch"})
      */
     private $priority;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"project:fetch"})
+     * @Groups({"project:fetch", "section:fetch"})
      */
     private $submittedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Subtask::class, mappedBy="task", orphanRemoval=true)
-     * @Groups({"project:fetch"})
+     * @Groups({"project:fetch", "section:fetch"})
      */
     private $subtasks;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"project:fetch"})
+     * @Groups({"project:fetch", "section:fetch"})
      */
     private $listOrder;
 
     /**
      * @ORM\OneToMany(targetEntity=TaskDocument::class, mappedBy="task")
-     * @Groups({"project:fetch"})
+     * @Groups({"project:fetch", "section:fetch"})
      */
     private $taskDocuments;
 

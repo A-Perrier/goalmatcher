@@ -1,8 +1,11 @@
 import React from 'react';
+import { remove } from '../services/Api/Section';
+import { connect } from 'react-redux'
 import SectionActionBox from './ActionBox/SectionActionBox';
+import { SECTION_REMOVE } from '../Reducers/projectReducer';
 
-const Section = ({ section }) => {
-
+const Section = ({ section, dispatch }) => {
+  
   function handleShowDescription () {
     console.log('show !', section.description)
   }
@@ -11,8 +14,13 @@ const Section = ({ section }) => {
     console.log('edit !', section.id)
   }
 
-  function handleDeleteDescription () {
-    console.log('delete !', section.id)
+  async function handleDeleteDescription () {
+    const status = await remove(section.id)
+    
+    if ( status === 200 ) {
+      const action = { type: SECTION_REMOVE, value: section }
+      dispatch(action)
+    }
   }
 
   return ( 
@@ -32,4 +40,9 @@ const Section = ({ section }) => {
   );
 }
  
-export default Section
+
+const mapStateToProps = (state) => {
+  return {}
+}
+
+export default connect(mapStateToProps)(Section)

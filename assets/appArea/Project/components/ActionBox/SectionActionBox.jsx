@@ -21,7 +21,7 @@ const SectionActionBox = ({
           isCreator &&
           <>
           <a onClick={editDescription}>Modifier la section</a>
-          <a onClick={deleteDescription}>Supprimer la section</a>
+          <a onClick={() => { deleteDescription(); setIsVisible(false) } }>Supprimer la section</a>
           </>
           }
         </div>
