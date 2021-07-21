@@ -1,4 +1,4 @@
-import { removeFromArray } from "../../../helpers/functions"
+import { editFromArray, removeFromArray } from "../../../helpers/functions"
 
 const initialState = {
   projectId: null,
@@ -8,6 +8,7 @@ const initialState = {
 
 export const PROJECT_INITIALIZATION = 'PROJECT_INITIALIZATION'
 export const SECTION_CREATE = 'SECTION_CREATE'
+export const SECTION_EDIT = 'SECTION_EDIT'
 export const SECTION_REMOVE = 'SECTION_REMOVE'
 
 export function manageProject (state = initialState, action) {
@@ -39,28 +40,37 @@ export function manageProject (state = initialState, action) {
       sections.push(action.value)
       project.sections = sections
       
-      nextState = {
-        ... state,
-        project
-      }
+      nextState = { ... state, project }
 
       return nextState || state
       break;
 
+
+
+    case SECTION_EDIT:
+      project = { ... state.project }
+      sections = editFromArray(project.sections, action.value.updSection, action.value.oldSection)
+      project.sections = sections
+
+      nextState = { ... state, project }
+
+      return nextState || state
+      break;
     
+
 
     case SECTION_REMOVE:
       project = { ... state.project }
       sections = removeFromArray(project.sections, action.value)
       project.sections = sections
       
-      nextState = {
-        ... state,
-        project
-      }
-
+      nextState = { ... state, project }
 
       return nextState || state
+      break;
+
+
+
     default:
       return state
       break;

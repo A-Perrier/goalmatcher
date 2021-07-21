@@ -4,6 +4,7 @@ namespace App\Project\Controller\Api;
 
 use App\Project\Entity\Section;
 use App\Project\Event\SectionCreateEvent;
+use App\Project\Event\SectionEditEvent;
 use App\Project\Event\SectionRemoveEvent;
 use App\Project\Repository\ProjectRepository;
 use App\Project\Repository\SectionRepository;
@@ -59,6 +60,29 @@ class SectionController extends AbstractController
 
     if (isset($section->errors)) return $this->json($section->errors, Response::HTTP_BAD_REQUEST);
     return $this->json($this->serializer->serialize($section, 'json', ['groups' => 'section:fetch']), Response::HTTP_CREATED);
+  }
+
+
+
+  /**
+   * @Route("/api/sections/{id<\d+>}", name="api/section_edit", methods={"PUT"})
+   * @IsGranted("ROLE_USER")
+   */
+  public function edit (Request $request, $id)
+  {
+    $section = $this->sectionRepository->find($id);
+    $data = json_decode($request->getContent(), true);
+
+    if ($this->security->isCreator($section->getProject())) {
+      $event = new SectionEditEvent($section, $data);
+      $this->dispatcher->dispatch($event, Section::SECTION_EDIT_EVENT);
+      return $this->json(
+        $this->serializer->serialize($section, 'json', ['groups' => 'section:fetch']), 
+        Response::HTTP_OK
+      );
+    }
+
+    return $this->json(null, Response::HTTP_FORBIDDEN);
   }
 
 

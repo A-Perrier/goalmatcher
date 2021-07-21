@@ -5,8 +5,8 @@ import { connect } from 'react-redux';
 const SectionActionBox = ({ 
   isCreator,
   showDescription,
-  editDescription,
-  deleteDescription
+  onEdit,
+  onRemove
 }) => {
   const [isVisible, setIsVisible] = useState(false)
 
@@ -20,8 +20,8 @@ const SectionActionBox = ({
           {
           isCreator &&
           <>
-          <a onClick={editDescription}>Modifier la section</a>
-          <a onClick={() => { deleteDescription(); setIsVisible(false) } }>Supprimer la section</a>
+          <a onClick={() => { onEdit(); setIsVisible(false) }}>Modifier la section</a>
+          <a onClick={() => { onRemove(); setIsVisible(false) } }>Supprimer la section</a>
           </>
           }
         </div>

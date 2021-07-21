@@ -19,7 +19,6 @@ export const create = (data) => {
     )
     .catch(
       ({ response }) => {
-        console.log('dans le catch')
         const { data } = response
         for (const [errorField, message] of Object.entries(data)) {
           dangerToast(message)
@@ -28,6 +27,30 @@ export const create = (data) => {
       }
     )
 }
+
+
+
+export const edit = (data, id) => {
+  return axios
+    .put(`${SECTION_ENDPOINT}/${id}`, data)
+    .then(
+      async (response) => {
+        const section = await response.data
+        successToast("La section a correctement été modifiée !")
+        return { updSection: JSON.parse(section), status: response.status }
+      }
+    )
+    .catch(
+      ({ response }) => {
+        const { data } = response
+        for (const [errorField, message] of Object.entries(data)) {
+          dangerToast(message)
+        }
+        return response.data
+      }
+    )
+}
+
 
 
 export const remove = (id) => {

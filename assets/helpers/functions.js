@@ -35,3 +35,16 @@ export function removeFromArray(array, item) {
   index !== -1 && copy.splice(index, 1)
   return copy
 }
+
+
+
+/**
+ * Clones an array, edit the chosen element then returns the copy modified
+ */
+export function editFromArray(array, itemUpdated, itemToUpdate) {
+  const copy = array.slice()
+  const index = copy.indexOf(itemToUpdate)
+  index !== -1 && copy.splice(index, 1, itemUpdated)
+  console.log(copy)
+  return copy
+}
