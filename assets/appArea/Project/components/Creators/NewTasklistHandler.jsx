@@ -3,13 +3,15 @@ import { create } from '../../services/Api/Tasklist';
 import { connect } from 'react-redux';
 import NewTasklistActionBox from '../ActionBox/NewTasklistActionBox';
 import TasklistForm from '../Form/TasklistForm';
+import { TASKLIST_CREATE } from '../../Reducers/projectReducer';
 
 const NewTasklistHandler = ({ section, dispatch }) => {
   const [isFormVisible, setIsFormVisible] = useState(false)
   
   async function handleCreation(data) {
     const tasklist = await create({ name: data, sectionId: section.id })
-    // On va dispatcher la tasklist quand on aura géré l'affichage de celles-ci depuis la BDD
+    const action = { type: TASKLIST_CREATE, value: { section, tasklist } }
+    dispatch(action)
   }
 
   return ( 
@@ -36,7 +38,9 @@ const NewTasklistHandler = ({ section, dispatch }) => {
  
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    project: state.manageProject.project
+  }
 }
 
 

@@ -13,6 +13,7 @@ import { sortByListOrder } from '../../../helpers/functions';
 const Section = ({ section, dispatch, isCreator }) => {
   const [isEditing, setIsEditing] = useState(false)
   const reorganizedTasklists = sortByListOrder(section.tasklists)
+
   
   function handleShowDescription () {
     const action = { type: MODAL_SHOW, value: <SectionModal content={section.description} /> }
