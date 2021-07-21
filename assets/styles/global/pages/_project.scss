@@ -148,6 +148,15 @@
   h4 {
     color: $placeholder-color;
   }
+
+  .clickable { 
+    margin-left: 0.2rem; 
+    transform: translateY(11%);
+    display: inline-block;
+    @include noSelect();
+  }
+
+  svg { width: 90%; }
 }
 
 /* ========= FIN TASKLIST ========= */

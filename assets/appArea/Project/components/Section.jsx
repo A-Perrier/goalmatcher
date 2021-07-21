@@ -6,8 +6,9 @@ import { SECTION_EDIT, SECTION_REMOVE } from '../Reducers/projectReducer';
 import SectionForm from './Form/SectionForm';
 import { MODAL_SHOW } from '../Reducers/modalReducer';
 import { SectionModal } from './ModalContent';
+import NewTasklistHandler from './Creators/NewTasklistHandler';
 
-const Section = ({ section, dispatch }) => {
+const Section = ({ section, dispatch, isCreator }) => {
   const [isEditing, setIsEditing] = useState(false)
   
   function handleShowDescription () {
@@ -70,14 +71,19 @@ const Section = ({ section, dispatch }) => {
           />
         }
       </h2>
-
+      {
+        isCreator &&
+        <NewTasklistHandler />
+      }
     </div>
   );
 }
  
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+    isCreator: state.manageProject.isCreator
+  }
 }
 
 export default connect(mapStateToProps)(Section)
