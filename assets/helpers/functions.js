@@ -1,3 +1,4 @@
+import ReactDOMServer from 'react-dom/server'
 const urlParameters = window.location.pathname
 const urlParts = urlParameters.split('/')
 export const location = { 'section' : urlParts[1], 'slug': urlParts[2], 'id': urlParts[3] }
@@ -48,3 +49,32 @@ export function editFromArray(array, itemUpdated, itemToUpdate) {
   console.log(copy)
   return copy
 }
+
+
+
+export function getModal (content) {
+  console.log(content)
+  let html = document.querySelector('html')
+  let modal = document.createElement('div')
+  modal.classList.add('modal')
+  modal.innerHTML = `<div id="body-cover"></div>
+  <div class="modal__box">
+    <img class="modal__close" src="/assets/icons/cross.svg" />
+    <div class="modal__content">
+      ${ReactDOMServer.renderToStaticMarkup(content)}
+    </div>
+  </div>`
+  
+  html.style.overflow = 'hidden'
+  html.appendChild(modal)
+
+  document.querySelector('.modal__close').addEventListener('click', () => { removeModal() })
+}
+
+
+
+const removeModal = () => {
+  document.querySelector('.modal').remove();
+  document.querySelector('html').style.overflow = 'initial';
+}
+

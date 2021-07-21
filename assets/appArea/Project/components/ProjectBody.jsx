@@ -20,7 +20,7 @@ const ProjectBody = ({ sections, isCreator }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isCreator: state.isCreator
+    isCreator: state.manageProject.isCreator
   }
 }
 

@@ -43,7 +43,7 @@ const NewSectionHandler = ({ projectId, dispatch }) => {
 
 const mapStateToProps = (state) => {
   return {
-    projectId: state.projectId
+    projectId: state.manageProject.projectId
   }
 }
 
