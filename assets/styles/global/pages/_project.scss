@@ -113,8 +113,9 @@
    .clickable {
       position: absolute;
       right: 1.5rem;
-      top: 50%;
+      top: 37%;
       transform: translateY(-50%);
+      @include noSelect();
     
       &-actions {
         z-index: 3;

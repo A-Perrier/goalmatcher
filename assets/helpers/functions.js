@@ -52,6 +52,12 @@ export function editFromArray(array, itemUpdated, itemToUpdate) {
 
 
 
+export function sortByListOrder(array) {
+  return array.sort((a, b) => (a.listOrder > b.listOrder) ? 1 : -1)
+}
+
+
+
 export function getModal (content) {
   console.log(content)
   let html = document.querySelector('html')

@@ -49,4 +49,17 @@ export const Cross = ({ onClick = null, fill = null, className = "clickable" }) 
 }
 
 
+export const TasklistActionsIcon = ({ onClick = null, fill = null, className = "clickable" }) => {
+  return (
+    <span onClick={onClick} className={className}>
+      <svg width="16" height="5" viewBox="0 0 16 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0.836182" y1="0.5" x2="13.3003" y2="0.5" stroke="white" stroke-linejoin="bevel"/>
+        <line x1="0.836182" y1="4.5" x2="15.5666" y2="4.5" stroke="white" stroke-linejoin="round"/>
+      </svg>
+    </span>
+  )
+}
+
+
+
 

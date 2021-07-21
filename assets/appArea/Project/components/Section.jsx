@@ -7,9 +7,12 @@ import SectionForm from './Form/SectionForm';
 import { MODAL_SHOW } from '../Reducers/modalReducer';
 import { SectionModal } from './ModalContent';
 import NewTasklistHandler from './Creators/NewTasklistHandler';
+import Tasklist from './Tasklist';
+import { sortByListOrder } from '../../../helpers/functions';
 
 const Section = ({ section, dispatch, isCreator }) => {
   const [isEditing, setIsEditing] = useState(false)
+  const reorganizedTasklists = sortByListOrder(section.tasklists)
   
   function handleShowDescription () {
     const action = { type: MODAL_SHOW, value: <SectionModal content={section.description} /> }
@@ -71,10 +74,14 @@ const Section = ({ section, dispatch, isCreator }) => {
           />
         }
       </h2>
-      {
-        isCreator &&
-        <NewTasklistHandler section={section} />
-      }
+      <div class="tasklists-container">
+        { reorganizedTasklists.map((tasklist, index) => 
+        <Tasklist key={index} tasklist={tasklist} />
+        )}
+      </div>
+
+
+      { isCreator && <NewTasklistHandler section={section} /> }
     </div>
   );
 }
