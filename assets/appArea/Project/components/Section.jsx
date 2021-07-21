@@ -9,7 +9,6 @@ import { SectionModal } from './ModalContent';
 
 const Section = ({ section, dispatch }) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [isModalVisible, setIsModalVisible] = useState(false)
   
   function handleShowDescription () {
     const action = { type: MODAL_SHOW, value: <SectionModal content={section.description} /> }
@@ -71,20 +70,7 @@ const Section = ({ section, dispatch }) => {
           />
         }
       </h2>
-      {
-        isModalVisible &&
-        <div class="modal">
-          <div id="body-cover"></div>
-          <div class="modal__box">
-            <img class="modal__close" src="/assets/icons/cross.svg" />
-            <div class="modal__content">
-              
-              { section.description }
-              
-            </div>
-          </div>
-        </div>
-      }
+
     </div>
   );
 }
