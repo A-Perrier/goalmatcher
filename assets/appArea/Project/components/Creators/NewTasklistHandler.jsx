@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { create } from '../../services/Api/Tasklist';
+import { connect } from 'react-redux';
 import NewTasklistActionBox from '../ActionBox/NewTasklistActionBox';
 import TasklistForm from '../Form/TasklistForm';
 
-const NewTasklistHandler = () => {
+const NewTasklistHandler = ({ section, dispatch }) => {
   const [isFormVisible, setIsFormVisible] = useState(false)
-
-  function handleCreation(data) {
-    console.log(data)
+  
+  async function handleCreation(data) {
+    const tasklist = await create({ name: data, sectionId: section.id })
+    // On va dispatcher la tasklist quand on aura géré l'affichage de celles-ci depuis la BDD
   }
 
   return ( 
@@ -31,4 +34,10 @@ const NewTasklistHandler = () => {
   );
 }
  
-export default NewTasklistHandler;
+
+const mapStateToProps = (state) => {
+  return {}
+}
+
+
+export default connect(mapStateToProps)(NewTasklistHandler);

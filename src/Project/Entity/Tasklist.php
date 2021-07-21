@@ -25,7 +25,10 @@ class Tasklist implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"project:fetch"})
+     * @Groups({
+     * "project:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $id;
 
@@ -43,19 +46,28 @@ class Tasklist implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
-     * @Groups({"project:fetch"})
+     * @Groups({
+     * "project:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="tasklist")
-     * @Groups({"project:fetch"})
+     * @Groups({
+     * "project:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $tasks;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"project:fetch"})
+     * @Groups({
+     * "project:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $listOrder;
 

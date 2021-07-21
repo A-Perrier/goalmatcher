@@ -73,7 +73,7 @@ const Section = ({ section, dispatch, isCreator }) => {
       </h2>
       {
         isCreator &&
-        <NewTasklistHandler />
+        <NewTasklistHandler section={section} />
       }
     </div>
   );

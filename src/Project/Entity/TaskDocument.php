@@ -27,7 +27,11 @@ class TaskDocument
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $id;
 
@@ -44,7 +48,11 @@ class TaskDocument
      * @Vich\UploadableField(mapping="task_document", fileNameProperty="document.name", size="document.size", mimeType="document.mimeType", originalName="document.originalName", dimensions="document.dimensions")
      * 
      * @var File|null
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $documentFile;
 
@@ -52,7 +60,11 @@ class TaskDocument
      * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
      *
      * @var EmbeddedFile
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $document;
 

@@ -82,12 +82,24 @@ class ProjectService
     return $errors;
   }
 
-
+  /**
+   * From a tasklist, rolls up to the section to count how many tasklists it contains, then add one
+   *
+   * @param Tasklist $tasklist
+   * @return integer
+   */
   public function getLastSectionOrderFromTasklist(Tasklist $tasklist)
   {
     return (count($tasklist->getSection()->getTasklists()->getValues())) + 1;
   }
 
+
+  /**
+   * From a task, rolls up to the tasklist to count how many tasks it contains, then add one
+   *
+   * @param Task $task
+   * @return integer
+   */
   public function getLastTasklistOrderFromTask(Task $task)
   {
     return (count($task->getTasklist()->getTasks()->getValues())) + 1;

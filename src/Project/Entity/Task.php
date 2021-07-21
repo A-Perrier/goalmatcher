@@ -35,13 +35,21 @@ class Task implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $id;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="tasks")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $assignee;
 
@@ -60,43 +68,71 @@ class Task implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $priority;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $submittedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Subtask::class, mappedBy="task", orphanRemoval=true)
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $subtasks;
 
     /**
      * @ORM\Column(type="integer")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $listOrder;
 
     /**
      * @ORM\OneToMany(targetEntity=TaskDocument::class, mappedBy="task")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $taskDocuments;
 

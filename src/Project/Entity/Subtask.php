@@ -21,7 +21,11 @@ class Subtask implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $id;
 
@@ -40,13 +44,21 @@ class Subtask implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $name;
 
     /**
      * @ORM\Column(type="boolean")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     * "project:fetch", 
+     * "section:fetch",
+     * "tasklist:fetch"
+     * })
      */
     private $isCleared;
 
