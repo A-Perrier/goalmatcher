@@ -106,9 +106,11 @@
 
   h4 {
     color: white;
-    width: 50%;
+    width: 100%;
     padding: .4rem;
     border-top-right-radius: 70px 61px;
+
+    @media screen and (min-width: $desktop-breakpoint) { width: 70%; }
 
    .clickable {
       position: absolute;
@@ -390,7 +392,8 @@
     margin: auto;
     margin-top: 1rem;
 
-    .contenteditable__check { width: 20px;
+    .contenteditable__check { 
+      width: 20px;
       transform: translateY(-9%);
       margin-left: .5rem;
     }
@@ -501,29 +504,17 @@ input#subtask-name {
 /* ========= FIN SUBTASK ========= */
 
 /* It sucks I know */
-@media only screen and (min-width:417px) { #project .project__tasklist h4 .clickable-actions {left:12rem;} }
-@media only screen and (min-width:493px) { #project .project__tasklist h4 .clickable-actions {left:14rem;} }
-@media only screen and (min-width:582px) { #project .project__tasklist h4 .clickable-actions {left:16rem;} }
-@media only screen and (min-width:660px) { #project .project__tasklist h4 .clickable-actions {left:18rem;} }
-@media only screen and (min-width:736px) { #project .project__tasklist h4 .clickable-actions {left:20rem;} }
-@media only screen and (min-width:$tablet-breakpoint) { 
-  #project .project__tasklist {
-    h4 .clickable-actions {left:27rem;} 
-    .contenteditable-container .contenteditable {
-      &__check {width: 8.5%;}
-      &__cross {width: 10%;}
-    }
-  } 
-}
-@media only screen and (min-width:960px) { #project .project__tasklist h4 .clickable-actions {left:30rem;} }
-@media only screen and (min-width:$desktop-breakpoint) { 
-  #project .project__tasklist .contenteditable-container .contenteditable {
-    &__check {width: 6%;}
-    &__cross {width: 7%;}
-  }
-}
-@media only screen and (min-width:1069px) { #project .project__tasklist h4 .clickable-actions {left:33rem;} }
-@media only screen and (min-width:1169px) { #project .project__tasklist h4 .clickable-actions {left:36rem;} }
+@media only screen and (max-width:416px) { #project .project__tasklist h4 .clickable-actions {left:6rem;} }
+@media only screen and (min-width:417px) { #project .project__tasklist h4 .clickable-actions {left:9rem;} }
+@media only screen and (min-width:493px) { #project .project__tasklist h4 .clickable-actions {left:13rem;} }
+@media only screen and (min-width:582px) { #project .project__tasklist h4 .clickable-actions {left:17rem;} }
+@media only screen and (min-width:660px) { #project .project__tasklist h4 .clickable-actions {left:21rem;} }
+@media only screen and (min-width:736px) { #project .project__tasklist h4 .clickable-actions {left:25rem;} }
+@media only screen and (min-width:$tablet-breakpoint) { #project .project__tasklist h4 .clickable-actions {left:32rem;} }
+@media only screen and (min-width:830px) { #project .project__tasklist h4 .clickable-actions {left:35rem;} }
+@media only screen and (min-width:960px) { #project .project__tasklist h4 .clickable-actions {left:43rem;} }
+@media only screen and (min-width:1069px) { #project .project__tasklist h4 .clickable-actions {left:31rem;} }
+@media only screen and (min-width:1169px) { #project .project__tasklist h4 .clickable-actions {left:35rem;} }
 @media only screen and (min-width:1277px) { #project .project__tasklist h4 .clickable-actions {left:39rem;} }
 @media only screen and (min-width:1379px) { #project .project__tasklist h4 .clickable-actions {left:42rem;} }
 @media only screen and (min-width:1485px) { #project .project__tasklist h4 .clickable-actions {left:46rem;} }
@@ -534,4 +525,4 @@ input#subtask-name {
 @media only screen and (min-width:1985px) { #project .project__tasklist h4 .clickable-actions {left:66rem;} }
 @media only screen and (min-width:2085px) { #project .project__tasklist h4 .clickable-actions {left:70rem;} }
 @media only screen and (min-width:2185px) { #project .project__tasklist h4 .clickable-actions {left:74rem;} }
-@media only screen and (min-width:2385px) { #project .project__tasklist h4 .clickable-actions {left:80rem;} }
+@media only screen and (min-width:2385px) { #project .project__tasklist h4 .clickable-actions {left:85rem;} }

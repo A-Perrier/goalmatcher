@@ -35,6 +35,7 @@ export const edit = (data, id) => {
     .put(`${TASKLIST_ENDPOINT}/${id}`, data)
     .then(
       async (response) => {
+        debugDDResponse(response.data)
         const tasklist = await response.data
         successToast("La liste a correctement été modifiée !")
         return { updTasklist: JSON.parse(tasklist), status: response.status }

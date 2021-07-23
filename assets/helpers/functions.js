@@ -46,7 +46,6 @@ export function editFromArray(array, itemUpdated, itemToUpdate) {
   const copy = array.slice()
   const index = copy.indexOf(itemToUpdate)
   index !== -1 && copy.splice(index, 1, itemUpdated)
-  console.log(copy)
   return copy
 }
 
@@ -59,7 +58,6 @@ export function sortByListOrder(array) {
 
 
 export function getModal (content) {
-  console.log(content)
   let html = document.querySelector('html')
   let modal = document.createElement('div')
   modal.classList.add('modal')

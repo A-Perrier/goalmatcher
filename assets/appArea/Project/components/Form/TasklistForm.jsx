@@ -14,8 +14,8 @@ const TasklistForm = ({ onSubmit, onCancel, titleValue = ''}) => {
       onChange={(e) => { setTitleContent(e.currentTarget.value) }}
       />
       <div class="contenteditable-actions">
-        <Cross onClick={ onCancel } />
-        <Check onClick={ (e) => onSubmit (titleContent) } />
+        <Cross onClick={ onCancel } className="clickable contenteditable__cross" />
+        <Check onClick={ (e) => onSubmit (titleContent) } className="clickable contenteditable__check" />
       </div>
     </div>
   );

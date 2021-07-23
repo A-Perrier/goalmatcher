@@ -81,7 +81,7 @@ export function manageProject (state = initialState, action) {
       let copiedSections = []
       project.sections.map(section => {
         // Slice de l'entité recherchée en cours (ici Tasklist) inutile
-        section = {... section }
+        section = { ... section }
         copiedSections.push(section)
       })
 

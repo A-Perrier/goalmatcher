@@ -1,18 +1,69 @@
 .contenteditable-container {
   display: flex;
   flex-direction: column;
+  transform: translateY(-7%);
+  position: relative;
 
   input, textarea { width: 15rem; margin: .5rem 0;}
-  
+
+  input { border-bottom: 1px solid $secondary !important; }
+
+  input.contenteditable.create-section { 
+    font-size: 1.4rem;
+    color: $primary;
+  }
+
+  textarea.contenteditable.create-section { 
+    font-size: 1.1rem;
+    color: $primary;
+  }
+
+  input.contenteditable.create-tasklist {
+    width: 70%;
+    color: white;
+
+    &:focus {
+      color: $secondary;
+    }
+  }
+
   .contenteditable {
     height: 1.5rem;
-    transform: translateY(-7%);
-    font-size: 1rem;
-    border: 1px solid $secondary;
+    transform: translateY(-9%);
+    
+    border: none;
+    background: none;
+    outline: none;
+    font-family: $text;
+
+    &:focus {
+      color: $secondary;
+    }
   
-    &__check { margin-left: .4rem; cursor: pointer; width: 16%;}
+    &::placeholder {
+      color: $heavy-line;
+    }
+
+    .contenteditable-actions {
+      position: relative;
+      width: fit-content;
+      right: .5rem;
+    }
+
+    &__check { 
+      margin-right: .2rem; 
+      top: 50% !important;
+    }
   
-    &__cross { width: 19%; transform: translateY(7%); cursor: pointer;}
+    &__cross { 
+      margin-right: 2rem;
+      top: 50% !important;
+    } 
+
+    @media screen and (min-width: $desktop-breakpoint) {
+      &__check { margin-right: 1rem; }
+      &__cross { margin-right: 3rem; } 
+    }
   
   }
 
