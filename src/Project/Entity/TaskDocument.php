@@ -28,9 +28,7 @@ class TaskDocument
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({
-     * "project:fetch", 
-     * "section:fetch",
-     * "tasklist:fetch"
+     * "task:fetch"
      * })
      */
     private $id;
@@ -38,7 +36,6 @@ class TaskDocument
     /**
      * @ORM\ManyToOne(targetEntity=Task::class, inversedBy="taskDocuments")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"section:fetch"})
      */
     private $task;
 
@@ -49,9 +46,7 @@ class TaskDocument
      * 
      * @var File|null
      * @Groups({
-     * "project:fetch", 
-     * "section:fetch",
-     * "tasklist:fetch"
+     * "task:fetch"
      * })
      */
     private $documentFile;
@@ -61,9 +56,7 @@ class TaskDocument
      *
      * @var EmbeddedFile
      * @Groups({
-     * "project:fetch", 
-     * "section:fetch",
-     * "tasklist:fetch"
+     * "task:fetch"
      * })
      */
     private $document;

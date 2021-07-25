@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
+import { TASKLIST_EDIT } from '../Reducers/projectReducer';
 import { edit } from '../services/Api/Tasklist';
 import TasklistActionBox from './ActionBox/TasklistActionBox';
 import TasklistForm from './Form/TasklistForm';
 
-const Tasklist = ({ tasklist, dispatch, isCreator }) => {
+const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
   const [isEditing, setIsEditing] = useState(false)
  
   function startEditing () {
@@ -18,6 +19,13 @@ const Tasklist = ({ tasklist, dispatch, isCreator }) => {
    */
   async function handleEdit(data) {
     const { updTasklist, status } = await edit(data, tasklist.id)
+
+    if ( status === 200 ) {
+      setIsEditing(false)
+      console.log('tasklist.jsx', tasklist)
+      const action = { type: TASKLIST_EDIT, value: { updTasklist, oldTasklist: tasklist, section } }
+      dispatch(action)
+    }
   }
 
 

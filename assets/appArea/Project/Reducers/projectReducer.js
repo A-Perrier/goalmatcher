@@ -11,6 +11,7 @@ export const SECTION_CREATE = 'SECTION_CREATE'
 export const SECTION_EDIT = 'SECTION_EDIT'
 export const SECTION_REMOVE = 'SECTION_REMOVE'
 export const TASKLIST_CREATE = 'TASKLIST_CREATE'
+export const TASKLIST_EDIT = 'TASKLIST_EDIT'
 
 export function manageProject (state = initialState, action) {
   let nextState
@@ -28,6 +29,8 @@ export function manageProject (state = initialState, action) {
         project,
         isCreator
       }
+
+      console.log(project)
 
       return nextState || state
       break;
@@ -93,6 +96,30 @@ export function manageProject (state = initialState, action) {
 
       return nextState || state
       break;
+
+
+
+    case TASKLIST_EDIT:
+      project = { ... state.project }
+      let sectionIndex = project.sections.indexOf(action.value.section)
+      
+      copiedSections = []
+      project.sections.map(section => {
+        section = { ... section }
+        copiedSections.push(section)
+      })
+
+      let sectionToUpdate = copiedSections[sectionIndex]
+      let tasklists = editFromArray(sectionToUpdate.tasklists, action.value.updTasklist, action.value.oldTasklist)
+      sectionToUpdate.tasklists = tasklists
+
+      project.sections = copiedSections
+
+      nextState = { ... state, project }
+
+      return nextState || state
+      break;
+
 
 
     default:

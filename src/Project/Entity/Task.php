@@ -38,7 +38,8 @@ class Task implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $id;
@@ -48,7 +49,8 @@ class Task implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $assignee;
@@ -56,7 +58,6 @@ class Task implements ProjectComponentInterface
     /**
      * @ORM\ManyToOne(targetEntity=Tasklist::class, inversedBy="tasks")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"section:fetch"})
      */
     private $tasklist;
 
@@ -71,7 +72,8 @@ class Task implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $name;
@@ -81,7 +83,8 @@ class Task implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $description;
@@ -91,7 +94,8 @@ class Task implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $priority;
@@ -101,7 +105,8 @@ class Task implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $submittedAt;
@@ -111,7 +116,8 @@ class Task implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $subtasks;
@@ -121,7 +127,8 @@ class Task implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $listOrder;
@@ -131,7 +138,8 @@ class Task implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $taskDocuments;

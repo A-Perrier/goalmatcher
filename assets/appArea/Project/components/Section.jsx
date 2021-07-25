@@ -77,7 +77,7 @@ const Section = ({ section, dispatch, isCreator }) => {
       </h2>
       <div class="tasklists-container">
         { reorganizedTasklists.map((tasklist, index) => 
-        <Tasklist key={index} tasklist={tasklist} />
+        <Tasklist key={index} tasklist={tasklist} section={section} />
         )}
       </div>
 

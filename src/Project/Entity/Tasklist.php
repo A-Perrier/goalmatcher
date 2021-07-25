@@ -27,6 +27,7 @@ class Tasklist implements ProjectComponentInterface
      * @ORM\Column(type="integer")
      * @Groups({
      * "project:fetch",
+     * "section:fetch",
      * "tasklist:fetch"
      * })
      */
@@ -48,6 +49,7 @@ class Tasklist implements ProjectComponentInterface
      * )
      * @Groups({
      * "project:fetch",
+     * "section:fetch",
      * "tasklist:fetch"
      * })
      */
@@ -57,6 +59,7 @@ class Tasklist implements ProjectComponentInterface
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="tasklist")
      * @Groups({
      * "project:fetch",
+     * "section:fetch",
      * "tasklist:fetch"
      * })
      */
@@ -66,6 +69,7 @@ class Tasklist implements ProjectComponentInterface
      * @ORM\Column(type="integer")
      * @Groups({
      * "project:fetch",
+     * "section:fetch",
      * "tasklist:fetch"
      * })
      */

@@ -24,7 +24,8 @@ class Subtask implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $id;
@@ -32,7 +33,6 @@ class Subtask implements ProjectComponentInterface
     /**
      * @ORM\ManyToOne(targetEntity=Task::class, inversedBy="subtasks")
      * @ORM\JoinColumn(nullable=false)
-     * @Groups({"section:fetch"})
      */
     private $task;
 
@@ -47,7 +47,8 @@ class Subtask implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $name;
@@ -57,7 +58,8 @@ class Subtask implements ProjectComponentInterface
      * @Groups({
      * "project:fetch", 
      * "section:fetch",
-     * "tasklist:fetch"
+     * "tasklist:fetch",
+     * "task:fetch"
      * })
      */
     private $isCleared;

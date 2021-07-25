@@ -12,6 +12,8 @@ const NewTasklistHandler = ({ section, dispatch }) => {
     const tasklist = await create({ name: data, sectionId: section.id })
     const action = { type: TASKLIST_CREATE, value: { section, tasklist } }
     dispatch(action)
+
+    setIsFormVisible(false)
   }
 
   return ( 

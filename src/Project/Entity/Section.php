@@ -24,7 +24,10 @@ class Section implements ProjectComponentInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     *  "project:fetch", 
+     *  "section:fetch"
+     * })
      */
     private $id;
 
@@ -42,19 +45,28 @@ class Section implements ProjectComponentInterface
      *      minMessage="Le nom doit faire au moins {{ limit }} caractères",
      *      maxMessage="Le nom doit ne doit pas dépasser {{ limit }} caractères"
      * )
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     *  "project:fetch", 
+     *  "section:fetch"
+     * })
      */
     private $name;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     *  "project:fetch", 
+     *  "section:fetch"
+     * })
      */
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity=Tasklist::class, mappedBy="section")
-     * @Groups({"project:fetch", "section:fetch"})
+     * @Groups({
+     *  "project:fetch", 
+     *  "section:fetch"
+     * })
      */
     private $tasklists;
 

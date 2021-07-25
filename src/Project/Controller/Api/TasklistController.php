@@ -3,17 +3,18 @@
 namespace App\Project\Controller\Api;
 
 use App\Project\Entity\Tasklist;
-use App\Project\Event\TasklistCreateEvent;
+use App\Project\Event\TasklistEditEvent;
 use App\Project\Service\SecurityService;
+use App\Project\Event\TasklistCreateEvent;
 use App\Project\Repository\SectionRepository;
+use Symfony\Component\HttpFoundation\Request;
 use App\Project\Repository\TasklistRepository;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class TasklistController extends AbstractController
 {
@@ -59,6 +60,31 @@ class TasklistController extends AbstractController
       );
     }
     
+    return $this->json(null, Response::HTTP_FORBIDDEN);
+  }
+
+
+
+  /**
+   * @Route("/api/tasklists/{id<\d+>}", name="api/tasklist_edit", methods={"PUT"})
+   * @IsGranted("ROLE_USER")
+   */
+  public function edit (Request $request, $id)
+  {
+    $tasklist = $this->tasklistRepository->find($id);
+    $name = $request->getContent();
+
+    if ($tasklist && $this->security->isCreator($tasklist->getSection()->getProject())) {
+      $event = new TasklistEditEvent($tasklist, $name);
+      $this->dispatcher->dispatch($event, Tasklist::TASKLIST_EDIT_EVENT);
+
+      if (isset($tasklist->errors)) return $this->json($tasklist->errors, Response::HTTP_BAD_REQUEST);
+      return $this->json(
+        $this->serializer->serialize($tasklist, 'json', ['groups' => 'tasklist:fetch']), 
+        Response::HTTP_OK
+      );
+    }
+
     return $this->json(null, Response::HTTP_FORBIDDEN);
   }
 }
