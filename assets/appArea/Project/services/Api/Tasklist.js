@@ -58,7 +58,8 @@ export const remove = (id) => {
   return axios
     .delete(`${TASKLIST_ENDPOINT}/${id}`)
     .then(
-      async ({ status }) => {
+      async ({ status, data }) => {
+        debugDDResponse(data)
         successToast("La liste a correctement été supprimée !")
         return status
       }

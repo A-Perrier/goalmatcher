@@ -6,6 +6,7 @@ use App\Project\Entity\Tasklist;
 use App\Project\Event\TasklistEditEvent;
 use App\Project\Service\SecurityService;
 use App\Project\Event\TasklistCreateEvent;
+use App\Project\Event\TasklistRemoveEvent;
 use App\Project\Repository\SectionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use App\Project\Repository\TasklistRepository;
@@ -83,6 +84,24 @@ class TasklistController extends AbstractController
         $this->serializer->serialize($tasklist, 'json', ['groups' => 'tasklist:fetch']), 
         Response::HTTP_OK
       );
+    }
+
+    return $this->json(null, Response::HTTP_FORBIDDEN);
+  }
+
+
+    /**
+   * @Route("/api/tasklists/{id<\d+>}", name="api/tasklist_delete", methods={"DELETE"})
+   * @IsGranted("ROLE_USER")
+   */
+  public function delete ($id)
+  {
+    $tasklist = $this->tasklistRepository->find($id);
+
+    if ($this->security->isCreator($tasklist->getSection()->getProject())) {
+      $event = new TasklistRemoveEvent($tasklist);
+      $this->dispatcher->dispatch($event, Tasklist::TASKLIST_DELETE_EVENT);
+      return $this->json(null, Response::HTTP_OK);
     }
 
     return $this->json(null, Response::HTTP_FORBIDDEN);

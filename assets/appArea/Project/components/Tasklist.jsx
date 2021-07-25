@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
-import { TASKLIST_EDIT } from '../Reducers/projectReducer';
-import { edit } from '../services/Api/Tasklist';
+import { TASKLIST_EDIT, TASKLIST_REMOVE } from '../Reducers/projectReducer';
+import { edit, remove } from '../services/Api/Tasklist';
 import TasklistActionBox from './ActionBox/TasklistActionBox';
 import TasklistForm from './Form/TasklistForm';
 
@@ -30,9 +30,13 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
 
 
 
-  function handleRemove () {
-    //
-    console.log('remove')
+  async function handleRemove () {
+    const status = await remove(tasklist.id)
+    
+    if ( status === 200 ) {
+      const action = { type: TASKLIST_REMOVE, value: { tasklist, section } }
+      dispatch(action)
+    }
   }
 
   return (
