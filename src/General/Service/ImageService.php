@@ -2,10 +2,22 @@
 namespace App\General\Service;
 
 use App\Auth\Entity\User;
+use App\User\Repository\UserPictureRepository;
 use Intervention\Image\ImageManager;
+use Liip\ImagineBundle\Service\FilterService;
 
 class ImageService
 {
+  private FilterService $filterService;
+  private UserPictureRepository $userPictureRepository;
+
+  public function __construct(
+    FilterService $filterService,
+    UserPictureRepository $userPictureRepository
+  ) {
+    $this->filterService = $filterService;
+    $this->userPictureRepository = $userPictureRepository;
+  }
   
   /**
    * Returns if a default picture has already been generated or not
@@ -44,4 +56,39 @@ class ImageService
           ->save('assets/uploads/users/picture/' . $user->getId() . '-' . $user->getPseudo() . '-default.jpg', 100, 'jpg')
     ;
   }
+
+
+  public function getProfilePictureName(User $user)
+  {
+    /** @var UserPicture */
+    $picture = $this->userPictureRepository->findOneByUserId($user->getId());
+
+    if (!$picture) {
+      $isDefaultExisting = $this->getDefaultPicture($user);
+      if (!$isDefaultExisting) $this->createDefaultPicture($user); 
+      return $user->getId() . '-' . $user->getPseudo() . '-default.jpg';
+    }
+
+    return $picture->getImage()->getName();
+  }
+
+
+  /**
+   * Create all cache images from Liip declared filters
+   *
+   * @param User $user
+   * @return string The filename of the picture
+   */
+  public function setPicturesInCache (User $user) 
+  {
+    $user->setPictureFileName($this->getProfilePictureName($user));
+    $fileName = $user->getPictureFileName();
+    
+    $this->filterService->getUrlOfFilteredImage("assets/uploads/users/picture/$fileName", 'project_user_picture');
+    $this->filterService->getUrlOfFilteredImage("assets/uploads/users/picture/$fileName", 'user_page_picture');
+    $this->filterService->getUrlOfFilteredImage("assets/uploads/users/picture/$fileName", 'navbar_user');
+
+    return $fileName;
+  }
+
 }

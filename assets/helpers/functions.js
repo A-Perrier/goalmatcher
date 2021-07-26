@@ -15,6 +15,19 @@ export function getTranslatedStatus(status) {
 }
 
 
+/**
+ * 
+ * @param {String} priority low|medium|high
+ */
+export function convertPriority(priority) {
+  console.log(priority)
+  return priority === 'low' ? 'Basse' :
+         priority === 'medium' ? 'Moyenne' :
+         priority === 'high' ? 'Haute' :
+         'Inconnue'
+}
+
+
 export function dateTimeToString(datetime) {
   if (datetime === null) return 'Inconnue'
 

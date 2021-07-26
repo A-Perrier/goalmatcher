@@ -23,7 +23,7 @@ export function manageProject (state = initialState, action) {
     case PROJECT_INITIALIZATION:
       project = action.value.project
       isCreator = action.value.isCreator
-
+      
       nextState = {
         ... state,
         projectId: project.id,

@@ -2,8 +2,10 @@
 
 namespace App\Project\Controller\Api;
 
+use App\General\Service\ImageService;
 use App\Project\Repository\ProjectRepository;
 use App\Project\Service\SecurityService;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,12 +17,22 @@ class ProjectController extends AbstractController
   private SecurityService $securityService;
   private ProjectRepository $projectRepository;
   private SerializerInterface $serializerInterface;
+  private CacheManager $cacheManager;
+  private ImageService $imageService;
 
-  public function __construct(SecurityService $securityService, ProjectRepository $projectRepository, SerializerInterface $serializerInterface)
+  public function __construct(
+    SecurityService $securityService, 
+    ProjectRepository $projectRepository, 
+    SerializerInterface $serializerInterface,
+    CacheManager $cacheManager,
+    ImageService $imageService
+    )
   {
     $this->securityService = $securityService;
     $this->projectRepository = $projectRepository;
     $this->serializerInterface = $serializerInterface;
+    $this->cacheManager = $cacheManager;
+    $this->imageService = $imageService;
   }
 
   /**
@@ -37,6 +49,19 @@ class ProjectController extends AbstractController
     };
 
     $isCreator = $this->securityService->isCreator($project);
+
+    // Avec la liste des contributeurs + créateur, créé leurs images de cache si elles n'existent pas,
+    // puis hydrate le user de sa propriété PictureProjectPathName pour la récupérer côté front et
+    // pouvoir appeler l'image par ce path
+    foreach (array_merge([$project->getCreator()], $project->getContributors()->getValues()) as $contributor) {
+      $this->imageService->setPicturesInCache($contributor);
+      /** @var User */
+      $contributor->setPictureProjectPathName(
+          $this->cacheManager->resolve('/assets/uploads/users/picture/'.$contributor->getPictureFileName(), 
+          'project_user_picture'
+          )
+        );
+    }
 
     $jsonProject = ($this->serializerInterface->serialize($project, 'json', ['groups' => 'project:fetch']));
     return $this->json(json_encode([$jsonProject, $isCreator]), Response::HTTP_OK);

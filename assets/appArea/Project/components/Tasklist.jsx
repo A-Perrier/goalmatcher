@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux'
+import { sortByListOrder } from '../../../helpers/functions';
 import { TASKLIST_EDIT, TASKLIST_REMOVE } from '../Reducers/projectReducer';
 import { edit, remove } from '../services/Api/Tasklist';
 import TasklistActionBox from './ActionBox/TasklistActionBox';
 import TasklistForm from './Form/TasklistForm';
+import Task from './Task';
 
 const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
   const [isEditing, setIsEditing] = useState(false)
+  const reorganizedTasks = sortByListOrder(tasklist.tasks)
  
   function startEditing () {
     setIsEditing(true)
@@ -62,6 +65,14 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
         />
         }
           </h4>
+
+          <div className="task-block">
+            <div className="task-container">
+            { reorganizedTasks.map((task, index) => 
+              <Task key={index} task={task} tasklist={tasklist} />
+            )}
+            </div>
+          </div>
     </div>
   );
 }

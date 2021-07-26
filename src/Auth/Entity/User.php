@@ -6,6 +6,7 @@ use App\Project\Entity\Task;
 use App\Project\Entity\Project;
 use Doctrine\ORM\Mapping as ORM;
 use App\Auth\Repository\UserRepository;
+use App\General\Twig\ImageExtension;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -82,11 +83,46 @@ class User implements UserInterface
      */
     private $isVerified = false;
 
+
+    /**
+     * @Groups({"project:fetch"})
+     */
+    private $pictureFileName;
+
+    /**
+     * @Groups({"project:fetch"})
+     */
+    private $pictureProjectPathName;
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
         $this->tasks = new ArrayCollection();
         $this->projectsContributing = new ArrayCollection();
+    }
+
+
+    public function setPictureProjectPathName($pathName): self
+    {
+        $this->pictureProjectPathName = $pathName;
+        return $this;
+    }
+
+    public function getPictureProjectPathName(): ?string
+    {
+        return $this->pictureProjectPathName;
+    }
+
+
+    public function setPictureFileName($fileName): self
+    {
+        $this->pictureFileName = $fileName;
+        return $this;
+    }
+
+    public function getPictureFileName(): ?string
+    {
+        return $this->pictureFileName;
     }
 
     public function getId(): ?int

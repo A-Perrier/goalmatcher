@@ -14,8 +14,10 @@ class ImageExtension extends AbstractExtension
   private $userPictureRepository;
   private $imageService;
 
-  public function __construct(UserPictureRepository $userPictureRepository, ImageService $imageService)
-  {
+  public function __construct(
+    UserPictureRepository $userPictureRepository, 
+    ImageService $imageService
+  ) {
     $this->userPictureRepository = $userPictureRepository;
     $this->imageService = $imageService;
   }

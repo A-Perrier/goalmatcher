@@ -28,6 +28,7 @@ class TaskDocument
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({
+     * "project:fetch",
      * "task:fetch"
      * })
      */
@@ -46,6 +47,7 @@ class TaskDocument
      * 
      * @var File|null
      * @Groups({
+     * "project:fetch",
      * "task:fetch"
      * })
      */
@@ -56,6 +58,7 @@ class TaskDocument
      *
      * @var EmbeddedFile
      * @Groups({
+     * "project:fetch",
      * "task:fetch"
      * })
      */
