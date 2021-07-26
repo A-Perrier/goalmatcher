@@ -57,10 +57,8 @@ class ProjectController extends AbstractController
       $this->imageService->setPicturesInCache($contributor);
       /** @var User */
       $contributor->setPictureProjectPathName(
-          $this->cacheManager->resolve('/assets/uploads/users/picture/'.$contributor->getPictureFileName(), 
-          'project_user_picture'
-          )
-        );
+        $this->cacheManager->resolve('/assets/uploads/users/picture/'.$contributor->getPictureFileName(), 'project_user_picture')
+      );
     }
 
     $jsonProject = ($this->serializerInterface->serialize($project, 'json', ['groups' => 'project:fetch']));

@@ -5,18 +5,22 @@ use App\Auth\Entity\User;
 use App\User\Repository\UserPictureRepository;
 use Intervention\Image\ImageManager;
 use Liip\ImagineBundle\Service\FilterService;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ImageService
 {
   private FilterService $filterService;
   private UserPictureRepository $userPictureRepository;
+  private ParameterBagInterface $parameterBag;
 
   public function __construct(
     FilterService $filterService,
-    UserPictureRepository $userPictureRepository
+    UserPictureRepository $userPictureRepository,
+    ParameterBagInterface $parameterBag
   ) {
     $this->filterService = $filterService;
     $this->userPictureRepository = $userPictureRepository;
+    $this->parameterBag = $parameterBag;
   }
   
   /**
@@ -74,7 +78,7 @@ class ImageService
 
 
   /**
-   * Create all cache images from Liip declared filters
+   * Create all cache images from Liip filters
    *
    * @param User $user
    * @return string The filename of the picture
@@ -84,9 +88,10 @@ class ImageService
     $user->setPictureFileName($this->getProfilePictureName($user));
     $fileName = $user->getPictureFileName();
     
-    $this->filterService->getUrlOfFilteredImage("assets/uploads/users/picture/$fileName", 'project_user_picture');
-    $this->filterService->getUrlOfFilteredImage("assets/uploads/users/picture/$fileName", 'user_page_picture');
-    $this->filterService->getUrlOfFilteredImage("assets/uploads/users/picture/$fileName", 'navbar_user');
+    foreach ($this->parameterBag->get('liipFilters') as $filterName => $value) {
+      if ($filterName !== 'cache')
+      $this->filterService->getUrlOfFilteredImage("assets/uploads/users/picture/$fileName", $filterName);
+    }
 
     return $fileName;
   }

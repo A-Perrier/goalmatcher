@@ -11,7 +11,6 @@ export const find = async (id) => {
     .get(`${PROJECT_ENDPOINT}/${id}`)
     .then(
       ({ data }) => {
-        debugDDResponse(data)
         const parsedData = JSON.parse(data)
         const project = JSON.parse(parsedData[0])
         const isCreator = parsedData[1]

@@ -72,6 +72,15 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
               <Task key={index} task={task} tasklist={tasklist} />
             )}
             </div>
+            {
+              isCreator &&
+              <div class="project__create-task" tasklist="{{tasklist.id}}">
+                <h5>
+                  Nouvelle tâche
+                  <span class="plus">+</span>
+                </h5>
+              </div>
+            }
           </div>
     </div>
   );

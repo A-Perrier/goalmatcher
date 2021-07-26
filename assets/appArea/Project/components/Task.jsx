@@ -4,7 +4,6 @@ import { MODAL_SHOW } from '../Reducers/modalReducer';
 import { TaskModal } from './ModalContent';
 
 const Task = ({ task, tasklist, isCreator, dispatch }) => {
-  console.log('assigné : ' , task.assignee[0])
 
   function handleShowDetails () {
     const action = { type: MODAL_SHOW, value: <TaskModal task={task} isCreator={isCreator} /> }
@@ -17,16 +16,6 @@ const Task = ({ task, tasklist, isCreator, dispatch }) => {
       <p class="task__name" role="action" to="open-task-modal">{ task.name }</p>
       <span class="task__assignee">
       { task.assignee.length > 0 ?
-        // On va chercher à récupérer le nom des photos des contributeurices au loading du projet,
-        // peut être y créer un objet dans le state qui va associer pseudo et filepath
-        // On recréra la fonction getProfilePictureName, qui aura pour rôle de récupérer dans l'objet
-        // le filepath associé au user
-
-        // OU ALORS 
-        // On créé dans le template Twig une div qui contient ce tableau associatif en JSON, on le récupère
-        // via un document.querySelector et on gère toute la logique de récupération dans le controller
-
-        // CE N'EST PAS LE BON NOM, LE FILEPATH EST MODIFIE EN FONCTION DU FILTER TWIG A L'ORIGINE
         <img src={task.assignee[0].pictureProjectPathName} class="assignee-profile-picture" title={task.assignee[0].pseudo} />
       :
         <img src="/assets/icons/user.svg" alt="" title=""/>

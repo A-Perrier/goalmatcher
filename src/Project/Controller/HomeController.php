@@ -11,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-
     private ImageService $imageService;
 
     public function __construct(ImageService $imageService)
@@ -35,7 +34,6 @@ class HomeController extends AbstractController
         // Lors de la connexion, on enregistre en cache la totalité des filtres Liip pour pouvoir les récupérer
         // via leur path en JS
         $this->imageService->setPicturesInCache($this->getUser());
-
 
         return $this->render('home/index.html.twig', [
             'ownProjects' => $ownProjects,
