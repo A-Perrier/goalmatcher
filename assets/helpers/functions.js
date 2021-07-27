@@ -1,4 +1,5 @@
 import ReactDOMServer from 'react-dom/server'
+import { PRIORITY_HIGH, PRIORITY_HIGH_COLOR, PRIORITY_HIGH_FR, PRIORITY_LOW, PRIORITY_LOW_COLOR, PRIORITY_LOW_FR, PRIORITY_MEDIUM, PRIORITY_MEDIUM_COLOR, PRIORITY_MEDIUM_FR } from './const'
 const urlParameters = window.location.pathname
 const urlParts = urlParameters.split('/')
 export const location = { 'section' : urlParts[1], 'slug': urlParts[2], 'id': urlParts[3] }
@@ -16,15 +17,27 @@ export function getTranslatedStatus(status) {
 
 
 /**
- * 
+ * Converts a priority string from database to the desired format
  * @param {String} priority low|medium|high
+ * @param {Boolean} toString returns "Basse"|"Moyenne"|"Haute"
+ * @param {Boolean} toHex the color associated in ./const.js
  */
-export function convertPriority(priority) {
-  console.log(priority)
-  return priority === 'low' ? 'Basse' :
-         priority === 'medium' ? 'Moyenne' :
-         priority === 'high' ? 'Haute' :
-         'Inconnue'
+export function convertPriority(priority, toString = true, toHex = false) {
+  if (toString) 
+    switch (priority) {
+      case PRIORITY_LOW:    return PRIORITY_LOW_FR; break
+      case PRIORITY_MEDIUM: return PRIORITY_MEDIUM_FR; break
+      case PRIORITY_HIGH:   return PRIORITY_HIGH_FR; break
+      default:              return 'Inconnue'; break
+    }
+
+  if (toHex)
+    switch (priority) {
+      case PRIORITY_LOW:    return PRIORITY_LOW_COLOR; break
+      case PRIORITY_MEDIUM: return PRIORITY_MEDIUM_COLOR; break
+      case PRIORITY_HIGH:   return PRIORITY_HIGH_COLOR; break
+      default:              return null; break // this will take the default color of the SVG component
+    }
 }
 
 

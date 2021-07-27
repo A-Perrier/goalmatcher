@@ -7,7 +7,7 @@ const ProjectTitle = ({ data }) => {
   const { name, status, createdAt, deadline, description, contributors } = data
   
   return (
-    <h1 class="info-block">
+    <h1 className="info-block">
       { name }
       <Infobulle onClick={() => { setShowDetails(!showDetails) }}/> 
       <ProjectDetails visible={showDetails} data={{ status, createdAt, deadline, description, contributors }}/>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import { Flag } from '../../../components/Svg';
+import { convertPriority } from '../../../helpers/functions';
 import { MODAL_SHOW } from '../Reducers/modalReducer';
 import { TaskModal } from './ModalContent';
 
@@ -22,6 +24,7 @@ const Task = ({ task, tasklist, isCreator, dispatch }) => {
       }
       </span>
       <span class="task__editable-priority">
+        <Flag fill={ convertPriority(task.priority, false, true)} />
         {/* {% include "_shared/svg/flag.html.twig" with {color: getHEXFromString(task.priority)} %} */}
       </span>
     </div>
