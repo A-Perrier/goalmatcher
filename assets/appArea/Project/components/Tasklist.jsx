@@ -4,6 +4,7 @@ import { sortByListOrder } from '../../../helpers/functions';
 import { TASKLIST_EDIT, TASKLIST_REMOVE } from '../Reducers/projectReducer';
 import { edit, remove } from '../services/Api/Tasklist';
 import TasklistActionBox from './ActionBox/TasklistActionBox';
+import NewTaskHandler from './Creators/NewTaskHandler';
 import TasklistForm from './Form/TasklistForm';
 import Task from './Task';
 
@@ -74,12 +75,7 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
             </div>
             {
               isCreator &&
-              <div class="project__create-task" tasklist="{{tasklist.id}}">
-                <h5>
-                  Nouvelle tâche
-                  <span class="plus">+</span>
-                </h5>
-              </div>
+              <NewTaskHandler tasklist={tasklist} />
             }
           </div>
     </div>

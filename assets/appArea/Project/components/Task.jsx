@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { Flag } from '../../../components/Svg';
+import { UserIcon, DefaultUser } from '../../../components/UserIcon';
 import { convertPriority } from '../../../helpers/functions';
 import { MODAL_SHOW } from '../Reducers/modalReducer';
 import { TaskModal } from './ModalContent';
@@ -15,17 +16,16 @@ const Task = ({ task, tasklist, isCreator, dispatch }) => {
   return ( 
     <div className="task" onClick={handleShowDetails}>
       <span class="task__cube"></span>
-      <p class="task__name" role="action" to="open-task-modal">{ task.name }</p>
+      <p class="task__name">{ task.name }</p>
       <span class="task__assignee">
       { task.assignee.length > 0 ?
-        <img src={task.assignee[0].pictureProjectPathName} class="assignee-profile-picture" title={task.assignee[0].pseudo} />
+        <UserIcon user={task.assignee[0]} />
       :
-        <img src="/assets/icons/user.svg" alt="" title=""/>
+        <DefaultUser />
       }
       </span>
       <span class="task__editable-priority">
         <Flag fill={ convertPriority(task.priority, false, true)} />
-        {/* {% include "_shared/svg/flag.html.twig" with {color: getHEXFromString(task.priority)} %} */}
       </span>
     </div>
   );

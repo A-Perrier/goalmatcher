@@ -127,6 +127,11 @@ class Tasklist implements ProjectComponentInterface
         return $this;
     }
 
+    public function getTaskCount(): int
+    {
+        return count($this->getTasks()->getValues());
+    }
+
     public function removeTask(Task $task): self
     {
         if ($this->tasks->removeElement($task)) {

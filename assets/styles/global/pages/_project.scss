@@ -172,6 +172,7 @@
   margin-top: 0.4rem;
   margin-bottom: 2rem;
   color: $default-color;
+  @include noSelect();
 
   h5 { 
     width: -webkit-fit-content; 
@@ -219,8 +220,9 @@
 
   &__edit-icon {
     width: 19px;
-    transform: translateY(10%);
-    cursor: pointer;
+    transform: translateY(5%);
+    position: absolute;
+    margin-left: 0.5rem;
   }
 
   &__name {
@@ -279,7 +281,6 @@
   &__contributors-box {
     li { list-style: none; }
     background-color: white;
-    display: none;
     position: absolute;
     right: 20vw;
     bottom: -3rem;
@@ -312,6 +313,7 @@
     position: absolute;
     right: 11.6vw;
     top: 0.23rem;
+    @include noSelect();
   }
 
   .contenteditable-actions {
@@ -321,8 +323,7 @@
     transform: translateX(-50%);
     width: 4rem;
 
-    .contenteditable__cross { width: 32px; transform: translateY(3px);}
-    .contenteditable__check { width: 27px;}
+    & .contenteditable__check { margin-left: 0.5rem; }
   }
 }
 
@@ -375,7 +376,6 @@
       border-radius: 3px;
       outline: none;
       color: $primary;
-      //font-family: $text;
       background-color: #F0F0F3;
 
       &:focus {
@@ -406,9 +406,7 @@
     top: 50%;
     right: 1%;
     left: initial;
-    transform: translateY(-55%);
-    .contenteditable__check { width: 24px; }
-    .contenteditable__cross { width: 28px; transform: translateY(8%);}
+    transform: translateY(-50%);
   }
 
 

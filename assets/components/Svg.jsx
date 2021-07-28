@@ -49,6 +49,17 @@ export const Cross = ({ onClick = null, fill = null, className = "clickable" }) 
 }
 
 
+export const DeleteIcon = ({ onClick = null, fill = null, className = "clickable"}) => {
+  return (
+    <span onClick={onClick} className={className}>
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M10 0C4.47 0 0 4.47 0 10C0 15.53 4.47 20 10 20C15.53 20 20 15.53 20 10C20 4.47 15.53 0 10 0ZM15 13.59L13.59 15L10 11.41L6.41 15L5 13.59L8.59 10L5 6.41L6.41 5L10 8.59L13.59 5L15 6.41L11.41 10L15 13.59Z" fill="#EB8B84"/>
+      </svg>
+    </span>
+  )
+}
+
+
 export const TasklistActionsIcon = ({ onClick = null, fill = null, className = "clickable" }) => {
   return (
     <span onClick={onClick} className={className}>
@@ -81,6 +92,16 @@ export const Flag = ({ onClick = null, fill = null, className = "clickable" }) =
   )
 }
 
+
+export const EditIcon = ({ onClick = null, fill = null, className = "clickable" }) => {
+  return (
+    <span onClick={onClick} className={className}>
+      <svg x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" fill="#F19737">
+        <g><path d="M874.7,433.4c-16.6,0-28.8,13.5-28.8,30V860c0,39.5-30.6,73.1-70,73.1H153c-39.5,0-85.4-33.6-85.4-73.1V235.3c0-39.6,45.9-81.8,85.4-81.8h335.4c16.6,0,30-12.3,30-28.9c0-16.6-13.4-28.9-30-28.9H153c-78.8,0-143,60.4-143,139.5V860c0,79.1,64.2,130.9,143,130.9h622.9c78.9,0,127.7-51.8,127.7-130.9V463.4C903.6,446.8,891.3,433.4,874.7,433.4L874.7,433.4L874.7,433.4z M964.1,136L862.4,34.3c-33.4-33.5-92.1-33.5-125.5,0l-83,97.7L211.8,556.1l-29.2,254.2l14.1,12.3l247.1-33.7l422.8-443.6l97.5-79.7C998.6,230.8,998.6,170.7,964.1,136L964.1,136L964.1,136z M253.1,751.7l7.2-119l109.6,109.8L253.1,751.7L253.1,751.7L253.1,751.7z M422.7,711.5L288.6,577.2l395.3-394l131.6,131.9L422.7,711.5L422.7,711.5L422.7,711.5z M922.2,220l-58.9,59L719.8,135.3l58.9-59c5.6-5.6,13-8.7,20.9-8.7c8,0,15.4,3,20.9,8.7l101.6,101.7C933.7,189.5,933.7,208.4,922.2,220L922.2,220L922.2,220z"/></g>
+      </svg>
+    </span>
+  )
+}
 
 
 

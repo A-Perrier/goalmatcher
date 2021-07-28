@@ -3,7 +3,8 @@ import { editFromArray, removeFromArray } from "../../../helpers/functions"
 const initialState = {
   projectId: null,
   project: {},
-  isCreator: false
+  isCreator: false,
+  contributors: []
 }
 
 export const PROJECT_INITIALIZATION = 'PROJECT_INITIALIZATION'
@@ -18,17 +19,20 @@ export function manageProject (state = initialState, action) {
   let nextState
   let project
   let isCreator
+  let contributors
 
   switch (action.type) {
     case PROJECT_INITIALIZATION:
       project = action.value.project
       isCreator = action.value.isCreator
-      
+      contributors = [project.creator, ... project.contributors]
+
       nextState = {
         ... state,
         projectId: project.id,
         project,
-        isCreator
+        isCreator,
+        contributors
       }
 
       return nextState || state
