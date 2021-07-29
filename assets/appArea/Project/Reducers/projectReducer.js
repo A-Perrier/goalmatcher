@@ -4,7 +4,8 @@ const initialState = {
   projectId: null,
   project: {},
   isCreator: false,
-  contributors: []
+  contributors: [],
+  itemTransported: {}
 }
 
 export const PROJECT_INITIALIZATION = 'PROJECT_INITIALIZATION'
@@ -14,6 +15,8 @@ export const SECTION_REMOVE = 'SECTION_REMOVE'
 export const TASKLIST_CREATE = 'TASKLIST_CREATE'
 export const TASKLIST_EDIT = 'TASKLIST_EDIT'
 export const TASKLIST_REMOVE = 'TASKLIST_REMOVE'
+
+export const TRANSPORT_DATA = 'TRANSPORT_DATA'
 
 export function manageProject (state = initialState, action) {
   let nextState
@@ -145,6 +148,16 @@ export function manageProject (state = initialState, action) {
       nextState = { ... state, project }
 
       return nextState || state
+      break;
+
+
+
+    case TRANSPORT_DATA:
+      return { ... state, 
+        itemTransported: { 
+          type: action.value.type, 
+          data: action.value.data 
+        }} || state
       break;
 
 

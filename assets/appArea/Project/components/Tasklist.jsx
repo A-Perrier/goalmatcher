@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
-import { sortByListOrder } from '../../../helpers/functions';
+import { addToArray, sortByListOrder } from '../../../helpers/functions';
 import { TASKLIST_EDIT, TASKLIST_REMOVE } from '../Reducers/projectReducer';
 import { edit, remove } from '../services/Api/Tasklist';
 import TasklistActionBox from './ActionBox/TasklistActionBox';
@@ -8,15 +8,24 @@ import NewTaskHandler from './Creators/NewTaskHandler';
 import TasklistForm from './Form/TasklistForm';
 import Task from './Task';
 
-const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
+const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) => {
   const [isEditing, setIsEditing] = useState(false)
-  const reorganizedTasks = sortByListOrder(tasklist.tasks)
+  const [reorganizedTasks, setReorganizedTasks] = useState(sortByListOrder(tasklist.tasks))
  
+  useEffect(() => {
+    const {type, data} = itemTransported
+    if (type === 'DELETE_TASK') {
+      handleTaskDelete(data)
+    }
+  }, [itemTransported])
+
+
   function startEditing () {
     setIsEditing(true)
   }
 
 
+  
   /**
    * Needs to recieve for now only the tasklist name
    * @param {String} data 
@@ -41,6 +50,11 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
       const action = { type: TASKLIST_REMOVE, value: { tasklist, section } }
       dispatch(action)
     }
+  }
+
+
+  async function handleTaskDelete (task) {
+    console.log('delete !', task)
   }
 
   return (
@@ -70,12 +84,14 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
           <div className="task-block">
             <div className="task-container">
             { reorganizedTasks.map((task, index) => 
-              <Task key={index} task={task} tasklist={tasklist} />
+              <Task key={index} task={task} tasklist={tasklist} onDelete={(task) => handleTaskDelete(task) } />
             )}
             </div>
             {
               isCreator &&
-              <NewTaskHandler tasklist={tasklist} />
+              <NewTaskHandler 
+                tasklist={tasklist} 
+                onCreate={ (task) => setReorganizedTasks(addToArray(reorganizedTasks, task)) } />
             }
           </div>
     </div>
@@ -85,7 +101,8 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator }) => {
 
 const mapStateToProps = (state) => {
   return {
-    isCreator: state.manageProject.isCreator
+    isCreator: state.manageProject.isCreator,
+    itemTransported: state.manageProject.itemTransported
   }
 }
 

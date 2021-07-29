@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux'
 import { create } from '../../services/Api/Task';
 import TaskForm from '../Form/TaskForm';
 
-const NewTaskHandler = ({ tasklist, dispatch }) => {
+const NewTaskHandler = ({ tasklist, onCreate }) => {
   const [isFormVisible, setIsFormVisible] = useState(false)
 
   async function handleCreation (data) {
+    // On arrête de passer par redux car les boucles dans d'autres boucles rendent illisibles l'opération
     const task = await create({ ... data, tasklistId: tasklist.id })
-    console.log(task)
+    setIsFormVisible(false)
+    onCreate(task)
   }
 
   return ( 
@@ -34,8 +35,4 @@ const NewTaskHandler = ({ tasklist, dispatch }) => {
 }
 
 
-const mapStateToProps = (state) => {
-  return {}
-}
-
-export default connect(mapStateToProps)(NewTaskHandler);
+export default NewTaskHandler;

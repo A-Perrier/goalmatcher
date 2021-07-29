@@ -7,9 +7,9 @@ import { MODAL_SHOW } from '../Reducers/modalReducer';
 import { TaskModal } from './ModalContent';
 
 const Task = ({ task, tasklist, isCreator, dispatch }) => {
-
+ 
   function handleShowDetails () {
-    const action = { type: MODAL_SHOW, value: <TaskModal task={task} isCreator={isCreator} /> }
+    const action = { type: MODAL_SHOW, value: {component: 'task', data: task} }
     dispatch(action)
   }
 

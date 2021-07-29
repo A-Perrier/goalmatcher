@@ -53,6 +53,15 @@ export function dateTimeToString(datetime) {
 }
 
 
+
+export function addToArray(array, item) {
+  const copy = array.slice()
+  copy.push(item)
+  return copy
+}
+
+
+
 /**
  * Clones an array, remove the chosen element then returns the copy without it
  */

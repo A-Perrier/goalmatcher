@@ -3,11 +3,21 @@ import './Project.scss'
 import { connect } from 'react-redux';
 import Loader from '../../../components/Loader';
 import { find } from '../services/Api/Project';
-import { PROJECT_INITIALIZATION } from '../Reducers/projectReducer';
+import { PROJECT_INITIALIZATION, TRANSPORT_DATA } from '../Reducers/projectReducer';
 import ProjectTitle from './ProjectTitle';
 import ProjectBody from './ProjectBody';
+import { SectionModal, TaskModal } from './ModalContent';
+import { MODAL_CLOSE } from '../Reducers/modalReducer';
 
-const Project = ({ id, dispatch, project, isModalVisible }) => {
+const Project = ({ 
+  id, 
+  dispatch, 
+  project, 
+  isCreator, 
+  isModalVisible, 
+  modalData,
+  modalComponent
+  }) => {
   const [isLoading, setIsLoading] = useState(true)
   const { name, status, createdAt, deadline, description, contributors } = project
   
@@ -19,19 +29,29 @@ const Project = ({ id, dispatch, project, isModalVisible }) => {
     dispatch(action)
   } 
 
-
-
   useEffect(() => {
     fetchProject()
   }, [])
-
-
 
   return (
    isLoading && <Loader speed="150" /> ||
   <>
     <ProjectTitle data={{ name, status, createdAt, deadline, description, contributors }} />
     <ProjectBody sections={ project.sections }/>
+
+    {
+      // On gère l'affichage des modales depuis le composant principal pour pouvoir intéragir dedans
+      isModalVisible && modalComponent === 'task' &&
+      <TaskModal 
+        task={modalData} 
+        isCreator={isCreator}
+        onDelete={() => dispatch({ type: TRANSPORT_DATA, value: { type: 'DELETE_TASK', data: modalData }})}
+        onRequestClose={() => dispatch({ type: MODAL_CLOSE })}
+      />
+    ||
+      isModalVisible && modalComponent === 'section' &&
+      <SectionModal content={modalData} onRequestClose={() => dispatch({ type: MODAL_CLOSE })} />
+    }
   </>
     
   );
@@ -43,7 +63,9 @@ const mapStateToProps = (state) => {
     project: state.manageProject.project,
     isCreator: state.manageProject.isCreator,
 
-    isModalVisible: state.manageModal.isVisible
+    isModalVisible: state.manageModal.isModalVisible,
+    modalData: state.manageModal.data,
+    modalComponent: state.manageModal.component
   }
 }
 

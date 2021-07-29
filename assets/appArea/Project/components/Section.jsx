@@ -16,7 +16,7 @@ const Section = ({ section, dispatch, isCreator }) => {
 
   
   function handleShowDescription () {
-    const action = { type: MODAL_SHOW, value: <SectionModal content={section.description} /> }
+    const action = { type: MODAL_SHOW, value: { component: 'section', data: section.description } }
     dispatch(action)
   }
 
