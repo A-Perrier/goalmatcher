@@ -19,6 +19,8 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^29.0.0",
+        "@ckeditor/ckeditor5-react": "^3.0.2",
         "@reduxjs/toolkit": "^1.6.0",
         "axios": "^0.18.1",
         "react": "^16.8.6",

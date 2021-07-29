@@ -5,6 +5,7 @@ import { PRIORITY_HIGH, PRIORITY_LOW, PRIORITY_MEDIUM, COLOR_DANGER } from '../.
 import { convertPriority } from '../../../../helpers/functions';
 import { connect } from 'react-redux'
 import ContributorBadge from '../ContributorBadge';
+import ContributorsList from './ContributorsList';
 
 const TaskForm = ({ contributors, onSubmit, onCancel, nameValue = '', priorityValue = PRIORITY_LOW, assigneeValue = null }) => {
   const [showContributorList, setShowContributorList] = useState(false)
@@ -45,11 +46,8 @@ const TaskForm = ({ contributors, onSubmit, onCancel, nameValue = '', priorityVa
       </span>
       {
         showContributorList &&
-        <ul class="task__contributors-box">
-          <li class="contributor" onClick={(e) => handleContributorChoice(null)} style={{color: COLOR_DANGER}}>Retirer l'assignation</li>
-          { contributors.map((contributor, i) => 
-          <li class="contributor" key={i} onClick={(e) => handleContributorChoice(contributor.pseudo)}>{contributor.pseudo}</li>) }
-        </ul>
+        <ContributorsList contributors={contributors} onChoice={(data) => handleContributorChoice(data)} />
+        
       }
       <span className="task__editable-priority" onClick={handlePriorityChange}>
         <Flag fill={ convertPriority(priority, false, true)} />

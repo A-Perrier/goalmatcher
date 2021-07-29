@@ -12,7 +12,12 @@
     opacity: 1;
     background-color: $bg-color;
     border-radius: 5px;
-    overflow: scroll;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar { display: none; }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    
   }
 
   &__close {

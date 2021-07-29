@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { EditIcon, Plus } from '../../../components/Svg';
-import { convertPriority, dateTimeToString } from '../../../helpers/functions'
 import Documents from './Documents';
 import Subtasks from './Subtasks';
 import TaskContext from './TaskContext';
 import TaskDescription from './TaskDescription';
+import TaskFormModal from './Form/TaskFormModal';
 
-
-export const SectionModal = ({ content, onRequestClose }) => {
+const Modal = ({ onRequestClose, children }) => {
   return (
     <>
     <div id="body-cover"></div>
@@ -15,48 +14,67 @@ export const SectionModal = ({ content, onRequestClose }) => {
       <img class="modal__close" src="/assets/icons/cross.svg" onClick={onRequestClose} />
       <div class="modal__content">
         <span className="modal-content">
-          <h3>Informations sur la section</h3>
-          <p className="modal-content__editable">{ content }</p>
+          { children }
         </span>
       </div>
     </div>
     </>
+  )
+}
+
+
+
+export const SectionModal = ({ content, onRequestClose }) => {
+  return (
+    <Modal onRequestClose={onRequestClose}>    
+      <h3>Informations sur la section</h3>
+      <p className="modal-content__editable">{ content }</p>
+    </Modal>
   );
 }
  
 
+
 export const TaskModal = ({ task, isCreator, onRequestClose, onDelete }) => {
+  const [isEditing, setIsEditing] = useState(false)
+
+  function handleEdition (data) {
+    console.log('edition !')
+  }
 
   return (
-    <>
-    <div id="body-cover"></div>
-    <div className="modal__box">
-      <img className="modal__close" src="/assets/icons/cross.svg" onClick={onRequestClose} />
-      <div className="modal__content">
-        <div className="modal-content">
-          <h1>
-            <span className="title">
-              { task.name }
-            </span>
-            { isCreator &&
-            <EditIcon className="task__edit-icon clickable" onClick={() => {console.log('test')}} />
-            }  
-          </h1>
-          <TaskDescription content={task.description} />
-          <div className="modal__flex-group">
-            <div className="modal__information-block">
-              <TaskContext task={task} />
-              { 
-                isCreator &&
-                <button class="delete-btn task-delete" onClick={onDelete}>Supprimer cette tâche</button>
-              }
-            </div>
-            <Subtasks subtasks={task.subtasks} />
-            <Documents documents={task.taskDocuments} isCreator={isCreator} />
+    <Modal onRequestClose={onRequestClose}>
+      {
+        !isEditing &&
+        <>
+        <h1>
+          <span className="title">
+            { task.name }
+          </span>
+          { isCreator &&
+          <EditIcon className="task__edit-icon clickable" onClick={() => setIsEditing(true)} />
+          }  
+        </h1>
+        <TaskDescription content={task.description} />
+        <div className="modal__flex-group">
+          <div className="modal__information-block">
+            <TaskContext task={task} />
+            { 
+              isCreator && !isEditing &&
+              <button class="delete-btn task-delete" onClick={onDelete}>Supprimer cette tâche</button>
+            }
           </div>
+          <Subtasks subtasks={task.subtasks} />
+          <Documents documents={task.taskDocuments} isCreator={isCreator} />
         </div>
-      </div>
-    </div>
-    </>
+        </>
+        ||
+        <TaskFormModal 
+          onCancel={() => setIsEditing(false)}
+          onSubmit={(data) => handleEdition (data)}
+          task={task}
+        />
+      }  
+    </Modal>
   )
 }

@@ -23,7 +23,7 @@ const TaskContext = ({ task }) => {
           <p className="content priority">{ convertPriority(task.priority) }</p>
         </div>
       </div>
-  </div>
+    </div>
   );
 }
  

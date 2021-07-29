@@ -29,10 +29,14 @@ const Project = ({
     dispatch(action)
   } 
 
+
+
   useEffect(() => {
     fetchProject()
   }, [])
 
+
+  
   return (
    isLoading && <Loader speed="150" /> ||
   <>

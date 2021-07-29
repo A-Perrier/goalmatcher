@@ -370,6 +370,7 @@
 
   &content {
     .task__name-editable {
+      font-family: $text;
       font-size: 1.625rem;
       border: none;
       border-bottom: 1px solid $primary;
@@ -377,8 +378,11 @@
       outline: none;
       color: $primary;
       background-color: #F0F0F3;
+      margin: 1rem auto 2rem auto;
+      display: block;
 
       &:focus {
+        color: $secondary;
         border-bottom: 1px solid $secondary;
       }
     }
