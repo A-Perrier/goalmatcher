@@ -4,6 +4,7 @@ namespace App\Project\Controller\Api;
 
 use App\Project\Entity\Task;
 use App\Project\Event\TaskCreateEvent;
+use App\Project\Event\TaskRemoveEvent;
 use App\Project\Service\SecurityService;
 use App\Project\Repository\TaskRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,6 +60,25 @@ class TaskController extends AbstractController
       );
     }
     
+    return $this->json(null, Response::HTTP_FORBIDDEN);
+  }
+
+
+
+  /**
+   * @Route("/api/tasks/{id<\d+>}", name="api/task_delete", methods={"DELETE"})
+   * @IsGranted("ROLE_USER")
+   */
+  public function delete ($id) 
+  {
+    $task = $this->taskRepository->find($id);
+
+    if ($this->security->isCreator($task->getTasklist()->getSection()->getProject())) {
+      $event = new TaskRemoveEvent($task);
+      $this->dispatcher->dispatch($event, Task::TASK_DELETE_EVENT);
+      return $this->json(null, Response::HTTP_OK);
+    }
+
     return $this->json(null, Response::HTTP_FORBIDDEN);
   }
 }

@@ -152,6 +152,8 @@ export function manageProject (state = initialState, action) {
 
 
 
+    // We'll use this case for very deep nested elements, to avoid using deep level loops
+    // then modify the state inside components with the regular method (e.g.: Tasklist.jsx::useEffect)
     case TRANSPORT_DATA:
       return { ... state, 
         itemTransported: { 

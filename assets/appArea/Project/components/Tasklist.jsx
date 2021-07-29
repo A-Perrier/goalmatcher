@@ -1,31 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
-import { addToArray, sortByListOrder } from '../../../helpers/functions';
+import { addToArray, removeFromArray, sortByListOrder } from '../../../helpers/functions';
 import { TASKLIST_EDIT, TASKLIST_REMOVE } from '../Reducers/projectReducer';
 import { edit, remove } from '../services/Api/Tasklist';
+import { remove as removeTask } from '../services/Api/Task';
 import TasklistActionBox from './ActionBox/TasklistActionBox';
 import NewTaskHandler from './Creators/NewTaskHandler';
 import TasklistForm from './Form/TasklistForm';
 import Task from './Task';
+import { MODAL_CLOSE } from '../Reducers/modalReducer';
 
 const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [reorganizedTasks, setReorganizedTasks] = useState(sortByListOrder(tasklist.tasks))
  
   useEffect(() => {
-    const {type, data} = itemTransported
-    if (type === 'DELETE_TASK') {
-      handleTaskDelete(data)
+    const { type, data } = itemTransported
+    if (type === 'DELETE_TASK' && tasklist.tasks.includes(data)) {
+      handleTaskRemove(data)
     }
   }, [itemTransported])
 
+  
 
   function startEditing () {
     setIsEditing(true)
   }
 
 
-  
+
   /**
    * Needs to recieve for now only the tasklist name
    * @param {String} data 
@@ -53,8 +56,14 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) =
   }
 
 
-  async function handleTaskDelete (task) {
-    console.log('delete !', task)
+
+  async function handleTaskRemove (task) {
+    const status = await removeTask(task.id)
+
+    if ( status === 200 ) {
+      setReorganizedTasks(removeFromArray(reorganizedTasks, task))
+      dispatch({ type: MODAL_CLOSE })
+    }
   }
 
   return (

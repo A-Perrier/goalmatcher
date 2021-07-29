@@ -1,5 +1,3 @@
-import { getModal } from "../../../helpers/functions"
-
 const initialState = { 
   isModalVisible: false,
   data: null,
@@ -10,6 +8,7 @@ const initialState = {
 export const MODAL_SHOW = 'MODAL_SHOW'
 export const MODAL_CLOSE = 'MODAL_CLOSE'
 
+// Modals are triggered in components/Project.js
 
 export const manageModal = (state = initialState, action) => {
   switch (action.type) {
