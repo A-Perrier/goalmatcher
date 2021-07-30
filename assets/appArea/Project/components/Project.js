@@ -44,7 +44,7 @@ const Project = ({
     <ProjectBody sections={ project.sections }/>
 
     {
-      // On gère l'affichage des modales depuis le composant principal pour pouvoir intéragir dedans
+      // On gère l'affichage des modales depuis le composant principal pour pouvoir interagir dedans
       isModalVisible && modalComponent === 'task' &&
       <TaskModal 
         task={modalData} 
