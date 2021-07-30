@@ -42,6 +42,11 @@ class TaskRemoveSubscriber implements EventSubscriberInterface
         $this->em->remove($document);
       }
 
+    foreach ($task->getTasklist()->getTasks()->getValues() as $item) {
+      $iListOrder = $item->getListOrder();
+      if ($iListOrder > $task->getListOrder()) $item->setListOrder($iListOrder - 1);
+    }
+
     $this->em->remove($task);
     $this->em->flush();
   }

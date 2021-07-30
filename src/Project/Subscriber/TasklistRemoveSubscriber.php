@@ -46,6 +46,12 @@ class TasklistRemoveSubscriber implements EventSubscriberInterface
       $this->em->remove($task);
     }
 
+
+    foreach ($tasklist->getSection()->getTasklists()->getValues() as $item) {
+      $iListOrder = $item->getListOrder();
+      if ($iListOrder > $tasklist->getListOrder()) $item->setListOrder($iListOrder - 1);
+    }
+
     $this->em->remove($tasklist);
     $this->em->flush();
   }
