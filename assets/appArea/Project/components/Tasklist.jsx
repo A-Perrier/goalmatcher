@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
-import { addToArray, removeFromArray, sortByListOrder } from '../../../helpers/functions';
+import { addToArray, editFromArray, removeFromArray, sortByListOrder } from '../../../helpers/functions';
 import { TASKLIST_EDIT, TASKLIST_REMOVE } from '../Reducers/projectReducer';
 import { edit, remove } from '../services/Api/Tasklist';
-import { remove as removeTask } from '../services/Api/Task';
+import { remove as removeTask, edit as editTask } from '../services/Api/Task';
 import TasklistActionBox from './ActionBox/TasklistActionBox';
 import NewTaskHandler from './Creators/NewTaskHandler';
 import TasklistForm from './Form/TasklistForm';
 import Task from './Task';
-import { MODAL_CLOSE } from '../Reducers/modalReducer';
+import { MODAL_CLOSE, MODAL_SHOW } from '../Reducers/modalReducer';
 
 const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) => {
   const [isEditing, setIsEditing] = useState(false)
@@ -16,6 +16,9 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) =
  
   useEffect(() => {
     const { type, data } = itemTransported
+    if (type === 'EDIT_TASK' && tasklist.tasks.includes(data.task)) {
+      handleTaskEdit(data.task, data.updData)
+    }
     if (type === 'DELETE_TASK' && tasklist.tasks.includes(data)) {
       handleTaskRemove(data)
     }
@@ -38,7 +41,6 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) =
 
     if ( status === 200 ) {
       setIsEditing(false)
-      console.log('tasklist.jsx', tasklist)
       const action = { type: TASKLIST_EDIT, value: { updTasklist, oldTasklist: tasklist, section } }
       dispatch(action)
     }
@@ -55,6 +57,16 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) =
     }
   }
 
+
+
+  async function handleTaskEdit (task, updData) {
+    const { updTask, status } = await editTask(updData, task.id)
+    console.log(task.assignee, updTask.assignee)
+    if ( status === 200 ) {
+      setReorganizedTasks(editFromArray(reorganizedTasks, updTask, task))
+      dispatch({ type: MODAL_SHOW, value: {component: 'task', data: updTask} }) // To refresh the already open modal content
+    }
+  }
 
 
   async function handleTaskRemove (task) {

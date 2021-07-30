@@ -4,11 +4,12 @@ import { dateTimeToString } from '../../../../helpers/functions';
 import ContributorBadge from '../ContributorBadge';
 import ContributorsList from './ContributorsList';
 
-const TaskContextForm = ({ task, contributors, onAssigneeChange, onPriorityChange }) => {
+const TaskContextForm = ({ assignee, priority, submittedAt, contributors, onAssigneeChange, onPriorityChange }) => {
   const [showContributorList, setShowContributorList] = useState(false)
-  const [activeAssignee, setActiveAssignee] = useState(task.assignee[0].pseudo)
+  const [activeAssignee, setActiveAssignee] = useState(assignee)
 
   function handleAssigneeChange (data) {
+    setShowContributorList(false)
     setActiveAssignee(data)
     onAssigneeChange(data)
   }
@@ -33,11 +34,11 @@ const TaskContextForm = ({ task, contributors, onAssigneeChange, onPriorityChang
         }
         <div className="project-context__data">
           <p className="placeholder">Démarré le</p>
-          <p className="content">{ dateTimeToString(task.submittedAt) }</p>
+          <p className="content">{ dateTimeToString(submittedAt) }</p>
         </div>
         <div className="project-context__data">
           <p className="placeholder">Priorité</p>
-          <select value={task.priority} onChange={(e) => onPriorityChange(e.currentTarget.value)}>
+          <select value={priority} onChange={(e) => onPriorityChange(e.currentTarget.value)}>
             <option value={PRIORITY_LOW}>{PRIORITY_LOW_FR}</option>
             <option value={PRIORITY_MEDIUM}>{PRIORITY_MEDIUM_FR}</option>
             <option value={PRIORITY_HIGH}>{PRIORITY_HIGH_FR}</option>

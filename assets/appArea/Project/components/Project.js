@@ -36,7 +36,7 @@ const Project = ({
   }, [])
 
 
-  
+
   return (
    isLoading && <Loader speed="150" /> ||
   <>
@@ -50,7 +50,9 @@ const Project = ({
         task={modalData} 
         isCreator={isCreator}
         onDelete={() => dispatch({ type: TRANSPORT_DATA, value: { type: 'DELETE_TASK', data: modalData }})}
+        onEdit={(task, updData) => dispatch({ type: TRANSPORT_DATA, value: { type: 'EDIT_TASK', data: { task, updData } }})}
         onRequestClose={() => dispatch({ type: MODAL_CLOSE })}
+        dispatch={dispatch}
       />
     ||
       isModalVisible && modalComponent === 'section' &&

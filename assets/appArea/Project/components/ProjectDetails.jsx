@@ -5,7 +5,7 @@ import ContributorBadge from './ContributorBadge';
 
 const ProjectDetails = ({ visible, data }) => {
   const { status, createdAt, deadline, description, contributors } = data
-  console.log()
+  
   return (
     visible &&
     <div className="info-text">

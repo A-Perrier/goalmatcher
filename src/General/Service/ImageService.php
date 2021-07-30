@@ -2,9 +2,10 @@
 namespace App\General\Service;
 
 use App\Auth\Entity\User;
-use App\User\Repository\UserPictureRepository;
 use Intervention\Image\ImageManager;
 use Liip\ImagineBundle\Service\FilterService;
+use App\User\Repository\UserPictureRepository;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 
 class ImageService
@@ -12,15 +13,18 @@ class ImageService
   private FilterService $filterService;
   private UserPictureRepository $userPictureRepository;
   private ParameterBagInterface $parameterBag;
+  private CacheManager $cacheManager;
 
   public function __construct(
     FilterService $filterService,
     UserPictureRepository $userPictureRepository,
-    ParameterBagInterface $parameterBag
+    ParameterBagInterface $parameterBag,
+    CacheManager $cacheManager
   ) {
     $this->filterService = $filterService;
     $this->userPictureRepository = $userPictureRepository;
     $this->parameterBag = $parameterBag;
+    $this->cacheManager = $cacheManager;
   }
   
   /**
@@ -94,6 +98,23 @@ class ImageService
     }
 
     return $fileName;
+  }
+
+
+  /**
+   * Manage the retrieving of the user picture paths, then returns the same User updated
+   *
+   * @param User $user
+   * @return User $user
+   */
+  public function registerUserPicturePaths (User $user)
+  {
+    $user->setPictureFileName($this->getProfilePictureName($user));
+    $user->setPictureProjectPathName(
+      $this->cacheManager->resolve('/assets/uploads/users/picture/'.$user->getPictureFileName(), 'project_user_picture')
+    );
+
+    return $user;
   }
 
 }

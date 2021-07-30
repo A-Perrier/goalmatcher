@@ -35,10 +35,13 @@ export const edit = (data, id) => {
     .put(`${TASK_ENDPOINT}/${id}`, data)
     .then(
       async (response) => {
-        debugDDResponse(response.data)
-        const task = await response.data
+        let task = await response.data
+        task = JSON.parse(task)
+        // task contient pour assignee {1:{id, pseudo,...}} au lieu de [0:{}], je n'ai pas trouvé pourquoi ça ne parse pas
+        // comme pour le project, obligé de passer par cette ligne pour que le reste de l'app se mette à jour correctement
+        task.assignee = Object.values(task.assignee)
         successToast("La tâche a correctement été modifiée !")
-        return { updTask: JSON.parse(task), status: response.status }
+        return { updTask: task, status: response.status }
       }
     )
     .catch(

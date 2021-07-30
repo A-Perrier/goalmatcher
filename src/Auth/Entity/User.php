@@ -30,7 +30,12 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"user:autocomplete", "project:getContributors", "project:fetch"})
+     * @Groups({
+     *  "user:autocomplete", 
+     *  "project:getContributors", 
+     *  "project:fetch",
+     *  "task:fetch"
+     * })
      */
     private $id;
 
@@ -59,7 +64,12 @@ class User implements UserInterface
      *      minMessage="Votre nom d'utilisateur doit faire au moins {{ limit }} caractères",
      *      maxMessage="Votre nom d'utilisateur doit ne doit pas dépasser {{ limit }} caractères"
      * )
-     * @Groups({"user:autocomplete", "project:getContributors", "project:fetch"})
+     * @Groups({
+     *  "user:autocomplete", 
+     *  "project:getContributors", 
+     *  "project:fetch",
+     *  "task:fetch"
+     * })
      */
     private $pseudo;
 
@@ -85,12 +95,18 @@ class User implements UserInterface
 
 
     /**
-     * @Groups({"project:fetch"})
+     * @Groups({
+     *  "project:fetch",
+     *  "task:fetch"
+     * }))
      */
     private $pictureFileName;
 
     /**
-     * @Groups({"project:fetch"})
+     * @Groups({
+     *  "project:fetch",
+     *  "task:fetch"
+     * }))
      */
     private $pictureProjectPathName;
 

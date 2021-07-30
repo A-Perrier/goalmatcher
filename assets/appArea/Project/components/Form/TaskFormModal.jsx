@@ -10,19 +10,25 @@ const TaskFormModal = ({ contributors, onSubmit, onCancel, task }) => {
   const { name, description, assignee, priority } = task
   const [updName, setUpdName] = useState(name)
   const [updDescription, setUpdDescription] = useState(description)
-  const [updAssignee, setUpdAssignee] = useState(assignee)
+  const [updAssignee, setUpdAssignee] = useState(assignee[0]?.pseudo)
   const [updPriority, setUpdPriority] = useState(priority)
   
-  console.log(updAssignee)
-  // ON VA VOULOIR AMELIORER LE RENDU VISUEL DE LA MODALE
-  // CREER DE QUOI MODIFIER LE CONTRIBUTEUR ET LA PRIORITE
-  
+  function handleSubmission () {
+    task = { 
+      ... task, 
+      name: updName,
+      description: updDescription,
+      assignee: updAssignee,
+      priority: updPriority
+    }
+    onSubmit(task)
+  }
   
   return (
     <>
     <div class="contenteditable-actions">
       <Cross onClick={onCancel} />
-      <Check onClick={onSubmit} />
+      <Check onClick={(e) => handleSubmission()} />
     </div>
     <input 
       type="text" 
@@ -39,7 +45,9 @@ const TaskFormModal = ({ contributors, onSubmit, onCancel, task }) => {
     <div className="modal__flex-group">
       <div className="modal__information-block">
         <TaskContextForm 
-          task={task} 
+          assignee={updAssignee}
+          priority={updPriority}
+          submittedAt={task.submittedAt}
           contributors={contributors}
           onAssigneeChange={(data) => { setUpdAssignee(data) }}
           onPriorityChange={(data) => { setUpdPriority(data) }}

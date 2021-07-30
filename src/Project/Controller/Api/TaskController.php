@@ -4,6 +4,7 @@ namespace App\Project\Controller\Api;
 
 use App\Project\Entity\Task;
 use App\Project\Event\TaskCreateEvent;
+use App\Project\Event\TaskEditEvent;
 use App\Project\Event\TaskRemoveEvent;
 use App\Project\Service\SecurityService;
 use App\Project\Repository\TaskRepository;
@@ -62,6 +63,33 @@ class TaskController extends AbstractController
     
     return $this->json(null, Response::HTTP_FORBIDDEN);
   }
+
+
+
+  /**
+   * @Route("/api/tasks/{id<\d+>}", name="api/task_edit", methods={"PUT"})
+   * @IsGranted("ROLE_USER")
+   */
+  public function edit (Request $request, $id)
+  {
+    $task = $this->taskRepository->find($id);
+    $data = json_decode($request->getContent(), true);
+
+    if ($task && $this->security->isCreator($task->getTasklist()->getSection()->getProject())) {
+      $event = new TaskEditEvent($task, $data);
+      $this->dispatcher->dispatch($event, Task::TASK_EDIT_EVENT);
+      
+      if (isset($task->errors)) return $this->json($task->errors, Response::HTTP_BAD_REQUEST);
+      return $this->json(
+        $this->serializer->serialize($task, 'json', ['groups' => 'task:fetch']), 
+        Response::HTTP_OK
+      );
+    }
+
+    return $this->json(null, Response::HTTP_FORBIDDEN);
+  }
+
+
 
 
 

@@ -5,6 +5,8 @@ import Subtasks from './Subtasks';
 import TaskContext from './TaskContext';
 import TaskDescription from './TaskDescription';
 import TaskFormModal from './Form/TaskFormModal';
+import { edit } from '../services/Api/Task';
+import { TRANSPORT_DATA } from '../Reducers/projectReducer';
 
 const Modal = ({ onRequestClose, children }) => {
   return (
@@ -35,11 +37,17 @@ export const SectionModal = ({ content, onRequestClose }) => {
  
 
 
-export const TaskModal = ({ task, isCreator, onRequestClose, onDelete }) => {
+export const TaskModal = ({ task, isCreator, onRequestClose, onDelete, onEdit }) => {
   const [isEditing, setIsEditing] = useState(false)
-
-  function handleEdition (data) {
-    console.log('edition !')
+  
+  async function handleEdition (updData) {
+    setIsEditing(false)
+    onEdit(task, updData)
+    // On reçoit correctement la task modifiée. On va devoir :
+    // 2. Faire transiter la task via Redux::TRANSPORT_DATA jusqu'à Tasklist.jsx
+    // 3. On crééra un nouveau useEffect pour gérer la mise à jour de la liste
+    // 4. On va prier pour que la modale se mette à jour par la même occasion sinon on le fera manuellement dans ce composant
+    // via des states intermédiaires
   }
 
   return (
