@@ -1,7 +1,9 @@
 import React from 'react';
-import { Plus } from '../../../components/Svg';
+import { Plus, SubtaskCheck } from '../../../components/Svg';
+import { connect } from 'react-redux';
+import { COLOR_DISABLE, COLOR_SUCCESS } from '../../../helpers/const';
 
-const Subtasks = ({ subtasks }) => {
+const Subtasks = ({ subtasks, isCreator, dispatch }) => {
   return ( 
     <div class="modal__subtasks-block">
       <h2>
@@ -14,8 +16,12 @@ const Subtasks = ({ subtasks }) => {
         { subtasks.length > 0 ?
           subtasks.map(subtask => 
             <li class="subtask" subtask={ subtask.id }>
-            { //% include "_shared/svg/check.html.twig" with {color: boolToHEX(subtask.isCleared), userRole: userRole} %}
-            subtask.name }
+              <SubtaskCheck 
+                onClick={() => console.log('cliqué')}  
+                fill={subtask.isCleared ? COLOR_SUCCESS : COLOR_DISABLE}
+                isCreator={isCreator}
+              />
+              { subtask.name }
             </li>
           )
           :
@@ -27,4 +33,10 @@ const Subtasks = ({ subtasks }) => {
   );
 }
  
-export default Subtasks;
+
+const mapStateToProps = ( state ) => {
+  return {
+    isCreator: state.manageProject.isCreator
+  }
+}
+export default connect(mapStateToProps)(Subtasks);
