@@ -43,11 +43,6 @@ export const TaskModal = ({ task, isCreator, onRequestClose, onDelete, onEdit })
   async function handleEdition (updData) {
     setIsEditing(false)
     onEdit(task, updData)
-    // On reçoit correctement la task modifiée. On va devoir :
-    // 2. Faire transiter la task via Redux::TRANSPORT_DATA jusqu'à Tasklist.jsx
-    // 3. On crééra un nouveau useEffect pour gérer la mise à jour de la liste
-    // 4. On va prier pour que la modale se mette à jour par la même occasion sinon on le fera manuellement dans ce composant
-    // via des states intermédiaires
   }
 
   return (

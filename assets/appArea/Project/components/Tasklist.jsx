@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { addToArray, editFromArray, removeFromArray, sortByListOrder } from '../../../helpers/functions';
-import { TASKLIST_EDIT, TASKLIST_REMOVE } from '../Reducers/projectReducer';
+import { TASKLIST_EDIT, TASKLIST_REMOVE, TRANSPORT_DATA } from '../Reducers/projectReducer';
 import { edit, remove } from '../services/Api/Tasklist';
 import { remove as removeTask, edit as editTask } from '../services/Api/Task';
 import TasklistActionBox from './ActionBox/TasklistActionBox';
@@ -16,7 +16,9 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) =
  
   useEffect(() => {
     const { type, data } = itemTransported
-    if (type === 'EDIT_TASK' && tasklist.tasks.includes(data.task)) {
+    if (type === 'EDIT_TASK' && tasklist.tasks.some(task => task.id === data.task.id)) {
+      // Puisque les tasks modifiées ne sont plus synchro avec le state de Redux (choix d'éviter les deep nested loops)
+      // on vérifie la présence par l'ID
       handleTaskEdit(data.task, data.updData)
     }
     if (type === 'DELETE_TASK' && tasklist.tasks.includes(data)) {
@@ -61,7 +63,7 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) =
 
   async function handleTaskEdit (task, updData) {
     const { updTask, status } = await editTask(updData, task.id)
-    console.log(task.assignee, updTask.assignee)
+
     if ( status === 200 ) {
       setReorganizedTasks(editFromArray(reorganizedTasks, updTask, task))
       dispatch({ type: MODAL_SHOW, value: {component: 'task', data: updTask} }) // To refresh the already open modal content
