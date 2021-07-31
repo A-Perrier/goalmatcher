@@ -56,7 +56,7 @@ class TaskEditSubscriber implements EventSubscriberInterface
       $task->removeAssignee($assignee);
     }
 
-    if ($data['assignee'] && $data['assignee'] !== 'Personne') {
+    if (isset($data['assignee']) && $data['assignee'] !== 'Personne') {
       $assignee = $this->userRepository->findOneByPseudo($data['assignee']);
       $this->imageService->registerUserPicturePaths($assignee);
       $task->addAssignee($assignee);
