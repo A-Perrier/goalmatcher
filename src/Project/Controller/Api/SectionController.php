@@ -46,20 +46,25 @@ class SectionController extends AbstractController
    */
   public function create (Request $request) 
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $data = json_decode($request->getContent());
-
     $project = $this->projectRepository->find($data->projectId);
-    $section = (new Section())
-      ->setName($data->name)
-      ->setDescription($data->description)
-      ->setProject($project)
-    ;
-    
-    $event = new SectionCreateEvent($section);
-    $this->dispatcher->dispatch($event, Section::SECTION_SUBMIT_EVENT);
 
-    if (isset($section->errors)) return $this->json($section->errors, Response::HTTP_BAD_REQUEST);
-    return $this->json($this->serializer->serialize($section, 'json', ['groups' => 'section:fetch']), Response::HTTP_CREATED);
+    if ($project && $this->security->isCreator($project)) {
+      $section = (new Section())
+        ->setName($data->name)
+        ->setDescription($data->description)
+        ->setProject($project)
+      ;
+      
+      $event = new SectionCreateEvent($section);
+      $this->dispatcher->dispatch($event, Section::SECTION_SUBMIT_EVENT);
+  
+      if (isset($section->errors)) return $this->json($section->errors, Response::HTTP_BAD_REQUEST);
+      return $this->json($this->serializer->serialize($section, 'json', ['groups' => 'section:fetch']), Response::HTTP_CREATED);
+    }
+
+    return $this->json(null, Response::HTTP_FORBIDDEN);
   }
 
 
@@ -70,10 +75,11 @@ class SectionController extends AbstractController
    */
   public function edit (Request $request, $id)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $section = $this->sectionRepository->find($id);
     $data = json_decode($request->getContent(), true);
 
-    if ($this->security->isCreator($section->getProject())) {
+    if ($section && $this->security->isCreator($section->getProject())) {
       $event = new SectionEditEvent($section, $data);
       $this->dispatcher->dispatch($event, Section::SECTION_EDIT_EVENT);
       return $this->json(
@@ -90,11 +96,12 @@ class SectionController extends AbstractController
    * @Route("/api/sections/{id<\d+>}", name="api/section_delete", methods={"DELETE"})
    * @IsGranted("ROLE_USER")
    */
-  public function delete ($id)
+  public function delete (Request $request, $id)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $section = $this->sectionRepository->find($id);
     
-    if ($this->security->isCreator($section->getProject())) {
+    if ($section && $this->security->isCreator($section->getProject())) {
       $event = new SectionRemoveEvent($section);
       $this->dispatcher->dispatch($event, Section::SECTION_DELETE_EVENT);
       return $this->json(null, Response::HTTP_OK);

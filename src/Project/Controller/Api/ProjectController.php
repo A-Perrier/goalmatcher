@@ -9,6 +9,7 @@ use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -39,8 +40,9 @@ class ProjectController extends AbstractController
    * @Route("/api/projects/{id<\d+>}", name="api/projects_find", methods={"GET"})
    * @IsGranted("ROLE_USER")
    */
-  public function find(int $id)
+  public function find(int $id, Request $request)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $project = $this->projectRepository->find($id);
         
     if (!$this->securityService->isConformRequest($project)) {

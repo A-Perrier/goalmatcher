@@ -46,10 +46,11 @@ class TaskController extends AbstractController
    */
   public function create (Request $request)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $data = json_decode($request->getContent(), true);
     $tasklist = $this->tasklistRepository->find($data['tasklistId']);
 
-    if ($tasklist && $this->security->isCreator($tasklist->getSection()->getProject())) {
+    if ($tasklist && $this->security->isCreator($tasklist->getProject())) {
       $task = new Task();
       $event = new TaskCreateEvent($task, $tasklist, $data);
       $this->dispatcher->dispatch($event, Task::TASK_SUBMIT_EVENT);
@@ -72,10 +73,11 @@ class TaskController extends AbstractController
    */
   public function edit (Request $request, $id)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $task = $this->taskRepository->find($id);
     $data = json_decode($request->getContent(), true);
 
-    if ($task && $this->security->isCreator($task->getTasklist()->getSection()->getProject())) {
+    if ($task && $this->security->isCreator($task->getProject())) {
       $event = new TaskEditEvent($task, $data);
       $this->dispatcher->dispatch($event, Task::TASK_EDIT_EVENT);
       
@@ -97,11 +99,12 @@ class TaskController extends AbstractController
    * @Route("/api/tasks/{id<\d+>}", name="api/task_delete", methods={"DELETE"})
    * @IsGranted("ROLE_USER")
    */
-  public function delete ($id) 
+  public function delete (Request $request, $id) 
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $task = $this->taskRepository->find($id);
 
-    if ($this->security->isCreator($task->getTasklist()->getSection()->getProject())) {
+    if ($this->security->isCreator($task->getProject())) {
       $event = new TaskRemoveEvent($task);
       $this->dispatcher->dispatch($event, Task::TASK_DELETE_EVENT);
       return $this->json(null, Response::HTTP_OK);

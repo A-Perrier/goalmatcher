@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { Plus } from '../../../components/Svg';
 
-const Documents = ({ documents, isCreator }) => {
+const Documents = ({ reduxDocuments, isCreator }) => {
+  const [documents, setDocuments] = useState(reduxDocuments)
+  console.log(documents)
+
   return ( 
     <div class="modal__documents-block">
       <div class="document-list">
@@ -40,4 +44,10 @@ const Documents = ({ documents, isCreator }) => {
 }
  
 
-export default Documents;
+const mapStateToProps = ( state ) => {
+  return {
+    isCreator: state.manageProject.isCreator
+  }
+}
+
+export default connect(mapStateToProps)(Documents);

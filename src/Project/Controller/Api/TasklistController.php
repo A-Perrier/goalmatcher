@@ -46,10 +46,11 @@ class TasklistController extends AbstractController
    */
   public function create (Request $request)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $data = json_decode($request->getContent(), true);
     $section = $this->sectionRepository->find($data['sectionId']);
     
-    if ($section && $this->security->getUserRole($section->getProject())) {
+    if ($section && $this->security->isCreator($section->getProject())) {
       $tasklist = new Tasklist();
       $event = new TasklistCreateEvent($tasklist, $section, $data);
       $this->dispatcher->dispatch($event, Tasklist::TASKLIST_SUBMIT_EVENT);
@@ -72,10 +73,11 @@ class TasklistController extends AbstractController
    */
   public function edit (Request $request, $id)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $tasklist = $this->tasklistRepository->find($id);
     $name = $request->getContent();
 
-    if ($tasklist && $this->security->isCreator($tasklist->getSection()->getProject())) {
+    if ($tasklist && $this->security->isCreator($tasklist->getProject())) {
       $event = new TasklistEditEvent($tasklist, $name);
       $this->dispatcher->dispatch($event, Tasklist::TASKLIST_EDIT_EVENT);
 
@@ -94,11 +96,12 @@ class TasklistController extends AbstractController
    * @Route("/api/tasklists/{id<\d+>}", name="api/tasklist_delete", methods={"DELETE"})
    * @IsGranted("ROLE_USER")
    */
-  public function delete ($id)
+  public function delete (Request $request, $id)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $tasklist = $this->tasklistRepository->find($id);
 
-    if ($this->security->isCreator($tasklist->getSection()->getProject())) {
+    if ($tasklist && $this->security->isCreator($tasklist->getProject())) {
       $event = new TasklistRemoveEvent($tasklist);
       $this->dispatcher->dispatch($event, Tasklist::TASKLIST_DELETE_EVENT);
       return $this->json(null, Response::HTTP_OK);

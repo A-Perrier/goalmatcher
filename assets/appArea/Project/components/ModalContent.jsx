@@ -68,7 +68,7 @@ export const TaskModal = ({ task, isCreator, onRequestClose, onDelete, onEdit })
             }
           </div>
           <Subtasks task={task} reduxSubtasks={task.subtasks} />  {/** reduxSubtasks parce qu'on cesse de passer par le state redux après cette limite */}
-          <Documents documents={task.taskDocuments} isCreator={isCreator} />
+          <Documents task={task} reduxDocuments={task.taskDocuments} />
         </div>
         </>
         ||

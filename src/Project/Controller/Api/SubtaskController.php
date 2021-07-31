@@ -44,8 +44,9 @@ class SubtaskController extends AbstractController
    * @Route("/api/subtasks", name="api/subtask_create", methods={"POST"})
    * @IsGranted("ROLE_USER")
    */
-  public function create (Request $request, EntityManagerInterface $em)
+  public function create (Request $request)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $data = json_decode($request->getContent(), true);
     $task = $this->taskRepository->find($data['taskId']);
     
@@ -66,6 +67,7 @@ class SubtaskController extends AbstractController
    */
   public function edit ($id, Request $request, EntityManagerInterface $em, ProjectService $projectService)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $property = $request->query->get('property');
     $subtask = $this->subtaskRepository->find($id);
 
@@ -89,8 +91,9 @@ class SubtaskController extends AbstractController
    * @Route("/api/subtasks/{id<\d+>}", name="api/subtask_delete", methods={"DELETE"})
    * @IsGranted("ROLE_USER")
    */
-  public function delete ($id, EntityManagerInterface $em)
+  public function delete (Request $request, $id, EntityManagerInterface $em)
   {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $subtask = $this->subtaskRepository->find($id);
 
     if ($subtask && $this->security->isCreator($subtask->getProject())) {
