@@ -311,4 +311,10 @@ class Task implements ProjectComponentInterface
 
         return $this;
     }
+
+
+    public function getProject(): Project
+    {
+        return $this->getTasklist()->getSection()->getProject();
+    }
 }

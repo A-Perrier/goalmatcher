@@ -167,4 +167,10 @@ class Tasklist implements ProjectComponentInterface
 
         return $this;
     }
+
+
+    public function getProject(): Project
+    {
+        return $this->getSection()->getProject();
+    }
 }

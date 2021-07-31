@@ -1,34 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Plus, SubtaskCheck } from '../../../components/Svg';
 import { connect } from 'react-redux';
 import { COLOR_DISABLE, COLOR_SUCCESS } from '../../../helpers/const';
+import Subtask from './Subtask';
+import { check, create, remove } from '../services/Api/Subtask';
+import { addToArray, editFromArray, removeFromArray } from '../../../helpers/functions';
+import NewSubtaskHandler from './Creators/NewSubtaskHandler';
 
-const Subtasks = ({ subtasks, isCreator, dispatch }) => {
+const Subtasks = ({ task, reduxSubtasks, isCreator, dispatch }) => {
+  const [subtasks, setSubtasks] = useState(reduxSubtasks)
+  const [actionsDisplayed, setActionsDisplayed] = useState(false)
+
+  async function handleCheck(subtask) {
+    const { updSubtask, status } = await check(subtask, subtask.id)
+    if (status === 200) setSubtasks(editFromArray(subtasks, updSubtask, subtask))
+  }
+
+  
+  async function handleDelete(subtask) {
+    // On enlève du DOM d'abord pour une meilleure réactivité
+    setSubtasks(removeFromArray(subtasks, subtask))
+    await remove(subtask.id)
+  }
+
+
+  async function handleCreate(subtaskName) {
+    const { subtask, status } = await create({name: subtaskName, taskId: task.id});
+    if (status === 201) setSubtasks(addToArray(subtasks, subtask))
+  }
+
+  
   return ( 
     <div class="modal__subtasks-block">
       <h2>
         <span class="title">
           Sous-objectifs
         </span>
-        <Plus />
+        <Plus onClick={() => setActionsDisplayed(!actionsDisplayed)} />
       </h2>
         <ul class="subtasks__group">
         { subtasks.length > 0 ?
           subtasks.map(subtask => 
-            <li class="subtask" subtask={ subtask.id }>
-              <SubtaskCheck 
-                onClick={() => console.log('cliqué')}  
-                fill={subtask.isCleared ? COLOR_SUCCESS : COLOR_DISABLE}
-                isCreator={isCreator}
-              />
-              { subtask.name }
-            </li>
+            <Subtask 
+              subtask={subtask} 
+              onCheck={(subtask) => handleCheck(subtask)}
+              onDelete={(subtask) => handleDelete(subtask)}
+              actionsVisible={actionsDisplayed}
+            />
           )
           :
             <p className="unavailable">Aucun sous-objectif disponible</p>
         }
         </ul>
-        <p class="create-subtask">+ Nouveau sous-objectif</p>
+        <NewSubtaskHandler
+          onCreate={(subtask) => handleCreate(subtask)}
+        />
     </div>
   );
 }

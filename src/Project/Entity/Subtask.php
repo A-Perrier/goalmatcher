@@ -17,6 +17,8 @@ class Subtask implements ProjectComponentInterface
     public const UNCLEARED_COLOR = "#C1C1DC";
     public const CLEARED_COLOR = "#9DDCA4";
 
+    public const CREATE_EVENT = 'subtask.create';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -25,7 +27,8 @@ class Subtask implements ProjectComponentInterface
      * "project:fetch", 
      * "section:fetch",
      * "tasklist:fetch",
-     * "task:fetch"
+     * "task:fetch",
+     * "subtask:fetch"
      * })
      */
     private $id;
@@ -48,7 +51,8 @@ class Subtask implements ProjectComponentInterface
      * "project:fetch", 
      * "section:fetch",
      * "tasklist:fetch",
-     * "task:fetch"
+     * "task:fetch",
+     * "subtask:fetch"
      * })
      */
     private $name;
@@ -59,7 +63,8 @@ class Subtask implements ProjectComponentInterface
      * "project:fetch", 
      * "section:fetch",
      * "tasklist:fetch",
-     * "task:fetch"
+     * "task:fetch",
+     * "subtask:fetch"
      * })
      */
     private $isCleared;
@@ -103,5 +108,10 @@ class Subtask implements ProjectComponentInterface
         $this->isCleared = $isCleared;
 
         return $this;
+    }
+
+    public function getProject(): Project
+    {
+        return $this->getTask()->getTasklist()->getSection()->getProject();
     }
 }

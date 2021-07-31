@@ -480,27 +480,23 @@
   .subtask { list-style: none; margin-bottom: .3rem;}
 }
 
-input#subtask-name {
-  height: 2rem;
+.subtask-input {
+  height: 1.5rem;
   font-size: 1rem;
   background-color: $bg-color;
   border: none;
   outline: none;
   border-bottom: 1px solid $primary;
-  &:hover { border-bottom: 1px solid $secondary; }
+  &:focus { border-bottom: 1px solid $secondary; color: $secondary;}
 }
 
-.subtasks-options {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+.subtask-option {
+  width: 16px;
+  height: 16px;
   display: inline-block;
-
-  img {
-    cursor: pointer;
-    width: 13px;
-    transform: translateY(12%);
-  }
+  margin-left: 0.3rem;
+  transform: translateY(12%);
+  cursor: pointer;
 }
 
 .subtask__check {

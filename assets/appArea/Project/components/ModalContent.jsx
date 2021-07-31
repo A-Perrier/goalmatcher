@@ -8,7 +8,7 @@ import TaskFormModal from './Form/TaskFormModal';
 import { edit } from '../services/Api/Task';
 import { TRANSPORT_DATA } from '../Reducers/projectReducer';
 
-const Modal = ({ onRequestClose, children }) => {
+const AbstractModal = ({ onRequestClose, children }) => {
   return (
     <>
     <div id="body-cover"></div>
@@ -28,10 +28,10 @@ const Modal = ({ onRequestClose, children }) => {
 
 export const SectionModal = ({ content, onRequestClose }) => {
   return (
-    <Modal onRequestClose={onRequestClose}>    
+    <AbstractModal onRequestClose={onRequestClose}>    
       <h3>Informations sur la section</h3>
       <p className="modal-content__editable">{ content }</p>
-    </Modal>
+    </AbstractModal>
   );
 }
  
@@ -46,7 +46,7 @@ export const TaskModal = ({ task, isCreator, onRequestClose, onDelete, onEdit })
   }
 
   return (
-    <Modal onRequestClose={onRequestClose}>
+    <AbstractModal onRequestClose={onRequestClose}>
       {
         !isEditing &&
         <>
@@ -67,7 +67,7 @@ export const TaskModal = ({ task, isCreator, onRequestClose, onDelete, onEdit })
               <button class="delete-btn task-delete" onClick={onDelete}>Supprimer cette tâche</button>
             }
           </div>
-          <Subtasks subtasks={task.subtasks} />
+          <Subtasks task={task} reduxSubtasks={task.subtasks} />  {/** reduxSubtasks parce qu'on cesse de passer par le state redux après cette limite */}
           <Documents documents={task.taskDocuments} isCreator={isCreator} />
         </div>
         </>
@@ -78,6 +78,6 @@ export const TaskModal = ({ task, isCreator, onRequestClose, onDelete, onEdit })
           task={task}
         />
       }  
-    </Modal>
+    </AbstractModal>
   )
 }
