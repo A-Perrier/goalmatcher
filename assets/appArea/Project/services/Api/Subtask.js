@@ -60,7 +60,7 @@ export const edit = (data, id) => {
         debugDDResponse(response.data)
         const subtask = await response.data
         successToast("L'objectif a correctement été modifié !")
-        return { updSubtask: JSON.parse(subtask), status: response.status }
+        return { updSubtask: subtask, status: response.status }
       }
     )
     .catch(

@@ -6,6 +6,7 @@ use App\Project\Entity\Subtask;
 use App\Project\Event\SubtaskCreateEvent;
 use App\Project\Repository\TaskRepository;
 use App\Project\Repository\SubtaskRepository;
+use App\Project\Service\ProjectService;
 use App\Project\Service\SecurityService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,7 +64,7 @@ class SubtaskController extends AbstractController
    * @Route("/api/subtasks/{id<\d+>}", name="api/subtask_check", methods={"PUT"})
    * @IsGranted("ROLE_USER")
    */
-  public function edit ($id, Request $request, EntityManagerInterface $em)
+  public function edit ($id, Request $request, EntityManagerInterface $em, ProjectService $projectService)
   {
     $property = $request->query->get('property');
     $subtask = $this->subtaskRepository->find($id);
@@ -72,6 +73,14 @@ class SubtaskController extends AbstractController
         $subtask->setIsCleared(!$subtask->getIsCleared());
         $em->flush();
         return $this->json($subtask, Response::HTTP_OK, [], ['groups' => 'subtask:fetch']);
+      }
+
+    if ($subtask && $this->security->isCreator($subtask->getProject())) {
+        $subtask->setName(json_decode($request->getContent())->name);
+        $projectService->validate($subtask);
+        if (isset($subtask->errors)) return $this->json($subtask->errors, Response::HTTP_BAD_REQUEST);
+        $em->flush();
+        return $this->json($subtask, Response::HTTP_OK, [], ['groups' => 'subtask:fetch']);  
       }
   }
 

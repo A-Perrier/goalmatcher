@@ -3,7 +3,7 @@ import { Plus, SubtaskCheck } from '../../../components/Svg';
 import { connect } from 'react-redux';
 import { COLOR_DISABLE, COLOR_SUCCESS } from '../../../helpers/const';
 import Subtask from './Subtask';
-import { check, create, remove } from '../services/Api/Subtask';
+import { check, create, edit, remove } from '../services/Api/Subtask';
 import { addToArray, editFromArray, removeFromArray } from '../../../helpers/functions';
 import NewSubtaskHandler from './Creators/NewSubtaskHandler';
 
@@ -11,23 +11,32 @@ const Subtasks = ({ task, reduxSubtasks, isCreator, dispatch }) => {
   const [subtasks, setSubtasks] = useState(reduxSubtasks)
   const [actionsDisplayed, setActionsDisplayed] = useState(false)
 
+
+  async function handleCreate(subtaskName) {
+    const { subtask, status } = await create({name: subtaskName, taskId: task.id});
+    if (status === 201) setSubtasks(addToArray(subtasks, subtask))
+  }
+
+
   async function handleCheck(subtask) {
     const { updSubtask, status } = await check(subtask, subtask.id)
     if (status === 200) setSubtasks(editFromArray(subtasks, updSubtask, subtask))
   }
 
-  
+
+  async function handleEdit(subtask, data) {
+    console.log(subtask, data)
+    const { updSubtask, status } = await edit(data, subtask.id)
+    if (status === 200) setSubtasks(editFromArray(subtasks, updSubtask, subtask))
+  }
+
+
   async function handleDelete(subtask) {
     // On enlève du DOM d'abord pour une meilleure réactivité
     setSubtasks(removeFromArray(subtasks, subtask))
     await remove(subtask.id)
   }
 
-
-  async function handleCreate(subtaskName) {
-    const { subtask, status } = await create({name: subtaskName, taskId: task.id});
-    if (status === 201) setSubtasks(addToArray(subtasks, subtask))
-  }
 
   
   return ( 
@@ -44,6 +53,7 @@ const Subtasks = ({ task, reduxSubtasks, isCreator, dispatch }) => {
             <Subtask 
               subtask={subtask} 
               onCheck={(subtask) => handleCheck(subtask)}
+              onEdit={(subtask, data) => handleEdit(subtask, data)}
               onDelete={(subtask) => handleDelete(subtask)}
               actionsVisible={actionsDisplayed}
             />
