@@ -13,15 +13,16 @@ import { MODAL_CLOSE, MODAL_SHOW } from '../Reducers/modalReducer';
 const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [reorganizedTasks, setReorganizedTasks] = useState(sortByListOrder(tasklist.tasks))
- 
+
   useEffect(() => {
     const { type, data } = itemTransported
-    if (type === 'EDIT_TASK' && tasklist.tasks.some(task => task.id === data.task.id)) {
+    console.log('item', itemTransported)
+    if (type === 'EDIT_TASK' && reorganizedTasks.some(task => task.id === data.task.id)) {
       // Puisque les tasks modifiées ne sont plus synchro avec le state de Redux (choix d'éviter les deep nested loops)
       // on vérifie la présence par l'ID
       handleTaskEdit(data.task, data.updData)
     }
-    if (type === 'DELETE_TASK' && tasklist.tasks.includes(data)) {
+    if (type === 'DELETE_TASK' && reorganizedTasks.includes(data)) {
       handleTaskRemove(data)
     }
   }, [itemTransported])
