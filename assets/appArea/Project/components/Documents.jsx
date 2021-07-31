@@ -26,13 +26,12 @@ const Documents = ({ reduxDocuments, isCreator }) => {
       <div class="document-group">
         { documents.length > 0 ?
           documents?.map(document => 
-            {/* <div class="document">
+            <div class="document">
               <span class="document-cube"></span>
-              <a href="{{'/assets/uploads/tasks/documents/' ~ document.document.name}}" target="_blank" class="document-name">{
-                document.document?.name.substring(0, 30) + '...' + 
-                document.document?.name.substring((document.document.name.length - 4), (document.document.name.length))}</a>
-            </div> */},
-            <p>On doit gérer les documents</p>
+              <a href={`/assets/uploads/tasks/documents/${document.name}`} target="_blank" class="document-name">{
+                document.name.substring(0, 30) + '...' + 
+                document.name.substring((document.name.length - 4), (document.name.length))}</a>
+            </div>
           )
           :
           <p class="unavailable">Aucun document disponible</p>
