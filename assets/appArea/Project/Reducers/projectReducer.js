@@ -29,7 +29,7 @@ export function manageProject (state = initialState, action) {
       project = action.value.project
       isCreator = action.value.isCreator
       contributors = [project.creator, ... project.contributors]
-
+    console.log('tache en particules', project.sections[0].tasklists[0].tasks[0].taskDocuments)
       nextState = {
         ... state,
         projectId: project.id,

@@ -104,4 +104,32 @@ class ProjectService
   {
     return (count($task->getTasklist()->getTasks()->getValues())) + 1;
   }
+
+
+  /**
+   * Search for all the documents in the project to hydrate their basic properties, unless they aren't
+   * reachable through AJAX request (property "document" remains an empty array where serialization groups doesn't work)
+   *
+   * @param Project $project
+   * @return Project $project
+   */
+  public function setupTaskDocuments (Project $project) {
+    foreach ($project->getSections()->getValues() as $sectionIndex => $section) {
+      foreach ($section->getTasklists()->getValues() as $tasklistIndex => $tasklist) {
+        foreach ($tasklist->getTasks()->getValues() as $taskIndex => $task) {
+          foreach ($task->getTaskDocuments()->getValues() as $documentIndex => $document) {
+            /** @var TaskDocument */
+            $document->setName($document->getDocument()->getName())
+                     ->setOriginalName($document->getDocument()->getOriginalName())
+                     ->setMimeType($document->getDocument()->getMimeType())
+                     ->setSize($document->getDocument()->getSize())
+                     ->setDimensions($document->getDocument()->getDimensions())
+            ;
+          }
+        }
+      }
+    }
+
+    return $project;
+  }
 }

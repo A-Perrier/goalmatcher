@@ -2,16 +2,18 @@
 
 namespace App\Project\Controller\Api;
 
+use App\Project\Entity\TaskDocument;
 use App\General\Service\ImageService;
-use App\Project\Repository\ProjectRepository;
 use App\Project\Service\SecurityService;
-use Liip\ImagineBundle\Imagine\Cache\CacheManager;
-use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Project\Repository\ProjectRepository;
+use App\Project\Service\ProjectService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Liip\ImagineBundle\Imagine\Cache\CacheManager;
 use Symfony\Component\Serializer\SerializerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProjectController extends AbstractController 
 {
@@ -40,7 +42,7 @@ class ProjectController extends AbstractController
    * @Route("/api/projects/{id<\d+>}", name="api/projects_find", methods={"GET"})
    * @IsGranted("ROLE_USER")
    */
-  public function find(int $id, Request $request)
+  public function find(int $id, Request $request, ProjectService $projectService)
   {
     if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_NOT_FOUND);
     $project = $this->projectRepository->find($id);
@@ -62,6 +64,8 @@ class ProjectController extends AbstractController
         $this->cacheManager->resolve('/assets/uploads/users/picture/'.$contributor->getPictureFileName(), 'project_user_picture')
       );
     }
+
+    $projectService->setupTaskDocuments($project);
 
     $jsonProject = ($this->serializerInterface->serialize($project, 'json', ['groups' => 'project:fetch']));
     return $this->json(json_encode([$jsonProject, $isCreator]), Response::HTTP_OK);

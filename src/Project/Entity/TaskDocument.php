@@ -46,10 +46,6 @@ class TaskDocument
      * @Vich\UploadableField(mapping="task_document", fileNameProperty="document.name", size="document.size", mimeType="document.mimeType", originalName="document.originalName", dimensions="document.dimensions")
      * 
      * @var File|null
-     * @Groups({
-     * "project:fetch",
-     * "task:fetch"
-     * })
      */
     private $documentFile;
 
@@ -57,10 +53,6 @@ class TaskDocument
      * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
      *
      * @var EmbeddedFile
-     * @Groups({
-     * "project:fetch",
-     * "task:fetch"
-     * })
      */
     private $document;
 
@@ -70,6 +62,37 @@ class TaskDocument
      * @var \DateTimeInterface|null
      */
     private $updatedAt;
+
+    /**
+     * @Groups({
+     *  "project:fetch"
+     * })
+     */
+    private $name;
+    /**
+     * @Groups({
+     *  "project:fetch"
+     * })
+     */
+    private $originalName;
+    /**
+     * @Groups({
+     *  "project:fetch"
+     * })
+     */
+    private $mimeType;
+    /**
+     * @Groups({
+     *  "project:fetch"
+     * })
+     */
+    private $size;
+    /**
+     * @Groups({
+     *  "project:fetch"
+     * })
+     */
+    private $dimensions = [];
     
     public function __construct()
     {
@@ -126,5 +149,65 @@ class TaskDocument
         $this->task = $task;
 
         return $this;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setOriginalName(string $originalName): self
+    {
+        $this->originalName = $originalName;
+
+        return $this;
+    }
+
+    public function getOriginalName(): ?string
+    {
+        return $this->originalName;
+    }
+
+    public function setMimeType(string $mimeType): self
+    {
+        $this->mimeType = $mimeType;
+
+        return $this;
+    }
+
+    public function getMimeType(): ?string
+    {
+        return $this->mimeType;
+    }
+
+    public function setSize(int $size): self
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    public function getSize(): ?int
+    {
+        return $this->size;
+    }
+
+    public function setDimensions(array $dimensions): self
+    {
+        $this->dimensions = $dimensions;
+
+        return $this;
+    }
+
+    public function getDimensions(): ?array
+    {
+        return $this->dimensions;
     }
 }
