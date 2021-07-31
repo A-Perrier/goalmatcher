@@ -92,10 +92,25 @@
 
   .project__section {margin-bottom: 4rem;}
   .project__section h2 {color: $primary;}
-
-  /* ========= FIN SECTION ========= */
 }
 
+.modal__section {
+  &-title {
+    color: $primary;
+    font-size: 1.4rem;
+  }
+  &-content {
+    width: 80%;
+    margin: auto;
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+}
+
+
+
+
+/* ========= FIN SECTION ========= */
 
 /* ========= TASKLIST ========= */
 /* Note it's out of #project because of Dragula copying, which breaks the style */

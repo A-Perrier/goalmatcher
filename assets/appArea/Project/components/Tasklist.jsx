@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 import { addToArray, editFromArray, removeFromArray, sortByListOrder } from '../../../helpers/functions';
-import { TASKLIST_EDIT, TASKLIST_REMOVE, TRANSPORT_DATA } from '../Reducers/projectReducer';
+import { TASKLIST_EDIT, TASKLIST_REMOVE } from '../Reducers/projectReducer';
 import { edit, remove } from '../services/Api/Tasklist';
 import { remove as removeTask, edit as editTask } from '../services/Api/Task';
 import TasklistActionBox from './ActionBox/TasklistActionBox';
@@ -16,7 +16,6 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) =
 
   useEffect(() => {
     const { type, data } = itemTransported
-    console.log('item', itemTransported)
     if (type === 'EDIT_TASK' && reorganizedTasks.some(task => task.id === data.task.id)) {
       // Puisque les tasks modifiées ne sont plus synchro avec le state de Redux (choix d'éviter les deep nested loops)
       // on vérifie la présence par l'ID
@@ -108,7 +107,7 @@ const Tasklist = ({ tasklist, section, dispatch, isCreator, itemTransported }) =
           <div className="task-block">
             <div className="task-container">
             { reorganizedTasks.map((task, index) => 
-              <Task key={index} task={task} tasklist={tasklist} onDelete={(task) => handleTaskDelete(task) } />
+              <Task key={index} task={task} />
             )}
             </div>
             {

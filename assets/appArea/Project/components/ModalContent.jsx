@@ -29,8 +29,8 @@ const AbstractModal = ({ onRequestClose, children }) => {
 export const SectionModal = ({ content, onRequestClose }) => {
   return (
     <AbstractModal onRequestClose={onRequestClose}>    
-      <h3>Informations sur la section</h3>
-      <p className="modal-content__editable">{ content }</p>
+      <h3 className="modal__section-title">Informations sur la section</h3>
+      <p className="modal__section-content">{ content }</p>
     </AbstractModal>
   );
 }
