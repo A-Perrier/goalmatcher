@@ -220,6 +220,11 @@ class TaskDocument implements ProjectComponentInterface
         return $this->dimensions;
     }
 
+    public function getProject(): Project
+    {
+        return $this->getTask()->getTasklist()->getSection()->getProject();
+    }
+
     public function setBasicProperties(): self
     {
         $this->setName($this->getDocument()->getName())

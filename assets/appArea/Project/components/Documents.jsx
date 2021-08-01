@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { addToArray } from '../../../helpers/functions';
-import { upload } from '../services/Api/Document';
+import { addToArray, removeFromArray } from '../../../helpers/functions';
+import { remove, upload } from '../services/Api/Document';
 import DocumentsActionBox from './ActionBox/DocumentsActionBox';
+import Document from './Document';
 
 const Documents = ({ task, reduxDocuments, isCreator }) => {
   const [documents, setDocuments] = useState(reduxDocuments)
@@ -14,6 +15,12 @@ const Documents = ({ task, reduxDocuments, isCreator }) => {
     setFileSelected(file)
     const { document, status } = await upload(file, task.id)
     if ( status === 201 ) setDocuments(addToArray(documents, document))
+  }
+
+
+  async function handleRemove (document) {
+    const status = await remove(document.id)
+    if (status === 200) setDocuments(removeFromArray(documents, document))
   }
   
 
@@ -32,12 +39,7 @@ const Documents = ({ task, reduxDocuments, isCreator }) => {
       <div className="document-group">
         { documents.length > 0 ?
           documents?.map(document => 
-            <div className="document">
-              <span className="document-cube"></span>
-              <a href={`/assets/uploads/tasks/documents/${document.name}`} target="_blank" class="document-name">{
-                document.name.substring(0, 30) + '...' + 
-                document.name.substring((document.name.length - 4), (document.name.length))}</a>
-            </div>
+            <Document document={document} onRemove={(document) => handleRemove(document)} />
           )
           :
           <p className="unavailable">Aucun document disponible</p>

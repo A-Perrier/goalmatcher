@@ -31,3 +31,21 @@ export const upload = (data, taskId) => {
       }
     )
 }
+
+
+export const remove = (id) => {
+  return axios
+    .delete(`${DOCUMENT_ENDPOINT}/${id}`)
+    .then(
+      async ({ status, data }) => {
+        successToast("Le document a correctement été supprimé !")
+        return status
+      }
+    )
+    .catch(
+      ({ response }) => {
+        const { data } = response
+        dangerToast("Ressource non autorisée")
+      }
+    )
+}

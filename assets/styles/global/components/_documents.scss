@@ -17,6 +17,13 @@
   box-shadow: 0px 2px 4px 0px $primary;
   min-height: 2.5rem;
   padding: .4rem 0;
+
+  .adjust-right {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+  }
 }
 
 .document-cube {
