@@ -6,6 +6,7 @@ use App\Project\Entity\TaskDocument;
 use App\Project\Event\TaskDocumentUploadEvent;
 use App\Project\Form\TaskDocumentType;
 use App\Project\Repository\TaskRepository;
+use App\Project\Service\ProjectService;
 use App\Project\Service\SecurityService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,12 +21,18 @@ class DocumentController extends AbstractController
   private $taskRepository;
   private $dispatcher;
   private $securityService;
+  private $projectService;
 
-  public function __construct(TaskRepository $taskRepository, EventDispatcherInterface $dispatcher, SecurityService $securityService)
-  {
+  public function __construct(
+    TaskRepository $taskRepository, 
+    EventDispatcherInterface $dispatcher, 
+    SecurityService $securityService,
+    ProjectService $projectService
+    ) {
     $this->taskRepository = $taskRepository;
     $this->dispatcher = $dispatcher;
     $this->securityService = $securityService;
+    $this->projectService = $projectService;
   }
 
   /**
@@ -43,10 +50,10 @@ class DocumentController extends AbstractController
       $this->dispatcher->dispatch($event, TaskDocument::UPLOAD_EVENT);
       
       if (isset($document->errors)) return $this->json($document->errors, Response::HTTP_BAD_REQUEST);
-      return $this->json(
-        $this->serializer->serialize($document, 'json', ['groups' => "document:fetch"]), 
-        Response::HTTP_CREATED
-      );
+
+      $document->setBasicProperties();
+      
+      return $this->json($document, Response::HTTP_CREATED, [], ['groups' => "document:fetch"]);
     }
 
     return $this->json(null, Response::HTTP_FORBIDDEN);

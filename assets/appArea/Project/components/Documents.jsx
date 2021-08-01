@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { Plus } from '../../../components/Svg';
+import { addToArray } from '../../../helpers/functions';
 import { upload } from '../services/Api/Document';
 import DocumentsActionBox from './ActionBox/DocumentsActionBox';
 
@@ -12,7 +12,8 @@ const Documents = ({ task, reduxDocuments, isCreator }) => {
   async function handleFileSelection (e) {
     const file = e.target.files[0]
     setFileSelected(file)
-    const result = await upload(file, task.id)
+    const { document, status } = await upload(file, task.id)
+    if ( status === 201 ) setDocuments(addToArray(documents, document))
   }
   
 

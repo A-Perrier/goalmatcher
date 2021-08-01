@@ -15,11 +15,10 @@ export const upload = (data, taskId) => {
   return axios
     .post(`${DOCUMENT_ENDPOINT}/${taskId}`, formData)
     .then(
-      async ({ data }) => {
-        debugDDResponse(data)
-        const task = await data
+      async ( response ) => {
+        const document = await response.data
         successToast("Le document a correctement relié à votre tâche !")
-        return JSON.parse(task)
+        return { document, status: response.status }
       }
     )
     .catch(

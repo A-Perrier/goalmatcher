@@ -206,15 +206,28 @@ class TaskDocument implements ProjectComponentInterface
         return $this->size;
     }
 
-    public function setDimensions(array $dimensions): self
+    public function setDimensions(?array $dimensions): self
     {
         $this->dimensions = $dimensions;
 
         return $this;
     }
 
-    public function getDimensions(): ?array
+    public function getDimensions(): array
     {
+        if ($this->dimensions === null) $this->setDimensions([]);
+        
         return $this->dimensions;
+    }
+
+    public function setBasicProperties(): self
+    {
+        $this->setName($this->getDocument()->getName())
+             ->setOriginalName($this->getDocument()->getOriginalName())
+             ->setMimeType($this->getDocument()->getMimeType())
+             ->setSize($this->getDocument()->getSize())
+             ->setDimensions($this->getDocument()->getDimensions())
+        ;
+        return $this;
     }
 }
