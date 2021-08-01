@@ -3,6 +3,7 @@
 namespace App\Project\Entity;
 
 use App\Project\Entity\Task;
+use App\Project\Interfaces\ProjectComponentInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Project\Repository\TaskDocumentRepository;
@@ -17,7 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
  * @ORM\Entity(repositoryClass=TaskDocumentRepository::class)
  * @Vich\Uploadable
  */
-class TaskDocument
+class TaskDocument implements ProjectComponentInterface
 {
 
     public const UPLOAD_EVENT = 'task_document.upload';
@@ -28,8 +29,9 @@ class TaskDocument
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * @Groups({
-     * "project:fetch",
-     * "task:fetch"
+     *  "project:fetch",
+     *  "task:fetch",
+     *  "document:fetch"
      * })
      */
     private $id;
@@ -65,31 +67,36 @@ class TaskDocument
 
     /**
      * @Groups({
-     *  "project:fetch"
+     *  "project:fetch",
+     *  "document:fetch"
      * })
      */
     private $name;
     /**
      * @Groups({
-     *  "project:fetch"
+     *  "project:fetch",
+     *  "document:fetch"
      * })
      */
     private $originalName;
     /**
      * @Groups({
-     *  "project:fetch"
+     *  "project:fetch",
+     *  "document:fetch"
      * })
      */
     private $mimeType;
     /**
      * @Groups({
-     *  "project:fetch"
+     *  "project:fetch",
+     *  "document:fetch"
      * })
      */
     private $size;
     /**
      * @Groups({
-     *  "project:fetch"
+     *  "project:fetch",
+     *  "document:fetch"
      * })
      */
     private $dimensions = [];

@@ -1,6 +1,15 @@
 .document-list { padding-bottom: 2rem; }
 .document-group { width: 80%; margin: auto; }
 
+.document-list h2 div.clickable-actions {
+  position: relative;
+  bottom: -.5rem;
+  left: 50%;
+  transform: translateX(-52%);
+  top: initial;
+  right: initial;
+}
+
 .document {
   position: relative;
   width: 100%;
