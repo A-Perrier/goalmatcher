@@ -46,23 +46,81 @@ class ImageService
   public function createDefaultPicture(User $user)
   {
     $firstLetter = substr($user->getPseudo(), 0, 1);
-    $secondLetter = substr($user->getPseudo(), 1, 1);
-    // If the first letter is thin, we want a second one to center as good as possible 
-    // (since align/valign method doesn't work properly)
-    $toDisplay = $firstLetter === 'I' || $firstLetter === 'J' ? $firstLetter . $secondLetter : $firstLetter;
 
     $colors = ['#AD3C03', '#C9840C', '#240EA1', '#2F3423', '#13ACF6', '#7204BE', '#3B4752', '#259270', '#A67704'];
     $key = array_rand($colors);
     
     $image = new ImageManager();
     $image->canvas(96, 96, $colors[$key])
-          ->text($toDisplay, 19, 68, function($font) {
+          ->text($firstLetter, $this->getX($firstLetter), $this->getY($firstLetter), function($font) {
             $font->file(dirname(dirname(dirname(__DIR__))) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'fonts' . DIRECTORY_SEPARATOR . 'PTSerif-Bold.ttf');
             $font->size(64);
             $font->color('#fff');
           })
           ->save('assets/uploads/users/picture/' . $user->getId() . '-' . $user->getPseudo() . '-default.jpg', 100, 'jpg')
     ;
+  }
+
+  /**
+   * Centered vertically the letter in the picture
+   *
+   * @param string $letter
+   * @return integer
+   */
+  private function getY(string $letter)
+  {
+    switch ($letter) {
+      case 'A': return 67; break;
+      case 'J': return 65; break;
+      case 'Q': return 63; break;
+      case 'T': return 71; break;
+      case 'U': return 72; break;
+      case 'V': return 72; break;
+      case 'W': return 72; break;
+      case 'Y': return 71; break;
+
+      default: return 69;
+    }
+  }
+
+  /**
+   * Centered horizontally the letter in the picture
+   *
+   * @param string $letter
+   * @return integer
+   */
+  private function getX(string $letter) 
+  {
+    switch ($letter) {
+      case 'A': return 25; break;
+      case 'B': return 28; break;
+      case 'C': return 25; break;
+      case 'D': return 26; break;
+      case 'E': return 28; break;
+      case 'F': return 30; break;
+      case 'G': return 24; break;
+      case 'H': return 23; break;
+      case 'I': return 35; break;
+      case 'J': return 38; break;
+      case 'K': return 25; break;
+      case 'L': return 29; break;
+      case 'M': return 18; break;
+      case 'N': return 23; break;
+      case 'O': return 24; break;
+      case 'P': return 29; break;
+      case 'Q': return 22; break;
+      case 'R': return 27; break;
+      case 'S': return 31; break;
+      case 'T': return 27; break;
+      case 'U': return 24; break;
+      case 'V': return 24; break;
+      case 'W': return 14; break;
+      case 'X': return 24; break;
+      case 'Y': return 24; break;
+      case 'Z': return 27; break;
+
+      default: return 24;
+    }
   }
 
 

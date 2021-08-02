@@ -14,15 +14,18 @@ use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
     private $emailVerifier;
+    private $slugger;
 
-    public function __construct(EmailVerifier $emailVerifier)
+    public function __construct(EmailVerifier $emailVerifier, SluggerInterface $slugger)
     {
         $this->emailVerifier = $emailVerifier;
+        $this->slugger = $slugger;
     }
 
     /**
@@ -42,6 +45,7 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setPseudo(ucfirst($this->slugger->slug($user->getPseudo())));
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);

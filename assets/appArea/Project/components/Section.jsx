@@ -5,7 +5,6 @@ import SectionActionBox from './ActionBox/SectionActionBox';
 import { SECTION_EDIT, SECTION_REMOVE } from '../Reducers/projectReducer';
 import SectionForm from './Form/SectionForm';
 import { MODAL_SHOW } from '../Reducers/modalReducer';
-import { SectionModal } from './ModalContent';
 import NewTasklistHandler from './Creators/NewTasklistHandler';
 import Tasklist from './Tasklist';
 import { sortByListOrder } from '../../../helpers/functions';
