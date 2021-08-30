@@ -81,7 +81,7 @@ const handleChoice = () => {
 /**
  * We need to be able to delete a contributor badge
  */
-let handleBadgeDelete = () => {
+const handleBadgeDelete = () => {
   let deleteBadges = document.querySelectorAll('.delete-icon');
   
   deleteBadges.forEach(deleteBadge => {
