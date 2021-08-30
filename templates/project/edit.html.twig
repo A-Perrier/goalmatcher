@@ -34,6 +34,6 @@
 
 {% block javascripts %}
   {{ parent() }}
-  <script src="/js/api/project/project.js" defer></script>
-  <script src="/js/api/autocomplete.js" defer></script>
+  {{ encore_entry_script_tags('autocomplete') }}
+  {{ encore_entry_script_tags('projectLifecycle') }}
 {% endblock %}

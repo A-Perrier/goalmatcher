@@ -71,7 +71,6 @@ const handleChoice = () => {
         </li>`
 
       contributors[contributors.length] = name;
-      console.log(contributors)
       handleBadgeDelete()
       })
     })
@@ -91,7 +90,6 @@ const handleBadgeDelete = () => {
   
       contributorBadge.remove();
       contributors = contributors.filter(elm => elm !== contributorPseudo);
-      console.log(contributors)
     }))
   })
  
@@ -103,11 +101,10 @@ const handleBadgeDelete = () => {
  */
 const setInitialContributors = () => {
   let contributorBadges = document.querySelectorAll('.c-name');
-
-  contributorBadges.map(contributorBadge => {
-    contributors[contributors.length] = $(contributorBadge).text();
-  })
   
+  contributorBadges.forEach(contributorBadge => {
+    contributors[contributors.length] = contributorBadge.innerHTML;
+  })
   handleBadgeDelete();
 }
 
