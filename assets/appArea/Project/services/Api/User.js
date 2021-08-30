@@ -12,3 +12,13 @@ export const findFilePath = async (id) => {
       }
     )
 }
+
+export const findAllByUsernamePattern = async (str) => {
+  return Axios
+    .get(`${USER_ENDPOINT}?pattern=${str}`)
+    .then(
+      ({ data }) => {
+        return data
+      }
+    )
+}

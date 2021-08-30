@@ -32,6 +32,7 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      * @Groups({
      *  "user:autocomplete", 
+     *  "user:fetch", 
      *  "project:getContributors", 
      *  "project:fetch",
      *  "task:fetch"
@@ -66,6 +67,7 @@ class User implements UserInterface
      * )
      * @Groups({
      *  "user:autocomplete", 
+     *  "user:fetch", 
      *  "project:getContributors", 
      *  "project:fetch",
      *  "task:fetch"
@@ -104,6 +106,7 @@ class User implements UserInterface
 
     /**
      * @Groups({
+     *  "user:fetch", 
      *  "project:fetch",
      *  "task:fetch"
      * }))

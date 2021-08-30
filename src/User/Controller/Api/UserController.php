@@ -20,6 +20,33 @@ class UserController extends AbstractController
     $this->userRepository = $userRepository;
     $this->imageExtension = $imageExtension;
   }
+
+
+  /**
+   * @Route("/api/users", name="api/users/findAll", methods={"GET"})
+   * @IsGranted("ROLE_USER")
+   */
+  public function findAll (Request $request)
+  {
+    $pattern = $request->query->get('pattern');
+    
+    if ($pattern && $pattern !== "") {
+      return $this->json(
+        $this->userRepository->findByPseudo($pattern),
+        Response::HTTP_OK, 
+        [],
+        ['groups' => 'user:autocomplete']
+      );
+    } else {
+      return $this->json(
+        $this->userRepository->findAll(),
+        Response::HTTP_OK,
+        [],
+        ['groups' => 'user:fetch']
+      );
+    }
+  }
+
   
   /**
    * @Route("/api/users/{id<\d+>}", name="api/user_find", methods={"GET"})
