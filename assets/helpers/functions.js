@@ -117,3 +117,22 @@ const removeModal = () => {
   document.querySelector('html').style.overflow = 'initial';
 }
 
+
+export const getLoader = () => {
+  document.querySelector('html').innerHTML += `
+  <div id="body-cover">
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>`
+  document.querySelector('html').style.overflow = 'hidden';
+}
+
+
+export const removeLoader = () => {
+  document.getElementById('body-cover').remove();
+  document.querySelector('html').style.overflow = 'initial';
+}

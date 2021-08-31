@@ -3,7 +3,7 @@ import { findAllByUsernamePattern } from '../appArea/Project/services/Api/User';
 let timer = 0;
 const resultsBlock = document.getElementById('autocomplete-results');
 const currentContributors = document.getElementById('current-contributors');
-let contributors = [];
+export let contributors = [];
 
 
 /**

@@ -6,6 +6,7 @@ import { dangerToast } from '../../../../helpers/Toast';
 const axios = Axios.create()
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
+
 export const find = async (id) => {
   return axios
     .get(`${PROJECT_ENDPOINT}/${id}`)
@@ -15,6 +16,48 @@ export const find = async (id) => {
         const project = JSON.parse(parsedData[0])
         const isCreator = parsedData[1]
        return { project, isCreator }
+      }
+    )
+}
+
+
+export const create = (data) => {
+  return axios
+    .post(PROJECT_ENDPOINT, data)
+    .then(
+      async ({ data }) => {
+        const project = await data
+        return project
+      }
+    )
+    .catch(
+      ({ response }) => {
+        const { data } = response
+        for (const [errorField, message] of Object.entries(data)) {
+          dangerToast(message)
+        }
+        return response.data
+      }
+    )
+}
+
+
+export const edit = (data, id) => {
+  return axios
+    .put(`${PROJECT_ENDPOINT}/${id}`, data)
+    .then(
+      async ({ data }) => {
+        const project = await data
+        return project
+      }
+    )
+    .catch(
+      ({ response }) => {
+        const { data } = response
+        for (const [errorField, message] of Object.entries(data)) {
+          dangerToast(message)
+        }
+        return response.data
       }
     )
 }

@@ -1,3 +1,8 @@
+import { contributors } from '../../../helpers/autocomplete'
+import { successToast } from '../../../helpers/Toast';
+import { create, edit } from './Api/Project';
+import { getLoader, removeLoader } from '../../../helpers/functions'
+import { ROOT_URL } from '../../../config'
 const projectForm = document.querySelector('form[name=project]');
 const isEditing = document.querySelector('.centered-form').classList.contains('editing');
 const deleteProjectBtn = document.querySelector('.project-delete');
@@ -5,47 +10,38 @@ const deleteProjectBtn = document.querySelector('.project-delete');
 const url = window.location.href.split('/')
 const projectId = parseInt(url[url.length - 1]);
 
-console.log(projectForm, isEditing, deleteProjectBtn, url, projectId)
-/* projectForm.submit(e => {
+projectForm.addEventListener('submit', async e => {
   e.preventDefault();
-  $('.form-error').remove();
+  document.querySelectorAll('.form-error').forEach(e => e.remove())
 
   const data = {
-    name: $('#project_name').val(),
-    description: $('#project_description').val(),
-    deadline: $('#project_deadline').val(),
+    name: document.getElementById('project_name').value,
+    description: document.getElementById('project_description').value,
+    deadline: document.getElementById('project_deadline').value,
     stdContributors: Object.assign({}, contributors)
   }
-
-  $.ajax({
-    url: !isEditing ? "/api/project/create" : "/api/project/edit/"+projectId,
-    method: "POST",
-    data: JSON.stringify(data),
-    success: (response) => {
-      !isEditing ?
-        successToast("Le projet a correctement été créé ! Nous vous y emmenons...") :
-        successToast("Le projet a correctement été modifié ! Nous vous y emmenons...");
-      
-      getLoader();
-      setTimeout(() => {
-        document.location.href = `${ROOT_URL}/project/${response['slug-name']}/${response['id']}`; 
-        removeLoader();
-      }, 400)
-    },
-    error: (result) => {
-      setErrors(result.responseJSON, 'project')
-    } 
-  })
+  
+  const { id, slug } = !isEditing ? await create(data) : await edit(data, projectId)
+  if (id) /** On obtient ID que s'il n'y a pas eu d'erreur dans le formulaire */ {
+    !isEditing ?
+    successToast('Le projet a correctement été créé ! On y va !') :
+    successToast("Le projet a correctement été modifié ! Rejoignons-le !");
+    getLoader()
+    setTimeout(() => {
+      document.location.href = `${ROOT_URL}/project/${slug}/${id}`; 
+      removeLoader();
+    }, 700)
+  }
 })
 
 
 const onDeleteProjectClick = () => {
-  deleteProjectBtn.click(e => {
+  deleteProjectBtn.addEventListener('click', (e => {
     const isWanted = confirm('Voulez-vous vraiment supprimer ce projet ? Cette action est irresversible et supprimera tout ce qu\'elle contient');
 
     if (isWanted) {
       getLoader();
-      $.ajax({
+      /* $.ajax({
         url: "/api/project/delete?project="+projectId,
         method: "POST",
         data: null,
@@ -61,9 +57,9 @@ const onDeleteProjectClick = () => {
         complete: () => {
           removeLoader();
         }
-      })
+      }) */
     }
-  })
+  }))
 }
 
-onDeleteProjectClick(); */
+onDeleteProjectClick()
