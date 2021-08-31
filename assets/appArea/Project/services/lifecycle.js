@@ -1,6 +1,6 @@
 import { contributors } from '../../../helpers/autocomplete'
 import { successToast } from '../../../helpers/Toast';
-import { create, edit } from './Api/Project';
+import { create, edit, remove } from './Api/Project';
 import { getLoader, removeLoader } from '../../../helpers/functions'
 import { ROOT_URL } from '../../../config'
 const projectForm = document.querySelector('form[name=project]');
@@ -36,28 +36,14 @@ projectForm.addEventListener('submit', async e => {
 
 
 const onDeleteProjectClick = () => {
-  deleteProjectBtn.addEventListener('click', (e => {
-    const isWanted = confirm('Voulez-vous vraiment supprimer ce projet ? Cette action est irresversible et supprimera tout ce qu\'elle contient');
+  deleteProjectBtn.addEventListener('click', (async e => {
+    const isWanted = confirm('Voulez-vous vraiment supprimer ce projet ? Cette action est irresversible et supprimera tout ce qu\'il contient');
 
     if (isWanted) {
-      getLoader();
-      /* $.ajax({
-        url: "/api/project/delete?project="+projectId,
-        method: "POST",
-        data: null,
-        success: (r) => {
-          successToast("La suppression s'est effectuée correctement. Vous allez être redirigé.e");
-          setTimeout(() => {
-            document.location.href = `${ROOT_URL}/`; 
-          }, 600)
-        },
-        error: (r) => {
-          dangerToast(r)
-        },
-        complete: () => {
-          removeLoader();
-        }
-      }) */
+      const status = await remove(projectId)
+      if (status === 200) {
+        document.location.href = ROOT_URL
+      }
     }
   }))
 }

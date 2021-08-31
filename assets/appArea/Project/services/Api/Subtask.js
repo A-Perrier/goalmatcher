@@ -80,7 +80,7 @@ export const remove = (id) => {
   return axios
     .delete(`${SUBTASK_ENDPOINT}/${id}`)
     .then(
-      async ({ status, data }) => {
+      async ({ status }) => {
         successToast("L'objectif a correctement été supprimé !")
         return status
       }

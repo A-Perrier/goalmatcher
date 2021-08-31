@@ -61,8 +61,7 @@ export const remove = (id) => {
   return axios
     .delete(`${TASK_ENDPOINT}/${id}`)
     .then(
-      async ({ status, data }) => {
-        debugDDResponse(data)
+      async ({ status }) => {
         successToast("La tâche a correctement été supprimée !")
         return status
       }

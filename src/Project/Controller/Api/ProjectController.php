@@ -8,6 +8,7 @@ use App\General\Service\ImageService;
 use App\Project\Event\ProjectEditEvent;
 use App\Project\Service\ProjectService;
 use App\Project\Service\SecurityService;
+use App\Project\Event\ProjectDeleteEvent;
 use App\Project\Event\ProjectSubmitEvent;
 use App\Project\Repository\ProjectRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,7 +54,7 @@ class ProjectController extends AbstractController
    */
   public function create(Request $request)
   {
-    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", 400);
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_BAD_REQUEST);
     
     $contributors = json_decode($request->getContent())->stdContributors;
     $project = $this->serializerInterface->deserialize($request->getContent(), Project::class, 'json');
@@ -74,7 +75,7 @@ class ProjectController extends AbstractController
    */
   public function edit(Request $request, SerializerInterface $serializer, $id)
   {
-    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", 400);
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_BAD_REQUEST);
     
     $contributors = json_decode($request->getContent())->stdContributors;
 
@@ -84,9 +85,30 @@ class ProjectController extends AbstractController
     $event = new ProjectEditEvent($project, $contributors);
     $this->dispatcher->dispatch($event, Project::PROJECT_EDIT_EVENT);
     
-    if ($event->isPropagationStopped()) return $this->json($project->errors, 400);
+    if ($event->isPropagationStopped()) return $this->json($project->errors, Response::HTTP_BAD_REQUEST);
     
     return $this->json(['id' => $project->getId(), 'slug' => $project->getSlugName()], Response::HTTP_OK);
+  }
+
+
+
+  /**
+   * @Route("/api/projects/{id<\d+>}", name="api/project_delete", methods={"DELETE"})
+   * @IsGranted("ROLE_USER")
+   */
+  public function delete(Request $request, $id)
+  {
+    if (!$request->isXmlHttpRequest()) return $this->json("Une erreur est survenue", Response::HTTP_BAD_REQUEST);
+
+    $project = $this->projectRepository->find($id);
+    
+    // Si la requête comporte des données modifiées, on retourne une erreur
+    if (!$this->securityService->isConformRequest($project, 'creator')) return $this->json(null, Response::HTTP_BAD_REQUEST);
+
+    $event = new ProjectDeleteEvent($project);
+    $this->dispatcher->dispatch($event, Project::PROJECT_DELETE_EVENT);
+    
+    return $this->json(null, Response::HTTP_OK);
   }
 
 
