@@ -28,6 +28,7 @@ export const create = (data) => {
     .then(
       async ({ data }) => {
         const project = await data
+        debugDDResponse(data)
         return project
       }
     )

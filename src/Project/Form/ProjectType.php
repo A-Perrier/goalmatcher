@@ -36,7 +36,7 @@ class ProjectType extends AbstractType
                 'label_attr' => [
                     'class' => 'placeholder'
                 ],
-                'data' => new DateTime()
+                'data' => $builder->getData()->getDeadline() ? $builder->getData()->getDeadline() : new DateTime()
             ])
         ;
     }
