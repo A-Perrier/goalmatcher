@@ -6,12 +6,9 @@
 <section>
     <h1>
         Mes projets
-        <img class="clickable" src="{{asset('assets/icons/plus.svg')}}" alt="">
-        <div class="clickable-actions">
-            <a href="{{path('project_create')}}">Créer un projet</a>
-            <a href="#">Supprimer un projet</a>
-            {# On imagine un composant où on puisse passer en props les différents liens et le texte censé s'afficher #}
-        </div>
+        <a href="{{path('project_create')}}">
+            <img class="clickable" src="{{asset('assets/icons/plus.svg')}}" alt="">
+        </a>
     </h1>
 </section>
 
