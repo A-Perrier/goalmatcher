@@ -38,8 +38,8 @@ const Documents = ({ task, reduxDocuments, isCreator }) => {
       </h2>
       <div className="document-group">
         { documents.length > 0 ?
-          documents?.map(document => 
-            <Document document={document} onRemove={(document) => handleRemove(document)} />
+          documents?.map((document, i) => 
+            <Document key={i} document={document} onRemove={(document) => handleRemove(document)} isCreator={isCreator} />
           )
           :
           <p className="unavailable">Aucun document disponible</p>

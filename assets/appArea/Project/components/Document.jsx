@@ -1,7 +1,7 @@
 import React from 'react';
 import { BasicCross } from '../../../components/Svg';
 
-const Document = ({ document, onRemove }) => {
+const Document = ({ document, onRemove, isCreator }) => {
   return ( 
     <div className="document">
       <span className="document-cube"></span>
@@ -9,9 +9,12 @@ const Document = ({ document, onRemove }) => {
         document.name.substring(0, 30) + '...' + 
         document.name.substring((document.name.length - 4), (document.name.length))}
       </a>
-      <span>
-        <BasicCross className="adjust-right" onClick={(e) => onRemove(document)}/>
-      </span>
+      {
+        isCreator &&
+        <span>
+          <BasicCross className="adjust-right" onClick={(e) => onRemove(document)}/>
+        </span>
+      }  
     </div>
   );
 }
